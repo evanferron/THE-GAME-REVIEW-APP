@@ -1,0 +1,118 @@
+├── .env.example
+├── .gitignore
+├── .prettierignore
+├── .prettierrc
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── public
+│  └── assets
+│    ├── fonts
+│    │  └── poppins
+│    │    ├── Poppins-Black.ttf
+│    │    ├── Poppins-BlackItalic.ttf
+│    │    ├── Poppins-Bold.ttf
+│    │    ├── Poppins-BoldItalic.ttf
+│    │    ├── Poppins-ExtraBold.ttf
+│    │    ├── Poppins-ExtraBoldItalic.ttf
+│    │    ├── Poppins-ExtraLight.ttf
+│    │    ├── Poppins-ExtraLightItalic.ttf
+│    │    ├── Poppins-Italic.ttf
+│    │    ├── Poppins-Light.ttf
+│    │    ├── Poppins-LightItalic.ttf
+│    │    ├── Poppins-Medium.ttf
+│    │    ├── Poppins-MediumItalic.ttf
+│    │    ├── Poppins-Regular.ttf
+│    │    ├── Poppins-SemiBold.ttf
+│    │    ├── Poppins-SemiBoldItalic.ttf
+│    │    ├── Poppins-Thin.ttf
+│    │    └── Poppins-ThinItalic.ttf
+│    └── images
+│      ├── icons
+│      └── others
+├── README.NockIA.md
+├── src
+│  ├── components
+│  │  ├── layout
+│  │  │  ├── footer
+│  │  │  └── Nav
+│  │  │    ├── Nav.module.scss
+│  │  │    ├── Nav.tsx
+│  │  │    ├── NavDesktop.tsx
+│  │  │    └── NavMobile.tsx
+│  │  └── shared
+│  │    ├── game
+│  │    └── Task
+│  │      ├── DifficultyTag
+│  │      │  ├── DifficultyTag.module.scss
+│  │      │  └── DifficultyTag.tsx
+│  │      ├── LinkedTask
+│  │      │  ├── LinkedTask.module.scss
+│  │      │  └── LinkedTask.tsx
+│  │      ├── Tag
+│  │      │  ├── Tag.module.scss
+│  │      │  └── Tag.tsx
+│  │      └── TaskPreview
+│  │        ├── TaskPreview.module.scss
+│  │        └── TaskPreview.tsx
+│  ├── config
+│  │  ├── PrivateRoute.tsx
+│  │  └── routes.tsx
+│  ├── constants
+│  │  ├── apiRoutes.ts
+│  │  ├── colors.ts
+│  │  └── routes.ts
+│  ├── main.tsx
+│  ├── pages
+│  │  ├── Auth
+│  │  │  ├── Auth.module.scss
+│  │  │  ├── components
+│  │  │  ├── Login.tsx
+│  │  │  └── Register.tsx
+│  │  ├── Error
+│  │  │  ├── Error.module.scss
+│  │  │  └── Error.tsx
+│  │  ├── Home
+│  │  │  ├── components
+│  │  │  ├── Home.module.scss
+│  │  │  └── Home.tsx
+│  │  └── Profile
+│  │    ├── components
+│  │    ├── Profile.module.scss
+│  │    └── Profile.tsx
+│  ├── services
+│  │  ├── api
+│  │  │  └── auth.ts
+│  │  ├── hooks
+│  │  │  └── auth.ts
+│  │  └── store
+│  │    ├── slices
+│  │    │  └── auth.ts
+│  │    └── store.ts
+│  ├── styles
+│  │  ├── _fonts.scss
+│  │  ├── _palette.scss
+│  │  └── global.scss
+│  ├── types
+│  │  ├── auth
+│  │  │  ├── authState.ts
+│  │  │  ├── error.ts
+│  │  │  └── user.ts
+│  │  └── nav
+│  │    └── Nav.interface.ts
+│  ├── utils
+│  │  ├── auth
+│  │  ├── auth.ts
+│  │  └── validation
+│  │    ├── models
+│  │    │  ├── review.ts
+│  │    │  └── user.ts
+│  │    └── validators
+│  │      └── auth.ts
+│  └── vite-env.d.ts
+├── tree.tree
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
