@@ -1,4 +1,4 @@
-import { ValidatorErrorsLogin, ValidatorErrorsRegister } from '../../../types/auth/error';
+import { ValidatorErrorsLogin, ValidatorErrorsRegister } from '../../../types/errors/auth';
 import { loginSchema, registerSchema } from '@utils/validation/models/user';
 
 

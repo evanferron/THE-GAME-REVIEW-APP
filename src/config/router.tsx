@@ -8,7 +8,7 @@ import Register from '../pages/Auth/Register';
 import ErrorPage from '../pages/Error/Error';
 import PrivateRoute from './PrivateRoute';
 
-const Ways = () => {
+const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -39,4 +39,4 @@ const Ways = () => {
   );
 };
 
-export default Ways;
+export default Router;

@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import Ways from './config/routes.tsx';
+import Router from './config/router.tsx';
 import store from './services/store/store.ts';
 import './styles/_palette.scss';
 import './styles/global.scss';
@@ -11,7 +11,7 @@ import './styles/global.scss';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <Ways />
+      <Router />
     </Provider>
   </React.StrictMode>
 );

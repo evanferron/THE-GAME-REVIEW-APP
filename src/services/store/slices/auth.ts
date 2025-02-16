@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { AuthState } from '../../../types/auth/authState';
-import { User } from '../../../types/auth/user';
+import { AuthState } from '../../../types/redux/authState';
 import { getAuthToken } from '@utils/auth';
+import { User } from '../../../types/api/user';
 
 const token = getAuthToken();
 
