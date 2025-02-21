@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { difficultyLevels } from '../../../../constants/TASK_DIFFICULTIES';
-import { DifficultyTagProps } from '../../../../types/Task/Tags/Tag.interface';
+import { DifficultyTagProps } from '../../../../interfaces/Task/Tags/Tag.interface';
 import styles from './DifficultyTag.module.scss';
 
 const DifficultyTag: React.FC<DifficultyTagProps> = ({ level }) => {

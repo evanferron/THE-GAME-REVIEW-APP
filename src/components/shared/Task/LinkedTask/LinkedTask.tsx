@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { LinkedTaskProps, TaskColor } from '../../../../types/Task/Task.interface';
+import { LinkedTaskProps, TaskColor } from '../../../../interfaces/Task/Task.interface';
 import styles from './LinkedTask.module.scss';
 import close_icon from '/assets/images/icons/close.svg';
 

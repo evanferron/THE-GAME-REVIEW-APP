@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { authLinks } from '../../constants/routes';
-import { ValidatorErrorsRegister } from '../../types/errors/auth';
+import { ValidatorErrorsRegister } from '../../interfaces/errors/Auth';
 import styles from './Auth.module.scss';
 
 const Register = () => {

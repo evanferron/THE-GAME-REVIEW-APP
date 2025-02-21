@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import Router from './config/router.tsx';
+import Router from './router/router.tsx';
 import store from './services/store/store.ts';
 import './styles/_palette.scss';
 import './styles/global.scss';

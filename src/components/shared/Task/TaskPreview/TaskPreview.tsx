@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { TaskColor, TaskPreviewProps } from '../../../../types/Task/Task.interface';
+import { TaskColor, TaskPreviewProps } from '../../../../interfaces/Task/Task.interface';
 import ProfilePicture from '../../ProfilePicture/ProfilePicture';
 import ProgressBar from '../../ProgressBar/ProgressBar';
 import DifficultyTag from '../DifficultyTag/DifficultyTag';

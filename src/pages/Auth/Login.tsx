@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import { authLinks } from '../../constants/routes';
-import { ValidatorErrorsLogin } from '../../types/errors/auth';
+import { ValidatorErrorsLogin } from '../../interfaces/errors/Auth';
 import styles from './Auth.module.scss';
 
 const Login = () => {

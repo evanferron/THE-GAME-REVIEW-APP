@@ -1,4 +1,4 @@
-import { NavItem } from '../types/ui/nav';
+import { NavItem } from '../interfaces/ui/Nav';
 
 // ### Liens pages ### //
 export const navLinks: Record<string, NavItem> = {

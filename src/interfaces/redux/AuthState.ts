@@ -1,4 +1,4 @@
-import { User } from "../";
+import { User } from "..";
 
 // ###  Définition de l'interface représentant l'état de l'authentification. ### //
 export interface AuthState {

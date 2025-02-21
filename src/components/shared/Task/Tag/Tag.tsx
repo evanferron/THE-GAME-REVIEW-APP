@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { TagProps } from '../../../../types/Task/Tags/Tag.interface';
+import { TagProps } from '../../../../interfaces/Task/Tags/Tag.interface';
 import styles from './Tag.module.scss';
 import close_icon from '/assets/images/icons/close.svg';
 
