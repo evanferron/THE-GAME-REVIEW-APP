@@ -1,0 +1,31 @@
+/* -------------------- Fonts ---------------------*/
+
+@use '@styles/_fonts' as font;
+
+/* ------------------ Containers ------------------*/
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* -------------------- Texts ---------------------*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
