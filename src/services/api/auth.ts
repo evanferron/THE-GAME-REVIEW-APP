@@ -1,5 +1,8 @@
-import axios from 'axios';
+import axiosInstance from '@utils/api/axiosInstance';
 import Cookies from 'js-cookie';
+import { store } from '../store/store';
+import { setUser } from '@store/slices/auth';
+
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -15,7 +18,11 @@ export const login = async (email: string, password: string) => {
     try {
         if (isDev) {
             console.log('[DEV MODE] Login simulation');
-            Cookies.set('tashToken', 'dev-token', {
+            const devToken = 'dev-token';
+            const devUser = { email, username: 'DevUser' };
+            store.dispatch(setUser({ token: devToken, user: devUser }));
+            const devRefreshToken = 'dev-refresh-token';
+            Cookies.set('refreshToken', devRefreshToken, {
                 expires: 7,
                 secure: true,
                 sameSite: 'Strict',
@@ -23,12 +30,9 @@ export const login = async (email: string, password: string) => {
             return { user: { email, username: 'DevUser' } };
         }
 
-        const { data, status } = await axios.post(
-            `${BASE_URL}/login`,
-            {
-                email,
-                password,
-            },
+        const { data, status } = await axiosInstance.post(
+            `${BASE_URL}/auth/login`,
+            { email, password, },
             { headers: { 'x-api-key': API_KEY } }
         );
 
@@ -36,11 +40,13 @@ export const login = async (email: string, password: string) => {
             throw new Error('An error occurred during login.');
         }
 
-        Cookies.set('tashToken', data.token, {
+        store.dispatch(setUser({ token: data.token, user: data.user }));
+        Cookies.set('refreshToken', data.refreshToken, {
             expires: 7,
             secure: true,
             sameSite: 'Strict',
         });
+
         return { success: true, user: data.user, token: data.token };
     } catch (error: any) {
         return { success: false, message: error.response?.data?.message || "Une erreur est survenue." };
@@ -64,17 +70,20 @@ export const register = async (
     try {
         if (isDev) {
             console.log('[DEV MODE] Register simulation');
-            Cookies.set('tashToken', 'dev-token', {
+            const devToken = 'dev-token';
+            const devUser = { email, username: 'DevUser' };
+            store.dispatch(setUser({ token: devToken, user: devUser }));
+            const devRefreshToken = 'dev-refresh-token';
+            Cookies.set('refreshToken', devRefreshToken, {
                 expires: 7,
                 secure: true,
                 sameSite: 'Strict',
             });
-
-            return { user: { email, username } };
+            return { user: { email, username: 'DevUser' } };
         }
 
-        const { data, status } = await axios.post(
-            `${BASE_URL}/register`,
+        const { data, status } = await axiosInstance.post(
+            `${BASE_URL}/auth/register`,
             {
                 email,
                 username,
@@ -86,7 +95,8 @@ export const register = async (
 
         if (status !== 201) throw new Error('Registration failed.');
 
-        Cookies.set('tashToken', data.token, {
+        store.dispatch(setUser({ token: data.token, user: data.user }));
+        Cookies.set('refreshToken', data.refreshToken, {
             expires: 7,
             secure: true,
             sameSite: 'Strict',
