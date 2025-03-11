@@ -7,6 +7,6 @@ export interface ValidatorErrorsLogin {
 // ### Validators d'inscription ### //
 export interface ValidatorErrorsRegister {
   email: string | null;
-  username: string | null;
+  pseudo: string | null;
   password: string | null;
 }
