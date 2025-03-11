@@ -4,8 +4,7 @@ import { login } from '@api/auth';
 import { setUser } from '@store/slices/auth';
 import { validateLogin } from '@utils/validation/validators/auth';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { authLinks } from '../../constants/routes';
 import { ValidatorErrorsLogin } from '../../interfaces/errors/Auth';
@@ -56,7 +55,11 @@ const Login = () => {
 
   return (
     <main className={styles.container_auth}>
-      <img src={'/assets/images/others/connexion-bg.png'} className={styles.background} />
+      <img
+        src={'/assets/images/others/connexion-bg.png'}
+        className={styles.background}
+        alt="background"
+      />
       <div className={styles.form_wrap}>
         <div className={styles.form_container}>
           <img className={styles.logo} src="/assets/images/others/logo-black.png" alt="logo" />

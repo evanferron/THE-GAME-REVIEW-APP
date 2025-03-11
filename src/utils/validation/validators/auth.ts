@@ -14,8 +14,8 @@ export const validateLogin = (email: string, password: string): ValidatorErrorsL
 
     if (!result.success) {
         const formattedErrors: ValidatorErrorsLogin = {
-            email: result.error.format().email?._errors[0] || null,
-            password: result.error.format().password?._errors[0] || null,
+            email: result.error.format().email?._errors[0] ?? null,
+            password: result.error.format().password?._errors[0] ?? null,
         };
 
         return formattedErrors;
@@ -42,9 +42,9 @@ export const validateRegister = (
 
     if (!result.success) {
         const formattedErrors: ValidatorErrorsRegister = {
-            email: result.error.format().email?._errors[0] || null,
-            username: result.error.format().username?._errors[0] || null,
-            password: result.error.format().password?._errors[0] || null,
+            email: result.error.format().email?._errors[0] ?? null,
+            username: result.error.format().username?._errors[0] ?? null,
+            password: result.error.format().password?._errors[0] ?? null,
         };
 
         return formattedErrors;

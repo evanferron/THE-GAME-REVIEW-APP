@@ -58,7 +58,11 @@ const Register = () => {
 
   return (
     <main className={styles.container_auth}>
-      <img src={'/assets/images/others/connexion-bg.png'} className={styles.background} />
+      <img
+        src={'/assets/images/others/connexion-bg.png'}
+        className={styles.background}
+        alt="background"
+      />
       <div className={styles.form_wrap}>
         <div className={styles.form_container}>
           <img className={styles.logo} src="/assets/images/others/logo-black.png" alt="logo" />

@@ -13,7 +13,7 @@ const ErrorPage = () => {
 
   return (
     <div className={styles.error_page}>
-      <img src="/assets/images/others/error-cat.png" />
+      <img src="/assets/images/others/error-cat.png" alt="Error" />
       <div className={styles.error_content}>
         <h1>404 Error</h1>
         <p>

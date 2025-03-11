@@ -1,10 +1,10 @@
 import React from 'react';
 
+import { store } from '@store/store.ts';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import Router from './router/router.tsx';
-import store from './services/store/store.ts';
 import './styles/_palette.scss';
 import './styles/global.scss';
 
