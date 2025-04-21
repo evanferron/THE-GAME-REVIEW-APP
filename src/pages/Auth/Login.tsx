@@ -26,10 +26,11 @@ const Login = () => {
 
   // ### Modification du titre de la page ### //
   useEffect(() => {
-    document.title = 'Sign in';
+    document.title = 'The Game Review - Sign in';
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('handleSubmit called'); // Vérifie si cette ligne apparaît
     e.preventDefault();
     setApiError(null);
 

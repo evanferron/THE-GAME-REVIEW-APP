@@ -31,7 +31,7 @@ const Register = () => {
 
   // ### Modification du titre de la page ### //
   useEffect(() => {
-    document.title = 'Sign up';
+    document.title = 'The Game Review - Sign up';
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
