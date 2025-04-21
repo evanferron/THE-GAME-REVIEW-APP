@@ -17,14 +17,16 @@ $gap-medium: 1.8rem;
 @mixin input-styles($padding, $font-size) {
   padding: $padding;
   font-size: $font-size;
+  background: none;
 }
 
 @mixin button-styles($padding, $font-size) {
   padding: $padding;
   font-size: $font-size;
+  cursor: pointer;
   transition: 0.3s;
-  background-color: var(--black);
-  border: 2px solid var(--black);
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary);
   color: var(--white);
   border-radius: 10px;
   &:hover {
@@ -64,9 +66,6 @@ $gap-medium: 1.8rem;
       padding: $gap-medium;
     }
     .form_container {
-      .logo {
-        display: none;
-      }
       h1 {
         text-align: center;
         font-size: 47px;
@@ -79,11 +78,11 @@ $gap-medium: 1.8rem;
       form {
         gap: $gap-medium;
         input {
-          @include input-styles(1rem, 16px);
+          @include input-styles(0.75rem 1rem, 16px);
         }
         button {
           margin-top: 1rem;
-          @include button-styles(1rem, 16px);
+          @include button-styles(0.75rem 1rem, 16px);
         }
         .error_text,
         .switch {
@@ -116,7 +115,7 @@ $gap-medium: 1.8rem;
             @include input-styles(0.75rem 1rem, 14px);
           }
           button {
-            @include button-styles(0.75rem, 14px);
+            @include button-styles(0.75rem 1rem, 14px);
           }
           .error_text {
             margin-top: -0.75rem;
@@ -157,7 +156,7 @@ $gap-medium: 1.8rem;
             @include input-styles(0.75rem 1rem, 12px);
           }
           button {
-            @include button-styles(0.75rem 0.5rem, 12px);
+            @include button-styles(0.75rem 1rem, 12px);
             margin-top: $gap-small;
           }
           .error_text,
@@ -180,17 +179,21 @@ $gap-medium: 1.8rem;
   overflow: hidden;
   padding: 0;
 
-  .background {
-    height: 100%;
+  .form_illustration {
+    height: 50%;
     position: relative;
     transition: 0.2s ease-in-out;
   }
 
-  .logo {
-    margin-bottom: $gap-small;
-    width: 48px;
-    object-fit: contain;
-    border-radius: 2px;
+  .section_auth {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    transition: 0.2s ease-in-out;
+    background-color: var(--background-color);
   }
 
   .form_wrap {
@@ -198,52 +201,74 @@ $gap-medium: 1.8rem;
     justify-content: center;
     align-items: center;
     height: 100%;
+    width: 100%;
     flex-grow: 1;
     transition: 0.2s ease-in-out;
+    background-color: #2d2f36; //var(--white);
+
+    .back_button {
+      position: absolute;
+      cursor: pointer;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      color: var(--deep-gray);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      font-size: medium;
+    }
 
     .form_container {
+      position: relative;
       width: 100%;
       max-width: 492px;
 
       h1 {
         margin-bottom: $gap-small;
-        color: var(--black);
-      }
-      .description {
-        color: var(--deep-gray);
+        color: var(--color-text);
       }
       form {
         display: flex;
         flex-direction: column;
 
-        input {
-          border: 1px solid var(--gray);
-          border-radius: 10px;
-          color: var(--black);
-          &:focus {
-            border-color: var(--purple);
-          }
-          &.error_input {
-            border-color: var(--red);
-          }
-        }
+        .form_block_input {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          color: var(--color-text);
 
-        .error_text {
-          color: var(--red);
+          .required_input {
+            color: var(--red);
+          }
+
+          input {
+            border: 1px solid var(--deep-gray);
+            border-radius: 10px;
+            color: var(--white);
+            &:focus {
+              border-color: var(--purple);
+            }
+            &.error_input {
+              border-color: var(--red);
+            }
+          }
+
+          .error_text {
+            color: var(--red);
+          }
         }
 
         .switch {
           display: flex;
           justify-content: center;
           gap: 10px;
-
-          p {
-            color: var(--deep-gray);
-          }
+          color: var(--color-text);
 
           a {
-            color: var(--purple);
-            font-weight: 700;
+            color: var(--color-primary);
+            font-weight: 500;
             &:focus {
               text-decoration: underline;
             }

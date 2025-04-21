@@ -1,8 +1,8 @@
+import { setUser } from '@store/slices/auth';
 import axiosInstance from '@utils/api/axiosInstance';
 import Cookies from 'js-cookie';
-import { store } from '../store/store';
-import { setUser } from '@store/slices/auth';
 
+import { store } from '../store/store';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -15,42 +15,43 @@ const isDev = import.meta.env.MODE === 'development';
  * @param {string} password
  */
 export const login = async (email: string, password: string) => {
-    try {
-        if (isDev) {
-            console.log('[DEV MODE] Login simulation');
-            const devToken = 'dev-token';
-            const devUser = { email, username: 'DevUser' };
-            store.dispatch(setUser({ token: devToken, user: devUser }));
-            const devRefreshToken = 'dev-refresh-token';
-            Cookies.set('refreshToken', devRefreshToken, {
-                expires: 7,
-                secure: true,
-                sameSite: 'Strict',
-            });
-            return { user: { email, username: 'DevUser' } };
-        }
-
-        const { data, status } = await axiosInstance.post(
-            `${BASE_URL}/auth/login`,
-            { email, password, },
-            { headers: { 'x-api-key': API_KEY } }
-        );
-
-        if (status !== 200) {
-            throw new Error('An error occurred during login.');
-        }
-
-        store.dispatch(setUser({ token: data.token, user: data.user }));
-        Cookies.set('refreshToken', data.refreshToken, {
-            expires: 7,
-            secure: true,
-            sameSite: 'Strict',
-        });
-
-        return { success: true, user: data.user, token: data.token };
-    } catch (error: any) {
-        return { success: false, message: error.response?.data?.message || "Une erreur est survenue." };
+  try {
+    console.log('login try');
+    if (isDev) {
+      console.log('[DEV MODE] Login simulation');
+      const devToken = 'dev-token';
+      const devUser = { email, username: 'DevUser' };
+      store.dispatch(setUser({ token: devToken, user: devUser }));
+      const devRefreshToken = 'dev-refresh-token';
+      Cookies.set('refreshToken', devRefreshToken, {
+        expires: 7,
+        secure: true,
+        sameSite: 'Strict',
+      });
+      return { user: { email, username: 'DevUser' } };
     }
+
+    const { data, status } = await axiosInstance.post(
+      `${BASE_URL}/auth/login`,
+      { email, password },
+      { headers: { 'x-api-key': API_KEY } }
+    );
+
+    if (status !== 200) {
+      throw new Error('An error occurred during login.');
+    }
+
+    store.dispatch(setUser({ token: data.token, user: data.user }));
+    Cookies.set('refreshToken', data.refreshToken, {
+      expires: 7,
+      secure: true,
+      sameSite: 'Strict',
+    });
+
+    return { success: true, user: data.user, token: data.token };
+  } catch (error: any) {
+    return { success: false, message: error.response?.data?.message || 'Une erreur est survenue.' };
+  }
 };
 
 /**
@@ -62,48 +63,48 @@ export const login = async (email: string, password: string) => {
  * @param {string} confirmPassword
  */
 export const register = async (
-    email: string,
-    username: string,
-    password: string,
-    confirmPassword: string
+  email: string,
+  username: string,
+  password: string,
+  confirmPassword: string
 ) => {
-    try {
-        if (isDev) {
-            console.log('[DEV MODE] Register simulation');
-            const devToken = 'dev-token';
-            const devUser = { email, username: 'DevUser' };
-            store.dispatch(setUser({ token: devToken, user: devUser }));
-            const devRefreshToken = 'dev-refresh-token';
-            Cookies.set('refreshToken', devRefreshToken, {
-                expires: 7,
-                secure: true,
-                sameSite: 'Strict',
-            });
-            return { user: { email, username: 'DevUser' } };
-        }
-
-        const { data, status } = await axiosInstance.post(
-            `${BASE_URL}/auth/register`,
-            {
-                email,
-                username,
-                password,
-                confirmPassword,
-            },
-            { headers: { 'x-api-key': API_KEY } }
-        );
-
-        if (status !== 201) throw new Error('Registration failed.');
-
-        store.dispatch(setUser({ token: data.token, user: data.user }));
-        Cookies.set('refreshToken', data.refreshToken, {
-            expires: 7,
-            secure: true,
-            sameSite: 'Strict',
-        });
-
-        return { success: true, user: data.user, token: data.token };
-    } catch (error: any) {
-        return { success: false, message: error.response?.data?.message || "Une erreur est survenue." };
+  try {
+    if (isDev) {
+      console.log('[DEV MODE] Register simulation');
+      const devToken = 'dev-token';
+      const devUser = { email, username: 'DevUser' };
+      store.dispatch(setUser({ token: devToken, user: devUser }));
+      const devRefreshToken = 'dev-refresh-token';
+      Cookies.set('refreshToken', devRefreshToken, {
+        expires: 7,
+        secure: true,
+        sameSite: 'Strict',
+      });
+      return { user: { email, username: 'DevUser' } };
     }
+
+    const { data, status } = await axiosInstance.post(
+      `${BASE_URL}/auth/register`,
+      {
+        email,
+        username,
+        password,
+        confirmPassword,
+      },
+      { headers: { 'x-api-key': API_KEY } }
+    );
+
+    if (status !== 201) throw new Error('Registration failed.');
+
+    store.dispatch(setUser({ token: data.token, user: data.user }));
+    Cookies.set('refreshToken', data.refreshToken, {
+      expires: 7,
+      secure: true,
+      sameSite: 'Strict',
+    });
+
+    return { success: true, user: data.user, token: data.token };
+  } catch (error: any) {
+    return { success: false, message: error.response?.data?.message || 'Une erreur est survenue.' };
+  }
 };
