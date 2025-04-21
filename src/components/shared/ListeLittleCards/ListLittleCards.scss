@@ -1,0 +1,27 @@
+.list-little-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #2c2f36;
+  width: 21.875rem;
+
+  &-title {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &-hashtag {
+      color: #00e0b8;
+    }
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
