@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './GameCard.scss';
+import styles from './GameCard.module.scss';
 
 interface GameCardProps {
   title: string;
@@ -20,17 +20,20 @@ const GameCard: React.FC<GameCardProps> = ({
   status,
 }) => {
   return (
-    <div className="game-card">
-      <div className="game-card__image-wrapper" style={{ backgroundImage: `url(${imageSrc})` }}>
-        <div className="game-card__overlay">
-          <div className="game-card__score">{score}</div>
-          {userScore && <div className="game-card__user-score">{userScore}</div>}
+    <div className={styles['game-card']}>
+      <div
+        className={styles['game-card__image-wrapper']}
+        style={{ backgroundImage: `url(${imageSrc})` }}
+      >
+        <div className={styles['game-card__overlay']}>
+          <div className={styles['game-card__score']}>{score}</div>
+          {userScore && <div className={styles['game-card__user-score']}>{userScore}</div>}
         </div>
       </div>
-      <div className="game-card__info">
-        <h2 className="game-card__title">{title}</h2>
-        <p className="game-card__developer">{developer}</p>
-        {status && <p className="game-card__status">{status}</p>}
+      <div className={styles['game-card__info']}>
+        <h2 className={styles['game-card__title']}>{title}</h2>
+        <p className={styles['game-card__developer']}>{developer}</p>
+        {status && <p className={styles['game-card__status']}>{status}</p>}
       </div>
     </div>
   );

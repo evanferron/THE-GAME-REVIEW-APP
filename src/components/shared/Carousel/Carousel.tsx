@@ -1,6 +1,6 @@
 import GameCard from '@components/shared/GameCard/GameCard';
 
-import './Carousel.scss';
+import styles from './Carousel.module.scss';
 
 interface Game {
   title: string;
@@ -18,14 +18,15 @@ interface GameCarouselProps {
 
 const GameCarousel = ({ title, games }: GameCarouselProps) => {
   return (
-    <div className="game-carousel">
-      <h2 className="game-carousel__title">
-        <span className="game-carousel__title-hashtag">#</span>
+    <div className={styles['game-carousel']}>
+      <h2 className={styles['game-carousel__title']}>
+        <span className={styles['game-carousel__title-hashtag']}>#</span>
         {title}
       </h2>
-      <section className="game-carousel__slider">
-        {games.map((game) => (
+      <section className={styles['game-carousel__slider']}>
+        {games.map((game, index) => (
           <GameCard
+            key={index}
             title={game.title}
             developer={game.developer}
             imageSrc={game.imageSrc}

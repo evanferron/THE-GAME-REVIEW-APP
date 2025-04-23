@@ -1,8 +1,7 @@
 import GameCarousel from '@components/shared/Carousel/Carousel';
-import GameCard from '@components/shared/GameCard/GameCard';
 import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
 
-import './Home.scss';
+import styles from './Home.module.scss';
 
 const Home = () => {
   const bestRatedGames = [
@@ -124,9 +123,9 @@ const Home = () => {
   ];
 
   return (
-    <div className="home">
+    <div className={styles['home']}>
       <GameCarousel title="Les jeux" games={games} />
-      <div className="home__lists">
+      <div className={styles['home__lists']}>
         <LittleGameList title="Les mieux notés" games={bestRatedGames} />
         <LittleGameList title="Les plus joués" games={mostPlayedGames} />
         <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
