@@ -87,6 +87,7 @@ $gap-medium: 1.8rem;
         .error_text,
         .switch {
           font-size: 14px;
+          color: var(--red);
         }
       }
     }
@@ -120,6 +121,7 @@ $gap-medium: 1.8rem;
           .error_text {
             margin-top: -0.75rem;
             font-size: 14px;
+            color: var(--red);
           }
           .switch {
             font-size: 12px;
@@ -161,6 +163,7 @@ $gap-medium: 1.8rem;
           }
           .error_text,
           .switch {
+            color: var(--red);
             font-size: 12px;
           }
         }
@@ -204,7 +207,7 @@ $gap-medium: 1.8rem;
     width: 100%;
     flex-grow: 1;
     transition: 0.2s ease-in-out;
-    background-color: #2d2f36; //var(--white);
+    background-color: var(--black); //var(--white);
 
     .back_button {
       position: absolute;

@@ -106,6 +106,7 @@ const Login = () => {
               </div>
               <button type="submit">Connection</button>
               {apiError && <span className={styles.error_text}>{apiError}</span>}
+            
               <p className={styles.switch}>
                 Still no account? <Link to={authLinks.register.href}>Register</Link>
               </p>
