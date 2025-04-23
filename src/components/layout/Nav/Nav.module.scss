@@ -1,3 +1,31 @@
 /* -------------------- Responsive ---------------------*/
 
 /* -------------------- Code ---------------------*/
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    width: var(--width-screen-lg);
+    background-color: #808080;
+}
+
+.navbar-left {
+    display: inline-flex;
+    gap: 10px;
+
+    h1 {
+        color: var(--text-100);
+        font-size: var(--font-size-md);
+        font-weight: bold;
+    }
+}
+
+.navbar-center {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.navbar-right {
+    display: flex;
+    
+}

@@ -1,6 +1,7 @@
 import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
 
 import './Home.scss';
+import Navbar from '@components/layout/Nav';
 
 const Home = () => {
   const bestRatedGames = [
@@ -89,6 +90,7 @@ const Home = () => {
 
   return (
     <div className="home">
+      <Navbar/>
       <LittleGameList title="Les mieux notés" games={bestRatedGames} />
       <LittleGameList title="Les plus joués" games={mostPlayedGames} />
       <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
