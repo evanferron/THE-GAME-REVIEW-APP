@@ -91,9 +91,11 @@ const Home = () => {
   return (
     <div className="home">
       <Navbar/>
-      <LittleGameList title="Les mieux notés" games={bestRatedGames} />
-      <LittleGameList title="Les plus joués" games={mostPlayedGames} />
-      <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
+      <div className='gamelists'>
+        <LittleGameList title="Les mieux notés" games={bestRatedGames} />
+        <LittleGameList title="Les plus joués" games={mostPlayedGames} />
+        <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
+      </div>
     </div>
   );
 };

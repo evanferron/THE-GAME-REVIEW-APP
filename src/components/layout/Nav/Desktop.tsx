@@ -16,7 +16,7 @@ const DesktopNavbar = () => {
         <img src="../../../public/assets/icons/logo.svg" alt="logo" />
         <h1>The Game Review</h1>
       </div>
-
+      
       {/* navbar-center */}
       <div className={styles['navbar-center']}>
         <button onClick={() => navigate('/')}>Accueil</button>
