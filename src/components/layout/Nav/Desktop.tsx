@@ -13,7 +13,7 @@ const DesktopNavbar = () => {
     <nav>
       {isAuthenticated ? (
         <>
-          <span>Bienvenue, {user?.username} !</span>
+          <span>Bienvenue, {user?.pseudo} !</span>
           <button onClick={handleLogout}>Déconnexion</button>
         </>
       ) : (

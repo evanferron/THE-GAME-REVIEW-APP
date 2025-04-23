@@ -4,9 +4,10 @@ import Cookies from 'js-cookie';
 
 import { store } from '../store/store';
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
 const API_KEY = import.meta.env.VITE_API_KEY;
-const isDev = import.meta.env.MODE === 'development';
+//const isDev = import.meta.env.MODE === 'development';
+const isDev = import.meta.env.MODE === 'test';
 
 /**
  * Fonction de connexion à un compte
@@ -16,11 +17,10 @@ const isDev = import.meta.env.MODE === 'development';
  */
 export const login = async (email: string, password: string) => {
   try {
-    console.log('login try');
     if (isDev) {
       console.log('[DEV MODE] Login simulation');
       const devToken = 'dev-token';
-      const devUser = { email, username: 'DevUser' };
+      const devUser = { email, pseudo: 'DevUser' };
       store.dispatch(setUser({ token: devToken, user: devUser }));
       const devRefreshToken = 'dev-refresh-token';
       Cookies.set('refreshToken', devRefreshToken, {
@@ -28,7 +28,7 @@ export const login = async (email: string, password: string) => {
         secure: true,
         sameSite: 'Strict',
       });
-      return { user: { email, username: 'DevUser' } };
+      return { user: { email, pseudo: 'DevUser' } };
     }
 
     const { data, status } = await axiosInstance.post(
@@ -36,8 +36,9 @@ export const login = async (email: string, password: string) => {
       { email, password },
       { headers: { 'x-api-key': API_KEY } }
     );
+    console.log(status)
 
-    if (status !== 200) {
+    if (status !== 201) {
       throw new Error('An error occurred during login.');
     }
 
@@ -50,7 +51,7 @@ export const login = async (email: string, password: string) => {
 
     return { success: true, user: data.user, token: data.token };
   } catch (error: any) {
-    return { success: false, message: error.response?.data?.message || 'Une erreur est survenue.' };
+    return { success: false, message: error.response?.data?.message || 'An error occurred during login.' };
   }
 };
 
@@ -58,21 +59,24 @@ export const login = async (email: string, password: string) => {
  * Fonction de création de compte
  *
  * @param {string} email
- * @param {string} username
+ * @param {string} pseudo
  * @param {string} password
  * @param {string} confirmPassword
  */
 export const register = async (
   email: string,
-  username: string,
+  pseudo: string,
   password: string,
   confirmPassword: string
 ) => {
   try {
+    if (password !== confirmPassword) {
+      return { success: false, message: 'The password doesn\'t match' };
+    }
     if (isDev) {
       console.log('[DEV MODE] Register simulation');
       const devToken = 'dev-token';
-      const devUser = { email, username: 'DevUser' };
+      const devUser = { email, pseudo: 'DevUser' };
       store.dispatch(setUser({ token: devToken, user: devUser }));
       const devRefreshToken = 'dev-refresh-token';
       Cookies.set('refreshToken', devRefreshToken, {
@@ -80,14 +84,14 @@ export const register = async (
         secure: true,
         sameSite: 'Strict',
       });
-      return { user: { email, username: 'DevUser' } };
+      return { user: { email, pseudo: 'DevUser' } };
     }
 
     const { data, status } = await axiosInstance.post(
       `${BASE_URL}/auth/register`,
       {
         email,
-        username,
+        pseudo,
         password,
         confirmPassword,
       },
@@ -105,6 +109,6 @@ export const register = async (
 
     return { success: true, user: data.user, token: data.token };
   } catch (error: any) {
-    return { success: false, message: error.response?.data?.message || 'Une erreur est survenue.' };
+    return { success: false, message: error.response?.data?.message || 'An error occurred' };
   }
 };
