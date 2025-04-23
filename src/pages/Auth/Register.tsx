@@ -34,6 +34,10 @@ const Register = () => {
     document.title = 'The Game Review - Sign up';
   });
 
+  const goHome = () =>{
+    navigate('/');
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setApiError(null);
@@ -41,7 +45,6 @@ const Register = () => {
     // ### Vérification du formulaire ### //
     const validationErrors = validateRegister(email, pseudo, password, confirmPassword);
     setErrorsForm(validationErrors);
-
     // ### Si erreur alors on abandonne ### //
     if (validationErrors != null) {
       return;
@@ -49,7 +52,12 @@ const Register = () => {
 
     try {
       // ### Envoi des données du formulaire ### //
-      const { token, user } = await register(email, pseudo, password, confirmPassword);
+      const { success, message, token, user } = await register(email, pseudo, password, confirmPassword);
+      if (!success) {
+        setApiError(message);
+        return;
+      }
+
       dispatch(setUser({ token, user }));
       navigate('/');
     } catch (error: any) {
@@ -61,12 +69,12 @@ const Register = () => {
     <main className={styles.container_auth}>
       <section className={styles.section_auth}>
         <div className={styles.form_wrap}>
-          <button className={styles.back_button}>
+          <button className={styles.back_button} onClick={goHome}>
             <FaArrowLeft style={{ marginRight: '8px' }} />
             Retour
           </button>
           <div className={styles.form_container}>
-            <h1>Connecte-toi !</h1>
+            <h1>Create an account !</h1>
 
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.form_block_input}>
@@ -75,7 +83,7 @@ const Register = () => {
                 </label>
                 <input
                   type="email"
-                  placeholder="Saisis ton email"
+                  placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={errorsForm?.email ? styles.error_input : ''}
@@ -89,7 +97,7 @@ const Register = () => {
                 </label>
                 <input
                   type="password"
-                  placeholder="Saisis ton mot de passe"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className={errorsForm?.password ? styles.error_input : ''}
@@ -105,7 +113,7 @@ const Register = () => {
                 </label>
                 <input
                   type="password"
-                  placeholder="Saisis ton mot de passe"
+                  placeholder="Enter your password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className={errorsForm?.password ? styles.error_input : ''}
@@ -121,7 +129,7 @@ const Register = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="Saisis ton pseudonyme"
+                  placeholder="Enter your nickname"
                   value={pseudo}
                   onChange={(e) => setpseudo(e.target.value)}
                   className={errorsForm?.pseudo ? styles.error_input : ''}
@@ -132,10 +140,10 @@ const Register = () => {
                   <span className={styles.error_text}>{errorsForm.pseudo}</span>
                 )}
               </div>
-              <button type="submit">S’inscrire</button>
+              <button type="submit">Register</button>
               {apiError && <span className={styles.error_text}>{apiError}</span>}
               <p className={styles.switch}>
-                Tu as déjà un compte ? <Link to={authLinks.login.href}>Se connecter</Link>
+                already have an account ? <Link to={authLinks.login.href}>Login</Link>
               </p>
             </form>
           </div>

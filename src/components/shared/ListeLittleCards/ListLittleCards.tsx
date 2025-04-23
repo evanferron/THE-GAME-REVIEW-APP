@@ -1,6 +1,6 @@
 import LittleGameCard from '@components/shared/LittleGameCard/LittleGameCard';
 
-import './ListLittleCards.scss';
+import styles from './ListLittleCards.module.scss';
 
 interface Game {
   title: string;
@@ -15,12 +15,12 @@ interface LittleGameListProps {
 
 const LittleGameList = ({ title, games }: LittleGameListProps) => {
   return (
-    <div className="list-little-cards">
-      <h2 className="list-little-cards-title">
-        <span className="list-little-cards-title-hashtag">#</span>
+    <div className={styles['list-little-cards']}>
+      <h2 className={styles['list-little-cards__title']}>
+        <span className={styles['list-little-cards__title-hashtag']}>#</span>
         {title}
       </h2>
-      <div className="list-little-cards-list">
+      <div className={styles['list-little-cards__list']}>
         {games.map((game, index) => (
           <LittleGameCard
             key={index}

@@ -1,0 +1,25 @@
+.game-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 74.063rem; // 1185px
+
+  &__title {
+    color: var(--color-text);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &-hashtag {
+      color: var(--color-primary);
+    }
+  }
+
+  &__slider {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
