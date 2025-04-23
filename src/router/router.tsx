@@ -13,17 +13,16 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         {/* ### Routes non protégées ### */}
-        <Route path={authLinks.login.href} element={<Login />} />
-        <Route path={authLinks.register.href} element={<Register />} />
-        {/* ### Routes protégées ### */}
         <Route
           path="/"
           element={
-            <PrivateRoute>
               <Home></Home>
-            </PrivateRoute>
           }
         />
+        <Route path={authLinks.login.href} element={<Login />} />
+        <Route path={authLinks.register.href} element={<Register />} />
+        {/* ### Routes protégées ### */}
+        
         <Route
           path="/profile"
           element={
