@@ -32,7 +32,7 @@
       "@hooks/*": ["services/hooks/*"],
       "@store/*": ["services/store/*"],
       "@validation/*": ["services/validation/*"],
-      "@types/*": ["types/*"],
+      "@interfaces/*": ["interfaces/*"],
       "@utils/*": ["utils/*"],
       "@constants/*": ["constants/*"]
     }
