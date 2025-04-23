@@ -28,26 +28,29 @@ export const validateLogin = (email: string, password: string): ValidatorErrorsL
  * Fonction de validation du form d'inscription
  *
  * @param {string} email
- * @param {string} username
+ * @param {string} pseudo
  * @param {string} password
  * @param {string} confirmPassword
  */
 export const validateRegister = (
     email: string,
-    username: string,
+    pseudo: string,
     password: string,
     confirmPassword: string
 ): ValidatorErrorsRegister | null => {
-    const result = registerSchema.safeParse({ email, username, password, confirmPassword });
-
+    const result = registerSchema.safeParse({ email, pseudo, password, confirmPassword });
+    
     if (!result.success) {
         const formattedErrors: ValidatorErrorsRegister = {
             email: result.error.format().email?._errors[0] ?? null,
-            username: result.error.format().username?._errors[0] ?? null,
+            pseudo: result.error.format().pseudo?._errors[0] ?? null,
             password: result.error.format().password?._errors[0] ?? null,
         };
-
-        return formattedErrors;
+         if (formattedErrors.email == null && formattedErrors.pseudo == null && formattedErrors.password == null){
+            return null;
+         } else { 
+            return formattedErrors
+        }
     }
 
     return null;

@@ -1,0 +1,16 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  padding: 2rem;
+  background-color: var(--background-color);
+
+  &__lists {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 74.063rem; // 1185px
+  }
+}

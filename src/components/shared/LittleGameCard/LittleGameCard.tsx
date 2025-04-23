@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './LittleGameCard.scss';
+import styles from './LittleGameCard.module.scss';
 
 interface LittleGameCardProps {
   title: string;
@@ -10,13 +10,13 @@ interface LittleGameCardProps {
 
 const LittleGameCard: React.FC<LittleGameCardProps> = ({ title, developer, imageSrc }) => {
   return (
-    <div className="little-game-card">
-      <div className="little-game-card__image-wrapper">
-        <img src={imageSrc} alt={title} className="little-game-card__image" />
+    <div className={styles['little-game-card']}>
+      <div className={styles['little-game-card__image-wrapper']}>
+        <img src={imageSrc} alt={title} className={styles['little-game-card__image']} />
       </div>
-      <div className="little-game-card__info">
-        <h2 className="little-game-card__title">{title}</h2>
-        <p className="little-game-card__developer">{developer}</p>
+      <div className={styles['little-game-card__info']}>
+        <h2 className={styles['little-game-card__title']}>{title}</h2>
+        <p className={styles['little-game-card__developer']}>{developer}</p>
       </div>
     </div>
   );
