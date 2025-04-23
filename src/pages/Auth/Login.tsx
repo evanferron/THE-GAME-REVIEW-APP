@@ -34,6 +34,7 @@ const Login = () => {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('handleSubmit called'); // Vérifie si cette ligne apparaît
     e.preventDefault();
     setApiError(null);
 
@@ -67,6 +68,7 @@ const Login = () => {
       <section className={styles.section_auth}>
         <div className={styles.form_wrap}>
           <button type="button" className={styles.back_button} onClick={goHome}>
+
             <FaArrowLeft style={{ marginRight: '8px' }} />
             Retour
           </button>
