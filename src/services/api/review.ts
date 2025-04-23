@@ -1,8 +1,8 @@
 import axiosInstance from "@utils/api/axiosInstance";
 
-export const getReviewByUserAndGame = async (userId: string, gameId: string) => {
+export const getMyReviewForAgame = async (gameId: number) => {
     try {
-        const response = await axiosInstance.get(`/reviews/?user_id${userId}&game_id${gameId}`);
+        const response = await axiosInstance.get(`/reviews/?game_id${gameId}`);
 
         if (!response) {
             throw new Error('Failed to fetch review');
