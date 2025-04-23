@@ -1,6 +1,7 @@
+import GameCarousel from '@components/shared/Carousel/Carousel';
 import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
 
-import './Home.scss';
+import styles from './Home.module.scss';
 
 const Home = () => {
   const bestRatedGames = [
@@ -87,11 +88,48 @@ const Home = () => {
     },
   ];
 
+  const games = [
+    {
+      title: 'Star Wars Squadrons',
+      developer: 'Motive Studios',
+      imageSrc: '../../../public/assets/pictures/Test.png',
+      score: 7.4,
+      userScore: 8.2,
+    },
+    {
+      title: 'Horizon Forbidden West',
+      developer: 'Guerrilla Games',
+      imageSrc: '../../../public/assets/pictures/Test.png',
+      score: 8.6,
+    },
+    {
+      title: 'Doom Eternal',
+      developer: 'id Software',
+      imageSrc: '../../../public/assets/pictures/Test.png',
+      score: 8.5,
+    },
+    {
+      title: 'Ghostrunner',
+      developer: 'Slipgate Ironworks',
+      imageSrc: '../../../public/assets/pictures/Test.png',
+      score: 7.8,
+    },
+    {
+      title: 'Enter The Gungeon',
+      developer: 'Dodge Roll',
+      imageSrc: '../../../public/assets/pictures/Test.png',
+      score: 7.7,
+    },
+  ];
+
   return (
-    <div className="home">
-      <LittleGameList title="Les mieux notés" games={bestRatedGames} />
-      <LittleGameList title="Les plus joués" games={mostPlayedGames} />
-      <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
+    <div className={styles['home']}>
+      <GameCarousel title="Les jeux" games={games} />
+      <div className={styles['home__lists']}>
+        <LittleGameList title="Les mieux notés" games={bestRatedGames} />
+        <LittleGameList title="Les plus joués" games={mostPlayedGames} />
+        <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
+      </div>
     </div>
   );
 };
