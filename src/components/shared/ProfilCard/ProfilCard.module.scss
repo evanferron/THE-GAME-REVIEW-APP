@@ -1,0 +1,60 @@
+.profil-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; // Al
+  gap: 1rem;
+  background-color: var(--dark-gray);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  color: var(--color-text);
+  cursor: pointer;
+
+  &__picture {
+    width: 10rem; // 80px
+    height: 10rem;
+    border-radius: 50%;
+    object-fit: cover;
+    //border: 0.125rem solid var(--color-text);
+    flex-shrink: 0;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  &__pseudo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+  }
+
+  &__data {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: var(--light-gray);
+  }
+
+  &__adress_pseudo {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  &__game,
+  &__review {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__nbr_game {
+    font-weight: bold;
+    color: white;
+  }
+}
