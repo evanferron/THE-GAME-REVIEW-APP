@@ -7,6 +7,7 @@ interface Game {
   developer: string;
   imageSrc: string;
   score: number;
+  userScore?: number | null;
   status?: string | null;
 }
 
@@ -23,12 +24,13 @@ const GameCarousel = ({ title, games }: GameCarouselProps) => {
         {title}
       </h2>
       <section className="game-carousel__slider">
-        {games.map((game, index) => (
+        {games.map((game) => (
           <GameCard
             title={game.title}
             developer={game.developer}
             imageSrc={game.imageSrc}
             score={game.score}
+            userScore={game.userScore}
           />
         ))}
       </section>

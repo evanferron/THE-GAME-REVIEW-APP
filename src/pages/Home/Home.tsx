@@ -95,6 +95,7 @@ const Home = () => {
       developer: 'Motive Studios',
       imageSrc: '../../../public/assets/pictures/Test.png',
       score: 7.4,
+      userScore: 8.2,
     },
     {
       title: 'Horizon Forbidden West',
