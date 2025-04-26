@@ -2,6 +2,7 @@ import GameCarousel from '@components/shared/Carousel/Carousel';
 import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
 
 import styles from './Home.module.scss';
+import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
 
 const Home = () => {
   const bestRatedGames = [
@@ -130,6 +131,14 @@ const Home = () => {
         <LittleGameList title="Les plus joués" games={mostPlayedGames} />
         <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
       </div>
+
+      <ProfilCard
+        pseudo="JohnDoe"
+        nbrGame={10}
+        nbrReview={5}
+        profilPictureId={4}
+        bannerPictureId={5}>
+      </ProfilCard>
     </div>
   );
 };
