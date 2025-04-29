@@ -7,6 +7,8 @@ interface ProfilCardProps {
   nbrGame: number;
   nbrReview: number;
   profilPictureId: number;
+  bannerPictureId?: number;
+
   //isConnectedUser: boolean;
   //nbrFollower: number;
   //isFollowed: boolean;
@@ -16,13 +18,27 @@ const ProfilCard: React.FC<ProfilCardProps> = ({
   pseudo,
   nbrGame,
   nbrReview,
-  //profilPictureId
+  profilPictureId,
+  bannerPictureId
 }) => {
+  
   return (
-    <div className={styles['profil-card']}>
-      <img src="/assets/pictures/profil_picture_1.jpg" alt={"profil picture"} className={styles['profil-card__picture']} />
-      <div className={styles['profil-card__info']}>
+  <div className={styles['profil-card']}>
+    <div className={styles['profil-card__banner']}>
+      <img 
+        src={`/assets/pictures/banner_picture_${bannerPictureId}.jpg`}
+        alt="profile banner" 
+        className={styles['profil-card__banner-image']} 
+      />
+    </div>
 
+    <div className={styles['profil-card__informations']}>
+      <img 
+        src={`/assets/pictures/profil_picture_${profilPictureId}.jpg`}
+        alt="profil picture" 
+        className={styles['profil-card__picture']} 
+      />
+      <div className={styles['profil-card__info']}>
         <div className={styles['profil-card__pseudo']}>{pseudo}</div>
 
         <div className={styles['profil-card__data']}>
@@ -40,10 +56,11 @@ const ProfilCard: React.FC<ProfilCardProps> = ({
             reviews
           </div>
         </div>
-
       </div>
     </div>
+  </div>
   );
+
 };
 
 export default ProfilCard;
