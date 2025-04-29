@@ -8,6 +8,7 @@ interface ProfilCardProps {
   nbrReview: number;
   profilPictureId: number;
   bannerPictureId?: number;
+
   //isConnectedUser: boolean;
   //nbrFollower: number;
   //isFollowed: boolean;
@@ -58,7 +59,8 @@ const ProfilCard: React.FC<ProfilCardProps> = ({
       </div>
     </div>
   </div>
-);
+  );
+
 };
 
 export default ProfilCard;
