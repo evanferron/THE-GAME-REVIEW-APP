@@ -1,0 +1,76 @@
+/* Appliquer un fond sur toute la page */
+.profile {
+    background-color: var(--background-color); /* Choisis ta couleur de fond */
+    min-height: 100vh; /* S'assurer que le fond prend toute la hauteur */
+    width: 100%;
+  }
+  
+  /* Centrer le contenu avec marges */
+  .profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  /* Responsive : réduire les marges sur petits écrans */
+  @media (max-width: 600px) {
+    .profile-container {
+      padding: 0 10px;
+    }
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: left;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    border-bottom: 1px solid var(--deep-gray);;
+  }
+  
+  .tab {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: var(--light-gray);
+    padding: 0.75rem 0;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+    font-weight: 500;
+  }
+  
+  .tab:hover {
+    color: #fff;
+  }
+  
+  .active {
+    color: var(--color-primary); /* Vert clair */
+    font-weight: 600;
+  }
+  
+  .active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+    animation: slideIn 0.3s ease forwards;
+  }
+  
+  @keyframes slideIn {
+    from {
+      width: 0;
+      margin-left: 50%;
+    }
+    to {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+  

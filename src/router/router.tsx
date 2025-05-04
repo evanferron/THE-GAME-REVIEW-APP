@@ -7,6 +7,7 @@ import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import ErrorPage from '../pages/Error/Error';
 import PrivateRoute from './PrivateRoute';
+import AccountSettings from '@pages/Profile/AccountSettings';
 
 const Router = () => {
   return (
@@ -16,7 +17,7 @@ const Router = () => {
         <Route
           path="/"
           element={
-              <Home></Home>
+              <Profile></Profile>
           }
         />
         <Route path={authLinks.login.href} element={<Login />} />
@@ -31,6 +32,11 @@ const Router = () => {
             </PrivateRoute>
           }
         />
+
+        <Route path="/account-settings" element={ <PrivateRoute> 
+          <AccountSettings />
+          </PrivateRoute> } />  
+
         {/* ### Routes Not Found ### */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>

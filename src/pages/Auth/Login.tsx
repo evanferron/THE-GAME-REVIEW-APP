@@ -52,7 +52,6 @@ const Login = () => {
       const { success, message, user , token  } = await login(email, password);
 
       // ### Sauvegarde des données renvoyées par l'API ### //
-      dispatch(setUser({ token, user }));
       if (!success) {
         setApiError("Incorrect email or password");
         return;
