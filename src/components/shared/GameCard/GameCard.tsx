@@ -26,7 +26,9 @@ const GameCard: React.FC<GameCardProps> = ({
         style={{ backgroundImage: `url(${imageSrc})` }}
       >
         <div className={styles['game-card__overlay']}>
-          <div className={styles['game-card__score']}>{score}</div>
+          <div className={styles['game-card__score']}>
+            {(score / 100).toFixed(2).replace('.', ',')}
+          </div>
           {userScore && <div className={styles['game-card__user-score']}>{userScore}</div>}
         </div>
       </div>
