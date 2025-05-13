@@ -1,0 +1,101 @@
+.game-card {
+  display: flex;
+  flex-direction: column;
+  background-color: none;
+  border-radius: 0.313rem;
+  width: 14.063rem; // 225px
+  max-height: 25.313rem; // 405px
+  gap: 0.875rem; // 14px
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 18.75rem; // 300px
+    border-radius: 0.313rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    width: 4rem;
+    height: 100%;
+    gap: 0.313rem; // 5px
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__score,
+  &__user-score {
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 1.875rem; // 30px
+    width: 1.875rem; // 30px
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+
+  &__score {
+    background-color: var(--light-gray);
+    border: 0.188rem solid var(--color-text);
+    color: var(--color-text);
+  }
+
+  &__user-score {
+    background-color: var(--red);
+    border: 0.188rem solid var(--red);
+    color: var(--color-text);
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: hidden;
+    gap: 0.875rem; // 14px
+    text-align: left;
+  }
+
+  &__title {
+    color: var(--color-text);
+    font-size: 1.063rem; // 17px
+    font-weight: bold;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__developer {
+    color: var(--light-gray);
+    font-size: 0.938rem; // 15px
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__status {
+    color: var(--deep-gray);
+    font-size: 0.938rem; // 15px
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

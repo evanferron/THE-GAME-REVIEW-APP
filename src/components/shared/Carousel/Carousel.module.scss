@@ -1,0 +1,73 @@
+.game-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 74.063rem; // 1185px
+
+  /* Header */
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem; // 24px
+  }
+
+  &__title {
+    color: var(--color-text);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &-hashtag {
+      color: var(--color-primary);
+    }
+  }
+
+  &__slider-arrow {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem; // 16px
+  }
+
+  &__slider-arrow-left,
+  &__slider-arrow-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.875rem; // 30px
+    height: 1.875rem; // 30px
+    color: var(--color-text);
+    background-color: var(--deep-gray);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Slider */
+  &__slider {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; // 24px
+  }
+
+  &__slider-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__slider-track-inner {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    scroll-snap-align: start;
+  }
+}

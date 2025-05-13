@@ -1,92 +1,51 @@
+import { useEffect, useState } from 'react';
+
+import { getTendanceGames } from '@api/game';
+import GameCarousel from '@components/shared/Carousel/Carousel';
 import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
 
+import styles from './Home.module.scss';
+import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
 import './Home.scss';
 import Navbar from '@components/layout/Nav';
 
 const Home = () => {
-  const bestRatedGames = [
-    {
-      title: 'Space Marine 2',
-      developer: 'Saber Interactive',
-      imageSrc: '../../../public/assets/pictures/Test.png',
-    },
-    {
-      title: 'Sekiro: Shadows Die Twice',
-      developer: 'FromSoftware',
-      imageSrc: '/7d767f50-6086-48a7-af35-8e1407c408b0.png',
-    },
-    {
-      title: 'Cyberpunk 2077',
-      developer: 'CD Projekt RED',
-      imageSrc: '/path-to-cyberpunk.png',
-    },
-    {
-      title: 'S.T.A.L.K.E.R. 2 : Heart Of Chornobyl',
-      developer: 'GSC Game World',
-      imageSrc: '/path-to-stalker2.png',
-    },
-    {
-      title: 'Doom Eternal',
-      developer: 'id Software',
-      imageSrc: '/path-to-doom-eternal.png',
-    },
-  ];
+  const [games, setGames] = useState([]);
+  const [bestRatedGames, setBestRatedGames] = useState([]);
+  const [mostPlayedGames, setMostPlayedGames] = useState([]);
+  const [mostReviewedGames, setMostReviewedGames] = useState([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const mostPlayedGames = [
-    {
-      title: 'Ghost of Tsushima',
-      developer: 'Sucker Punch Productions',
-      imageSrc: '/path-to-ghost.png',
-    },
-    {
-      title: "Baldur's Gate 3",
-      developer: 'Larian Studios',
-      imageSrc: '/path-to-baldurs.png',
-    },
-    {
-      title: 'Red Dead Redemption II',
-      developer: 'Rockstar Games',
-      imageSrc: '/path-to-rdr2.png',
-    },
-    {
-      title: 'Metro Exodus',
-      developer: '4A Games',
-      imageSrc: '/path-to-metro.png',
-    },
-    {
-      title: 'Katana Zero',
-      developer: 'Askiisoft',
-      imageSrc: '/path-to-katana.png',
-    },
-  ];
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        // Fetch trending games
+        const trendingGames = await getTendanceGames();
 
-  const mostReviewedGames = [
-    {
-      title: 'The Witcher 3',
-      developer: 'CD Projekt RED',
-      imageSrc: '/path-to-witcher3.png',
-    },
-    {
-      title: 'Horizon Forbidden West',
-      developer: 'Guerrilla Games',
-      imageSrc: '/path-to-horizon.png',
-    },
-    {
-      title: 'Star Wars : Jedi Fallen Order',
-      developer: 'Respawn Entertainment',
-      imageSrc: '/path-to-jedi.png',
-    },
-    {
-      title: 'Ghostrunner',
-      developer: 'Slipgate Ironworks',
-      imageSrc: '/path-to-ghostrunner.png',
-    },
-    {
-      title: 'Atomic Heart',
-      developer: 'Mundfish',
-      imageSrc: '/path-to-atomic.png',
-    },
-  ];
+        // Adapter les données au format attendu
+        const formattedGames = trendingGames.map((game: any) => ({
+          title: game.name,
+          developer: 'Unknown',
+          imageSrc: `https:${game.cover}`,
+          score: (game.aggregated_rating / 10).toFixed(1),
+        }));
+
+        setGames(formattedGames);
+        setBestRatedGames(formattedGames.slice(0, 5));
+        setMostPlayedGames(formattedGames.slice(5, 10));
+        setMostReviewedGames(formattedGames.slice(6, 11));
+      } catch (err) {
+        console.error('Error fetching games:', err);
+        setError('Failed to load games. Please try again later.');
+      }
+    };
+
+    fetchGames();
+  }, []);
+
+  if (error) {
+    return <div className={styles['error']}>{error}</div>;
+  }
 
   return (
     <div className="home">

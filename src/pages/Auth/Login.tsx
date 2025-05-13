@@ -29,8 +29,11 @@ const Login = () => {
     document.title = 'The Game Review - Sign in';
   });
 
+  const goHome = () => {
+    navigate('/');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log('handleSubmit called'); // Vérifie si cette ligne apparaît
     e.preventDefault();
     setApiError(null);
 
@@ -45,10 +48,14 @@ const Login = () => {
 
     try {
       // ### Envoi des données du formulaire ### //
-      const { token, user } = await login(email, password);
+      const { success, message, user, token } = await login(email, password);
 
       // ### Sauvegarde des données renvoyées par l'API ### //
       dispatch(setUser({ token, user }));
+      if (!success) {
+        setApiError('Incorrect email or password');
+        return;
+      }
       navigate('/');
     } catch (error: any) {
       setApiError(error.message);
@@ -59,12 +66,12 @@ const Login = () => {
     <main className={styles.container_auth}>
       <section className={styles.section_auth}>
         <div className={styles.form_wrap}>
-          <button className={styles.back_button}>
+          <button type="button" className={styles.back_button} onClick={goHome}>
             <FaArrowLeft style={{ marginRight: '8px' }} />
             Retour
           </button>
           <div className={styles.form_container}>
-            <h1>Connecte-toi !</h1>
+            <h1>Log in!</h1>
 
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.form_block_input}>
@@ -73,11 +80,11 @@ const Login = () => {
                 </label>
                 <input
                   type="email"
-                  placeholder="Saisis ton email"
+                  placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={errorsForm?.email ? styles.error_input : ''}
-                  required
+                  // required
                 />
                 {errorsForm?.email && <span className={styles.error_text}>{errorsForm.email}</span>}
               </div>
@@ -87,20 +94,21 @@ const Login = () => {
                 </label>
                 <input
                   type="password"
-                  placeholder="Saisis ton mot de passe"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className={errorsForm?.password ? styles.error_input : ''}
-                  required
+                  // required
                 />
                 {errorsForm?.password && (
                   <span className={styles.error_text}>{errorsForm.password}</span>
                 )}
               </div>
-              <button type="submit">Connexion</button>
+              <button type="submit">Connection</button>
               {apiError && <span className={styles.error_text}>{apiError}</span>}
+
               <p className={styles.switch}>
-                Toujours pas de compte ? <Link to={authLinks.register.href}>S’inscrire</Link>
+                Still no account? <Link to={authLinks.register.href}>Register</Link>
               </p>
             </form>
           </div>
