@@ -1,26 +1,40 @@
 import React from 'react';
 
 import styles from './ProfilCard.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { FaEdit  } from 'react-icons/fa';
+
+
 
 interface ProfilCardProps {
   pseudo: string;
+  email: string;
   nbrGame: number;
   nbrReview: number;
   profilPictureId: number;
   bannerPictureId?: number;
-
-  //isConnectedUser: boolean;
-  //nbrFollower: number;
-  //isFollowed: boolean;
 }
 
 const ProfilCard: React.FC<ProfilCardProps> = ({
   pseudo,
+  email,
   nbrGame,
   nbrReview,
   profilPictureId,
   bannerPictureId
 }) => {
+  
+  const navigate = useNavigate();
+
+  const handleEditProfile = () => {
+    // Navigation vers la page de paramètres du compte avec les données nécessaires
+    navigate('/account-settings', { 
+      state: { 
+        pseudo, 
+        email,
+      } 
+    });
+  };
   
   return (
   <div className={styles['profil-card']}>
@@ -39,8 +53,21 @@ const ProfilCard: React.FC<ProfilCardProps> = ({
         className={styles['profil-card__picture']} 
       />
       <div className={styles['profil-card__info']}>
-        <div className={styles['profil-card__pseudo']}>{pseudo}</div>
-
+        <div className={styles['profil-card__pseudo-container']}>
+          <div className={styles['profil-card__pseudo']}>{pseudo}</div>
+          <button 
+            className={styles['profil-card__edit-button']}
+            onClick={handleEditProfile}
+            aria-label="Modifier le profil"
+          >
+            <FaEdit  
+              className={styles['profil-card__edit-icon']} 
+              onClick={handleEditProfile} 
+              aria-label="Modifier le profil"
+            />
+          </button>
+        </div>
+        
         <div className={styles['profil-card__data']}>
           <div className={styles['profil-card__adress_pseudo']}>@{pseudo}</div>
 

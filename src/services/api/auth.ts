@@ -31,18 +31,26 @@ export const login = async (email: string, password: string) => {
       return { user: { email, pseudo: 'DevUser' } };
     }
 
-    const { data, status } = await axiosInstance.post(
+    var { data, status } = await axiosInstance.post(
       `${BASE_URL}/auth/login`,
       { email, password },
       { headers: { 'x-api-key': API_KEY } }
     );
-    console.log(status)
+
+    data = data.data
 
     if (status !== 201) {
       throw new Error('An error occurred during login.');
     }
 
-    store.dispatch(setUser({ token: data.token, user: data.user }));
+
+    const user = {
+      email: email,
+      pseudo: data.pseudo,
+    };
+
+    store.dispatch(setUser({ token: data.token, user: user }));
+
     Cookies.set('refreshToken', data.refreshToken, {
       expires: 7,
       secure: true,
@@ -87,7 +95,7 @@ export const register = async (
       return { user: { email, pseudo: 'DevUser' } };
     }
 
-    const { data, status } = await axiosInstance.post(
+    var { data, status } = await axiosInstance.post(
       `${BASE_URL}/auth/register`,
       {
         email,
@@ -98,9 +106,16 @@ export const register = async (
       { headers: { 'x-api-key': API_KEY } }
     );
 
+    data = data.data
+
+    const user = {
+      email: email,
+      pseudo: data.pseudo,
+    };
+
     if (status !== 201) throw new Error('Registration failed.');
 
-    store.dispatch(setUser({ token: data.token, user: data.user }));
+    store.dispatch(setUser({ token: data.token, user: user }));
     Cookies.set('refreshToken', data.refreshToken, {
       expires: 7,
       secure: true,
