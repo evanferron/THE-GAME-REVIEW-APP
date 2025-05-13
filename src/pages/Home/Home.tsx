@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import { getTendanceGames } from '@api/game';
-import GameCarousel from '@components/shared/Carousel/Carousel';
+import Navbar from '@components/layout/Nav';
 import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
 
 import styles from './Home.module.scss';
-import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
-import './Home.scss';
-import Navbar from '@components/layout/Nav';
+import './Home.module.scss';
 
 const Home = () => {
   const [games, setGames] = useState([]);
@@ -49,8 +47,8 @@ const Home = () => {
 
   return (
     <div className="home">
-      <Navbar/>
-      <div className='gamelists'>
+      <Navbar />
+      <div className="gamelists">
         <LittleGameList title="Les mieux notés" games={bestRatedGames} />
         <LittleGameList title="Les plus joués" games={mostPlayedGames} />
         <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
