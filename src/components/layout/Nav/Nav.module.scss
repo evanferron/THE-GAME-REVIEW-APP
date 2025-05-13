@@ -14,21 +14,31 @@
 }
 
 .navbar-left {
-    display: inline-flex;
-    gap: 10px;
+    display: flex;
 
-    img {
-        width: 28px;
+    button {
+        background-color: var(--bg-100);
+        border: none;
+        display: inline-flex;
+        gap: 10px;
+
+        img {
+            width: 28px;
+        }
+
+        h1 {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+
+            color: var(--text-100);
+            font-size: var(--font-size-md);
+            font-weight: bold;
+        }
     }
 
-    h1 {
-        display: flex;
-        align-items: center;
-        white-space: nowrap;
-
-        color: var(--text-100);
-        font-size: var(--font-size-md);
-        font-weight: bold;
+    button:hover {
+        cursor: pointer;
     }
 }
 
@@ -46,9 +56,8 @@
     button {
         color: var(--text-100);
         font-weight: bold;
-        font-size: --font-size-md;
-        height: 40px;
-        padding: 10px 10px;
+        font-size: var(--font-size-md);
+        padding: 10px 20px;
 
         background-color: var(--bg-100);
         border: 0;

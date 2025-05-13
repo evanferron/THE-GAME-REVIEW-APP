@@ -12,9 +12,11 @@ const DesktopNavbar = () => {
   return (
     <nav className={styles['navbar']}>
       {/* navbar-left */}
-      <div onClick={() => navigate('/')} className={styles['navbar-left']}>
-        <img src="../../../public/assets/icons/logo.svg" alt="logo" />
-        <h1>The Game Review</h1>
+      <div className={styles['navbar-left']}>
+        <button onClick={() => navigate('/')}>
+          <img src="../../../public/assets/icons/logo.svg" alt="logo" />
+          <h1>The Game Review</h1>
+        </button>
       </div>
 
       {/* navbar-center */}
