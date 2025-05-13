@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { getTendanceGames } from '@api/game';
 import Navbar from '@components/layout/Nav';
+import ReviewCard from '@components/shared/ReviewCard/ReviewCard';
 import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
 
 import styles from './Home.module.scss';
@@ -53,6 +54,7 @@ const Home = () => {
         <LittleGameList title="Les plus joués" games={mostPlayedGames} />
         <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
       </div>
+      <ReviewCard />
     </div>
   );
 };
