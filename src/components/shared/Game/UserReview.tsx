@@ -1,30 +1,28 @@
 import { useEffect, useState } from 'react';
 
-
 import { createReview, getMyReviewForAgame } from '@api/review';
 import useAuth from '@hooks/useAuth';
 import Spinner from 'react-bootstrap/Spinner';
 import { FaRegStar, FaStar } from 'react-icons/fa';
 
 export default function UserReview(gameId: number) {
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(true);
 
   const [publishLoading, setPublishLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [form, setFormError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
   const [review, setReview] = useState(null);
   const [rate, setRate] = useState(0);
   const [reviewText, setReviewText] = useState('');
   const MAX_RATE = 10;
 
-
   if (!isAuthenticated) {
     setError('You must be logged in to review.');
   }
 
-
   useEffect(() => {
+    console.log(formError);
     const getMyReview = async () => {
       setLoading(true);
       try {
@@ -113,7 +111,6 @@ export default function UserReview(gameId: number) {
       </div>
     );
   }
-  // TODO : show the review component with the review data
 
   return <div>UserCritique</div>;
 }

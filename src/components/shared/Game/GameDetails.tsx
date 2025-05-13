@@ -4,19 +4,18 @@ import { getGameDetails } from '@api/game';
 import useAuth from '@hooks/useAuth';
 import { GameDetailsData } from '@interfaces/api/Game';
 import { FaHeart } from 'react-icons/fa';
-
 import { MdOutlineClose } from 'react-icons/md';
 
 const GameDetails = (id: number, setReviewPopup: React.Dispatch<React.SetStateAction<number>>) => {
-
   const defaultCoverUrl = require('@assets/images/others/default_game.png');
   const [gameDetails, setGameDetails] = useState<GameDetailsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tabSelected, setTabSelected] = useState(1);
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
+    setReviewPopup(0);
     document.title = 'Tash | 404';
     const fetchGameDetails = async () => {
       setLoading(true);

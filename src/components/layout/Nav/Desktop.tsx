@@ -3,7 +3,7 @@ import { useState } from 'react';
 import useAuth from '@hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
-import { authLinks, navLinks } from '../../../constants/routes';
+import { authLinks } from '../../../constants/routes';
 import '../../../styles/_mixins.scss';
 import styles from './Nav.module.scss';
 

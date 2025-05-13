@@ -4,7 +4,6 @@ import { getTendanceGames } from '@api/game';
 import Navbar from '@components/layout/Nav';
 import GameCarousel from '@components/shared/Carousel/Carousel';
 import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
-import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
 
 import styles from './Home.module.scss';
 

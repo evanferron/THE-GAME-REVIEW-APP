@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { login } from '@api/auth';
-import { setUser } from '@store/slices/auth';
 import { validateLogin } from '@utils/validation/validators/auth';
 import { FaArrowLeft } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { authLinks } from '../../constants/routes';
@@ -21,7 +19,6 @@ const Login = () => {
     password: null,
   });
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // ### Update page title ### //
@@ -49,7 +46,7 @@ const Login = () => {
     try {
       // ### Send form data ### //
 
-      const { success, message, user, token } = await login(email, password);
+      const { success } = await login(email, password);
 
       // ### Save API response data ### //
       if (!success) {
