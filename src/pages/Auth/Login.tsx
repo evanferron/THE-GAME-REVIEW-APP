@@ -14,7 +14,7 @@ import styles from './Auth.module.scss';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // ### Erreurs ### //
+  // ### Errors ### //
   const [apiError, setApiError] = useState<string | null>(null);
   const [errorsForm, setErrorsForm] = useState<ValidatorErrorsLogin | null>({
     email: null,
@@ -24,7 +24,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // ### Modification du titre de la page ### //
+  // ### Update page title ### //
   useEffect(() => {
     document.title = 'The Game Review - Sign in';
   });
@@ -37,21 +37,21 @@ const Login = () => {
     e.preventDefault();
     setApiError(null);
 
-    // ### Vérification du formulaire ### //
+    // ### Form validation ### //
     const validationErrors = validateLogin(email, password);
     setErrorsForm(validationErrors);
 
-    // ### Si erreur alors on abandonne ### //
+    // ### Abort if there are errors ### //
     if (validationErrors !== null) {
       return;
     }
 
     try {
-      // ### Envoi des données du formulaire ### //
+      // ### Send form data ### //
+
       const { success, message, user, token } = await login(email, password);
 
-      // ### Sauvegarde des données renvoyées par l'API ### //
-      dispatch(setUser({ token, user }));
+      // ### Save API response data ### //
       if (!success) {
         setApiError('Incorrect email or password');
         return;
@@ -68,7 +68,7 @@ const Login = () => {
         <div className={styles.form_wrap}>
           <button type="button" className={styles.back_button} onClick={goHome}>
             <FaArrowLeft style={{ marginRight: '8px' }} />
-            Retour
+            Back
           </button>
           <div className={styles.form_container}>
             <h1>Log in!</h1>
@@ -90,7 +90,7 @@ const Login = () => {
               </div>
               <div className={styles.form_block_input}>
                 <label>
-                  Mot de passe<span className={styles.required_input}>*</span>
+                  Password<span className={styles.required_input}>*</span>
                 </label>
                 <input
                   type="password"
@@ -104,11 +104,11 @@ const Login = () => {
                   <span className={styles.error_text}>{errorsForm.password}</span>
                 )}
               </div>
-              <button type="submit">Connection</button>
+              <button type="submit">Sign in</button>
               {apiError && <span className={styles.error_text}>{apiError}</span>}
 
               <p className={styles.switch}>
-                Still no account? <Link to={authLinks.register.href}>Register</Link>
+                Don't have an account yet? <Link to={authLinks.register.href}>Register</Link>
               </p>
             </form>
           </div>
