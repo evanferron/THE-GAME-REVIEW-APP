@@ -6,7 +6,7 @@ import { GameDetailsData } from '@interfaces/api/Game';
 import { FaHeart } from 'react-icons/fa';
 import { MdOutlineClose } from 'react-icons/md';
 
-import defaultCoverUrl from '../../../../public/assets/images/others/default_game.png';
+import defaultCoverUrl from '../../../../assets/images/others/default_game.png';
 import styles from './GameDetails.module.scss';
 import UserReview from './UserReview';
 

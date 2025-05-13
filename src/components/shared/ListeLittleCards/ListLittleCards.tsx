@@ -3,6 +3,7 @@ import LittleGameCard from '@components/shared/LittleGameCard/LittleGameCard';
 import styles from './ListLittleCards.module.scss';
 
 interface Game {
+  id: number;
   title: string;
   developer: string;
   imageSrc: string;
@@ -11,9 +12,10 @@ interface Game {
 interface LittleGameListProps {
   title: string;
   games: Game[];
+  setGamePopup: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-const LittleGameList = ({ title, games }: LittleGameListProps) => {
+const LittleGameList = ({ title, games, setGamePopup }: LittleGameListProps) => {
   return (
     <div className={styles['list-little-cards']}>
       <h2 className={styles['list-little-cards__title']}>
@@ -21,12 +23,14 @@ const LittleGameList = ({ title, games }: LittleGameListProps) => {
         {title}
       </h2>
       <div className={styles['list-little-cards__list']}>
-        {games.map((game, index) => (
+        {games.map((game, _) => (
           <LittleGameCard
-            key={index}
+            id={game.id}
+            key={game.id}
             title={game.title}
             developer={game.developer}
             imageSrc={game.imageSrc}
+            setGamePopup={setGamePopup}
           />
         ))}
       </div>

@@ -53,9 +53,21 @@ const Home = () => {
       <Navbar />
       <GameCarousel title="Les jeux" games={games} setGamePopup={setSelectedGame} />
       <div className={styles['home__lists']}>
-        <LittleGameList title="Les mieux notés" games={bestRatedGames} />
-        <LittleGameList title="Les plus joués" games={mostPlayedGames} />
-        <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
+        <LittleGameList
+          title="Les mieux notés"
+          games={bestRatedGames}
+          setGamePopup={setSelectedGame}
+        />
+        <LittleGameList
+          title="Les plus joués"
+          games={mostPlayedGames}
+          setGamePopup={setSelectedGame}
+        />
+        <LittleGameList
+          title="Les plus critiqués"
+          games={mostReviewedGames}
+          setGamePopup={setSelectedGame}
+        />
       </div>
       {selectedGame && <GameDetails id={selectedGame} setGamePopup={setSelectedGame}></GameDetails>}
     </div>
