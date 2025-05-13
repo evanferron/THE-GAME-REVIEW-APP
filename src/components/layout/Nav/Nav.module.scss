@@ -43,37 +43,37 @@
 }
 
 .navbar-center {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 
-    button {
-        color: var(--text-100);
-        font-weight: bold;
-        font-size: var(--font-size-md);
-        padding: 10px 20px;
+  button {
+    color: var(--text-100);
+    font-weight: bold;
+    font-size: var(--font-size-md);
+    padding: 10px 20px;
 
-        background-color: var(--bg-100);
-        border: 0;
-        border-radius: 25px;
+    background-color: var(--bg-100);
+    border: 0;
+    border-radius: 25px;
 
-        &:hover {
-            background-color: var(--gray-100);
-            cursor: pointer;
-        }
-
-        &:active {
-            background-color: var(--green-transparance-100);
-            color: var(--green-100);
-            cursor: pointer;
-        }
+    &:hover {
+      background-color: var(--gray-100);
+      cursor: pointer;
     }
+
+    &.active {
+      background-color: var(--green-transparance-100);
+      color: var(--green-100);
+      cursor: pointer;
+    }
+  }
 }
 
 .navbar-right {

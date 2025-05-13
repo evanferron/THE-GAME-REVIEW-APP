@@ -1,6 +1,7 @@
 import useAuth from '@hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { authLinks } from '../../../constants/routes';
+import { useState } from 'react';
 
 import styles from './Nav.module.scss';
 import '../../../styles/_mixins.scss';
@@ -8,6 +9,13 @@ import '../../../styles/_mixins.scss';
 const DesktopNavbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+
+  const [activeButton, setActiveButton] = useState<string | null>(null);  // Initialise l'état avec null, aucun bouton n'est actif par défaut
+
+  const handleButtonClick = (path: string) => {
+    setActiveButton(path);  // Mettez à jour l'état avec le chemin du bouton cliqué
+    navigate(path);  // Navigue vers le chemin du bouton
+  };
 
   return (
     <nav className={styles['navbar']}>
@@ -21,8 +29,18 @@ const DesktopNavbar = () => {
 
       {/* navbar-center */}
       <div className={styles['navbar-center']}>
-        <button onClick={() => navigate('/')}>Accueil</button>
-        <button onClick={() => navigate('/')}>Découvrir</button>
+        <button 
+          onClick={() => handleButtonClick('/')} 
+          className={activeButton === '/' ? styles['active'] : ''}  // Le bouton "Accueil" est actif si le chemin est '/'
+        >
+          Accueil
+        </button>
+        <button 
+          onClick={() => handleButtonClick('/discovery')}  // Chemin unique pour "Découvrir"
+          className={activeButton === '/discovery' ? styles['active'] : ''}  // Le bouton "Découvrir" est actif si le chemin est '/discovery'
+        >
+          Découvrir
+        </button>
       </div>
 
       {/* navbar-right */}
