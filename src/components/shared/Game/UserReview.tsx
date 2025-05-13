@@ -5,7 +5,7 @@ import useAuth from '@hooks/useAuth';
 import Spinner from 'react-bootstrap/Spinner';
 import { FaRegStar, FaStar } from 'react-icons/fa';
 
-export default function UserReview(gameId: number) {
+const UserReview = ({ gameId }: { gameId: number }) => {
   const { isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(true);
 
@@ -113,4 +113,6 @@ export default function UserReview(gameId: number) {
   }
 
   return <div>UserCritique</div>;
-}
+};
+
+export default UserReview;
