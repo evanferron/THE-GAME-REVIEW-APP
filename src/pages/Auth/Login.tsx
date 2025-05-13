@@ -29,12 +29,11 @@ const Login = () => {
     document.title = 'The Game Review - Sign in';
   });
 
-  const goHome = () =>{
+  const goHome = () => {
     navigate('/');
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log('handleSubmit called'); // Vérifie si cette ligne apparaît
     e.preventDefault();
     setApiError(null);
 
@@ -49,12 +48,12 @@ const Login = () => {
 
     try {
       // ### Envoi des données du formulaire ### //
-      const { success, message, user , token  } = await login(email, password);
+      const { success, message, user, token } = await login(email, password);
 
       // ### Sauvegarde des données renvoyées par l'API ### //
       dispatch(setUser({ token, user }));
       if (!success) {
-        setApiError("Incorrect email or password");
+        setApiError('Incorrect email or password');
         return;
       }
       navigate('/');
@@ -68,7 +67,6 @@ const Login = () => {
       <section className={styles.section_auth}>
         <div className={styles.form_wrap}>
           <button type="button" className={styles.back_button} onClick={goHome}>
-
             <FaArrowLeft style={{ marginRight: '8px' }} />
             Retour
           </button>
@@ -86,7 +84,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={errorsForm?.email ? styles.error_input : ''}
-                  required
+                  // required
                 />
                 {errorsForm?.email && <span className={styles.error_text}>{errorsForm.email}</span>}
               </div>
@@ -100,7 +98,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className={errorsForm?.password ? styles.error_input : ''}
-                  required
+                  // required
                 />
                 {errorsForm?.password && (
                   <span className={styles.error_text}>{errorsForm.password}</span>
@@ -108,7 +106,7 @@ const Login = () => {
               </div>
               <button type="submit">Connection</button>
               {apiError && <span className={styles.error_text}>{apiError}</span>}
-            
+
               <p className={styles.switch}>
                 Still no account? <Link to={authLinks.register.href}>Register</Link>
               </p>
