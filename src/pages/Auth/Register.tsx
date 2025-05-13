@@ -52,7 +52,12 @@ const Register = () => {
 
     try {
       // ### Send form data ### //
-      const { success, message, token, user } = await register(email, pseudo, password, confirmPassword);
+      const { success, message, token, user } = await register(
+        email,
+        pseudo,
+        password,
+        confirmPassword
+      );
 
       if (!success) {
         setApiError(message);
@@ -75,7 +80,7 @@ const Register = () => {
             Back
           </button>
           <div className={styles.form_container}>
-            <h1>Create an account!</h1>
+            <h1>Create an account !</h1>
 
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.form_block_input}>
