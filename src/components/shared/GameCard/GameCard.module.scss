@@ -34,14 +34,14 @@
 
   &__score,
   &__user-score {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: bold;
     line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 2.5rem; // 40px
-    width: 2.5rem; // 40px
+    height: 1.875rem; // 30px
+    width: 1.875rem; // 30px
     display: flex;
     justify-content: center;
     align-items: center;

@@ -53,6 +53,7 @@ const Register = () => {
     try {
       // ### Send form data ### //
       const { success, message, token, user } = await register(email, pseudo, password, confirmPassword);
+
       if (!success) {
         setApiError(message);
         return;
@@ -87,7 +88,6 @@ const Register = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={errorsForm?.email ? styles.error_input : ''}
-                  required
                 />
                 {errorsForm?.email && <span className={styles.error_text}>{errorsForm.email}</span>}
               </div>
@@ -101,7 +101,6 @@ const Register = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className={errorsForm?.password ? styles.error_input : ''}
-                  required
                 />
                 {errorsForm?.password && (
                   <span className={styles.error_text}>{errorsForm.password}</span>
@@ -117,7 +116,6 @@ const Register = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className={errorsForm?.password ? styles.error_input : ''}
-                  required
                 />
                 {errorsForm?.password && (
                   <span className={styles.error_text}>{errorsForm.password}</span>
@@ -133,7 +131,6 @@ const Register = () => {
                   value={pseudo}
                   onChange={(e) => setpseudo(e.target.value)}
                   className={errorsForm?.pseudo ? styles.error_input : ''}
-                  required
                 />
 
                 {errorsForm?.pseudo && (

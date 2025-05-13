@@ -34,7 +34,6 @@ const Login = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log('handleSubmit called'); // Check if this line appears
     e.preventDefault();
     setApiError(null);
 
@@ -49,6 +48,7 @@ const Login = () => {
 
     try {
       // ### Send form data ### //
+
       const { success, message, user, token } = await login(email, password);
 
       // ### Save API response data ### //
@@ -84,7 +84,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={errorsForm?.email ? styles.error_input : ''}
-                  required
+                  // required
                 />
                 {errorsForm?.email && <span className={styles.error_text}>{errorsForm.email}</span>}
               </div>
@@ -98,7 +98,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className={errorsForm?.password ? styles.error_input : ''}
-                  required
+                  // required
                 />
                 {errorsForm?.password && (
                   <span className={styles.error_text}>{errorsForm.password}</span>

@@ -4,9 +4,11 @@ import { getGameDetails } from '@api/game';
 import useAuth from '@hooks/useAuth';
 import { GameDetailsData } from '@interfaces/api/Game';
 import { FaHeart } from 'react-icons/fa';
+
 import { MdOutlineClose } from 'react-icons/md';
 
 const GameDetails = (id: number, setReviewPopup: React.Dispatch<React.SetStateAction<number>>) => {
+
   const defaultCoverUrl = require('@assets/images/others/default_game.png');
   const [gameDetails, setGameDetails] = useState<GameDetailsData | null>(null);
   const [loading, setLoading] = useState(true);
