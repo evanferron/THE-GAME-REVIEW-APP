@@ -6,6 +6,8 @@ import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards'
 
 import styles from './Home.module.scss';
 import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
+import './Home.scss';
+import Navbar from '@components/layout/Nav';
 
 const Home = () => {
   const [games, setGames] = useState([]);
@@ -46,9 +48,9 @@ const Home = () => {
   }
 
   return (
-    <div className={styles['home']}>
-      <GameCarousel title="Les jeux" games={games} />
-      <div className={styles['home__lists']}>
+    <div className="home">
+      <Navbar/>
+      <div className='gamelists'>
         <LittleGameList title="Les mieux notés" games={bestRatedGames} />
         <LittleGameList title="Les plus joués" games={mostPlayedGames} />
         <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
