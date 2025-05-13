@@ -5,6 +5,7 @@ import GameCarousel from '@components/shared/Carousel/Carousel';
 import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
 
 import styles from './Home.module.scss';
+import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
 
 const Home = () => {
   const [games, setGames] = useState([]);
