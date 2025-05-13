@@ -3,6 +3,7 @@
 /* -------------------- Code ---------------------*/
 .navbar {
     position: fixed;
+    top: 0;
     display: flex;
     justify-content: space-between;
     background-color: var(--bg-100);
@@ -83,9 +84,11 @@
     gap: 25px;
     
     button {
-        background-color: var(--bg-100);
+        background-color: var(--gray-100);
+        border-radius: 18px;
         border: 0;
-        padding: 0;
+        padding-block: 5px;
+        padding-inline: 15px;
 
         &:hover {
             cursor: pointer;

@@ -5,7 +5,7 @@ import { handleLogout } from '@utils/api/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { authLinks } from '../../../constants/routes';
+import { authLinks, navLinks } from '../../../constants/routes';
 
 const MobileNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +19,7 @@ const MobileNavbar = () => {
     <nav>
       {isAuthenticated ? (
         <>
-          <span>Bienvenue, {user?.username} !</span>
+          <span>Bienvenue, {user?.email} !</span>
           <button onClick={handleLogout}>Déconnexion</button>
         </>
       ) : (

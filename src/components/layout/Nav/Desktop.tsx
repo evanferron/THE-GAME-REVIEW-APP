@@ -1,25 +1,26 @@
-import useAuth from '@hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
-import { authLinks } from '../../../constants/routes';
 import { useState } from 'react';
 
-import styles from './Nav.module.scss';
+import useAuth from '@hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+
+import { authLinks, navLinks } from '../../../constants/routes';
 import '../../../styles/_mixins.scss';
+import styles from './Nav.module.scss';
 
 const DesktopNavbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-
-  const [activeButton, setActiveButton] = useState<string | null>(null);  // Initialise l'état avec null, aucun bouton n'est actif par défaut
+  console.log(isAuthenticated);
+  const url = window.location.pathname;
+  const [activeButton, setActiveButton] = useState<string | null>(null); // Initialise l'état avec null, aucun bouton n'est actif par défaut
 
   const handleButtonClick = (path: string) => {
-    setActiveButton(path);  // Mettez à jour l'état avec le chemin du bouton cliqué
-    navigate(path);  // Navigue vers le chemin du bouton
+    setActiveButton(path); // Mettez à jour l'état avec le chemin du bouton cliqué
+    navigate(path); // Navigue vers le chemin du bouton
   };
 
   return (
     <nav className={styles['navbar']}>
-      {/* navbar-left */}
       <div className={styles['navbar-left']}>
         <button onClick={() => navigate('/')}>
           <img src="../../../public/assets/icons/logo.svg" alt="logo" />
@@ -27,37 +28,36 @@ const DesktopNavbar = () => {
         </button>
       </div>
 
-      {/* navbar-center */}
       <div className={styles['navbar-center']}>
-        <button 
-          onClick={() => handleButtonClick('/')} 
-          className={activeButton === '/' ? styles['active'] : ''}  // Le bouton "Accueil" est actif si le chemin est '/'
+        <button
+          onClick={() => handleButtonClick('/')}
+          className={url === '/' || activeButton == '/' ? styles['active'] : ''} // Le bouton "Accueil" est actif si le chemin est '/'
         >
-          Accueil
+          Home
         </button>
-        <button 
-          onClick={() => handleButtonClick('/discovery')}  // Chemin unique pour "Découvrir"
-          className={activeButton === '/discovery' ? styles['active'] : ''}  // Le bouton "Découvrir" est actif si le chemin est '/discovery'
+        <button
+          onClick={() => handleButtonClick('/discovery')} // Chemin unique pour "Découvrir"
+          className={url === '/discovery' || activeButton == '/discovery' ? styles['active'] : ''} // Le bouton "Découvrir" est actif si le chemin est '/discovery'
         >
-          Découvrir
+          Discover
         </button>
       </div>
 
-      {/* navbar-right */}
       {isAuthenticated ? (
         <div className={styles['navbar-right']}>
           <button onClick={() => navigate('/recherche')}>
             <img src="../../../public/assets/icons/search.svg" alt="search" />
           </button>
-          <img src='../../../public/assets/pictures/profile-photo-test.svg' alt="profil" onClick={() => navigate('/profil')}/>
+          <img
+            src="../../../public/assets/pictures/profile-photo-test.svg"
+            alt="profil"
+            onClick={() => navigate('/profil')}
+          />
         </div>
       ) : (
-        <div>
-          {authLinks.map(link => (
-            <button
-              key={link.path}
-              onClick={() => navigate(link.path)}
-            >
+        <div className={styles['navbar-right']}>
+          {Object.values(authLinks).map((link) => (
+            <button key={link.label} onClick={() => navigate(link.href)}>
               {link.label}
             </button>
           ))}
