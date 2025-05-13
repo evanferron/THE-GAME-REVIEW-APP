@@ -13,6 +13,7 @@ export const getMyReviewForAgame = async (gameId: number) => {
         console.error('Error fetching review:', error);
         throw error;
     }
+
 }
 
 export const createReview = async (gameId: number, rate: number, reviewText: string) => {
