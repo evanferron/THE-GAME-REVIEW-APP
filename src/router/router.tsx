@@ -17,7 +17,7 @@ const Router = () => {
         <Route
           path="/"
           element={
-              <Profile></Profile>
+              <Home></Home>
           }
         />
         <Route path={authLinks.login.href} element={<Login />} />

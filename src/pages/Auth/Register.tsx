@@ -19,7 +19,7 @@ const Register = () => {
 
   const dispatch = useDispatch();
 
-  // ### Erreurs ### //
+  // ### Errors ### //
   const [apiError, setApiError] = useState<string | null>(null);
   const [errorsForm, setErrorsForm] = useState<ValidatorErrorsRegister | null>({
     email: null,
@@ -29,29 +29,29 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  // ### Modification du titre de la page ### //
+  // ### Update page title ### //
   useEffect(() => {
     document.title = 'The Game Review - Sign up';
   });
 
-  const goHome = () =>{
+  const goHome = () => {
     navigate('/');
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setApiError(null);
 
-    // ### Vérification du formulaire ### //
+    // ### Form validation ### //
     const validationErrors = validateRegister(email, pseudo, password, confirmPassword);
     setErrorsForm(validationErrors);
-    // ### Si erreur alors on abandonne ### //
+    // ### Abort if there are errors ### //
     if (validationErrors != null) {
       return;
     }
 
     try {
-      // ### Envoi des données du formulaire ### //
+      // ### Send form data ### //
       const { success, message, token, user } = await register(email, pseudo, password, confirmPassword);
       if (!success) {
         setApiError(message);
@@ -71,10 +71,10 @@ const Register = () => {
         <div className={styles.form_wrap}>
           <button className={styles.back_button} onClick={goHome}>
             <FaArrowLeft style={{ marginRight: '8px' }} />
-            Retour
+            Back
           </button>
           <div className={styles.form_container}>
-            <h1>Create an account !</h1>
+            <h1>Create an account!</h1>
 
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.form_block_input}>
@@ -93,7 +93,7 @@ const Register = () => {
               </div>
               <div className={styles.form_block_input}>
                 <label>
-                  Mot de passe<span className={styles.required_input}>*</span>
+                  Password<span className={styles.required_input}>*</span>
                 </label>
                 <input
                   type="password"
@@ -109,11 +109,11 @@ const Register = () => {
               </div>
               <div className={styles.form_block_input}>
                 <label>
-                  Confirmer le mot de passe<span className={styles.required_input}>*</span>
+                  Confirm Password<span className={styles.required_input}>*</span>
                 </label>
                 <input
                   type="password"
-                  placeholder="Enter your password"
+                  placeholder="Confirm your password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className={errorsForm?.password ? styles.error_input : ''}
@@ -125,7 +125,7 @@ const Register = () => {
               </div>
               <div className={styles.form_block_input}>
                 <label>
-                  Pseudonyme<span className={styles.required_input}>*</span>
+                  Nickname<span className={styles.required_input}>*</span>
                 </label>
                 <input
                   type="text"
@@ -143,7 +143,7 @@ const Register = () => {
               <button type="submit">Register</button>
               {apiError && <span className={styles.error_text}>{apiError}</span>}
               <p className={styles.switch}>
-                already have an account ? <Link to={authLinks.login.href}>Login</Link>
+                Already have an account? <Link to={authLinks.login.href}>Login</Link>
               </p>
             </form>
           </div>
@@ -153,7 +153,7 @@ const Register = () => {
         <img
           src={'/assets/pictures/form_illustration.svg'}
           className={styles.form_illustration}
-          alt="form_illustration"
+          alt="form illustration"
         />
       </section>
     </main>

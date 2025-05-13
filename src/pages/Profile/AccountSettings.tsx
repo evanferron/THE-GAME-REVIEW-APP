@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import styles from './AccountSettings.module.scss';
 import { UserDetailsData } from '@interfaces/api/User';
-import { updateUserDetails, updateUserPassword } from '@api/user';
-import { Navigate, useLocation } from 'react-router-dom';
-
+import { updateUserDetails, updateUserPassword, deleteUserAccount } from '@api/user';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const AccountSettings = () => {
-  // récupérer les données de l'utilisateur depuis le state de la route
   const location = useLocation();
   const { pseudo, email } = location.state || {};
 
@@ -17,43 +15,40 @@ const AccountSettings = () => {
   const [userDetails, setUserDetails] = useState<UserDetailsData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  
-  // Formulaire pour les informations de base
+  const [pseudoState, setPseudoState] = useState<string>(pseudo);
+  const [emailState, setEmailState] = useState<string>(email);
   const [updating, setUpdating] = useState(false);
-  
-  // État pour le changement de mot de passe
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [updatingPassword, setUpdatingPassword] = useState(false);
+  const [deletingAccount, setDeletingAccount] = useState(false);
+  const navigate = useNavigate();
 
   const handleUpdateProfile = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setUpdating(true);
     setError(null);
     setSuccess(null);
-    
+
     try {
-      await updateUserDetails(email, pseudo);
-      setSuccess('Informations mises à jour avec succès');
-      
-      // Mettre à jour les détails locaux
+      await updateUserDetails(emailState, pseudoState);
+      setSuccess('Profile updated successfully.');
+
       if (userDetails) {
         await setUserDetails({
           ...userDetails,
-          email,
-          pseudo
+          email: emailState,
+          pseudo: pseudoState
         });
       }
     } catch (error) {
-      setError('Erreur lors de la mise à jour du profil. Veuillez réessayer.');
-      console.error('Erreur de mise à jour du profil:', error);
+      setError('Error updating profile. Please try again.');
     }
-    
+
     setUpdating(false);
-    
-    // Effacer le message de succès après 3 secondes
+
     if (!error) {
       setTimeout(() => {
         setSuccess(null);
@@ -65,39 +60,52 @@ const AccountSettings = () => {
     e.preventDefault();
     setPasswordError(null);
     setSuccess(null);
-    
-    // Validation des mots de passe
+
     if (newPassword.length < 8) {
-      setPasswordError('Le mot de passe doit contenir au moins 8 caractères');
+      setPasswordError('Password must be at least 8 characters long.');
       return;
     }
-    
+
     if (newPassword !== confirmPassword) {
-      setPasswordError('Les mots de passe ne correspondent pas');
+      setPasswordError('Passwords do not match.');
       return;
     }
-    
+
     setUpdatingPassword(true);
-    
+
     try {
       await updateUserPassword(newPassword);
-      setSuccess('Mot de passe mis à jour avec succès');
+      setSuccess('Password updated successfully.');
       setNewPassword('');
       setConfirmPassword('');
       setShowPasswordForm(false);
     } catch (error) {
-      setPasswordError('Erreur lors de la mise à jour du mot de passe. Veuillez réessayer.');
-      console.error('Erreur de mise à jour du mot de passe:', error);
+      setPasswordError('Error updating password. Please try again.');
     }
-    
+
     setUpdatingPassword(false);
-    
-    // Effacer le message de succès après 3 secondes
+
     if (!passwordError) {
       setTimeout(() => {
         setSuccess(null);
       }, 3000);
     }
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeletingAccount(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      await deleteUserAccount();
+      setSuccess('Your account has been successfully deleted.');
+      navigate('/');
+    } catch (error) {
+      setError('Error deleting account. Please try again.');
+    }
+
+    setDeletingAccount(false);
   };
 
   if (error && !userDetails) {
@@ -109,68 +117,70 @@ const AccountSettings = () => {
       <div className={styles['account-settings-container']}>
         <header className={styles.header}>
           <button className={styles.backButton} onClick={() => window.history.back()}>
-            ← Retour
+            ← Back
           </button>
-          <h1 className={styles.title}>Paramètres du compte</h1>
-          <p className={styles.subtitle}>Gérez vos informations personnelles</p>
+          <h1 className={styles.title}>Account Settings</h1>
+          <p className={styles.subtitle}>Manage your personal information</p>
         </header>
 
         <section className={styles.section}>
           {success && <div className={styles.successMessage}>{success}</div>}
           {error && <div className={styles.errorMessage}>{error}</div>}
-          
+
           <form onSubmit={handleUpdateProfile}>
             <div className={styles.formGroup}>
-              <label htmlFor="email">E-mail</label>
+              <label htmlFor="email">Email</label>
               <input
                 type="email"
                 id="email"
-                value={email}
+                value={emailState}
+                onChange={(e) => setEmailState(e.target.value)}
                 className={styles.inputField}
                 placeholder={email}
               />
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="pseudo">Pseudo</label>
+              <label htmlFor="pseudo">Username</label>
               <input
                 type="text"
                 id="pseudo"
-                value={pseudo}
+                value={pseudoState}
+                onChange={(e) => setPseudoState(e.target.value)}
                 className={styles.inputField}
                 placeholder={pseudo}
               />
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className={styles.updateButton}
               disabled={updating}
             >
-              {updating ? 'Mise à jour...' : 'Mettre à jour'}
+              {updating ? 'Updating...' : 'Update'}
             </button>
           </form>
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Mot de passe</h2>
+          <h2 className={styles.sectionTitle}>Password</h2>
           <p className={styles.sectionDescription}>
-            Définissez un nouveau mot de passe pour votre compte
+            Set a new password for your account
           </p>
 
           {passwordError && <div className={styles.errorMessage}>{passwordError}</div>}
 
           {!showPasswordForm ? (
-            <button 
+            <button
               className={styles.passwordButton}
               onClick={() => setShowPasswordForm(true)}
             >
-              Définir un nouveau mot de passe
+              Set a new password
             </button>
           ) : (
             <form onSubmit={handleUpdatePassword} className={styles.passwordForm}>
               <div className={styles.formGroup}>
-                <label htmlFor="newPassword">Nouveau mot de passe</label>
+                <label htmlFor="newPassword">New Password</label>
                 <input
                   type="password"
                   id="newPassword"
@@ -182,7 +192,7 @@ const AccountSettings = () => {
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+                <label htmlFor="confirmPassword">Confirm Password</label>
                 <input
                   type="password"
                   id="confirmPassword"
@@ -194,8 +204,8 @@ const AccountSettings = () => {
               </div>
 
               <div className={styles.buttonGroup}>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className={styles.cancelButton}
                   onClick={() => {
                     setShowPasswordForm(false);
@@ -204,14 +214,14 @@ const AccountSettings = () => {
                     setPasswordError(null);
                   }}
                 >
-                  Annuler
+                  Cancel
                 </button>
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className={styles.saveButton}
                   disabled={updatingPassword}
                 >
-                  {updatingPassword ? 'Mise à jour...' : 'Enregistrer'}
+                  {updatingPassword ? 'Updating...' : 'Save'}
                 </button>
               </div>
             </form>
@@ -219,8 +229,14 @@ const AccountSettings = () => {
         </section>
 
         <section className={styles.dangerZone}>
-          <h2 className={styles.dangerTitle}>Zone dangereuse</h2>
-          {/* Vous pouvez ajouter ici des options comme supprimer le compte */}
+          <h2 className={styles.dangerTitle}>Danger Zone</h2>
+          <button
+            className={styles.updateButton}
+            onClick={handleDeleteAccount}
+            disabled={deletingAccount}
+          >
+            {deletingAccount ? 'Deleting...' : 'Delete my account'}
+          </button>
         </section>
       </div>
     </div>

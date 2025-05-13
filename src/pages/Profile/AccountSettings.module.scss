@@ -207,6 +207,27 @@
   margin: 0;
 }
 
+.updateButton {
+  background-color: #e74c3c;  // Couleur rouge pour la suppression
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c0392b;  // Hover avec une couleur plus foncée
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
 /* États de chargement et d'erreur */
 .loading, .error {
   display: flex;
