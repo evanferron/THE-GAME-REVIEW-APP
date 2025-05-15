@@ -4,6 +4,7 @@ import { UserDetailsData } from '@interfaces/api/User';
 import { updateUserDetails, updateUserPassword, deleteUserAccount } from '@api/user';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '@components/layout/Nav';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const AccountSettings = () => {
   const location = useLocation();
@@ -109,6 +110,10 @@ const AccountSettings = () => {
     setDeletingAccount(false);
   };
 
+  const goProfile = () => {
+    navigate('/Profil');
+  };
+
   if (error && !userDetails) {
     return <div className={styles.error}>{error}</div>;
   }
@@ -118,8 +123,9 @@ const AccountSettings = () => {
       <Navbar />
       <div className={styles['account-settings-container']}>
         <header className={styles.header}>
-          <button className={styles.backButton} onClick={() => window.history.back()}>
-            ← Back
+          <button type="button" className={styles.back_button} onClick={goProfile}>
+            <FaArrowLeft style={{ marginRight: '8px' }} />
+            Back
           </button>
           <h1 className={styles.title}>Account Settings</h1>
           <p className={styles.subtitle}>Manage your personal information</p>

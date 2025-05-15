@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { getUserDetails } from '@api/user';
 import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
 import { UserDetailsData } from '@interfaces/api/User';
-import { getUserDetails } from '@api/user';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@components/layout/Nav';
 import styles from './Profile.module.scss';
@@ -34,16 +33,6 @@ const Profile = () => {
 
     fetchUserDetails();
   }, []);
-
-  // Fonction pour naviguer vers la page des paramètres du compte
-  // const goToAccountSettings = () => {
-  //   navigate('/account-settings', {
-  //     state: {
-  //       email: userDetails?.email,
-  //       pseudo: userDetails?.pseudo,
-  //     },
-  //   });
-  // };
 
   return (
     <div className={styles['profile']}>

@@ -3,6 +3,8 @@ import React from 'react';
 import styles from './ProfilCard.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { FaEdit  } from 'react-icons/fa';
+import { store } from '../../../services/store/store';
+import { logout } from '../../../services/store/slices/auth';
 
 
 
@@ -35,6 +37,11 @@ const ProfilCard: React.FC<ProfilCardProps> = ({
       } 
     });
   };
+
+  const disconnect = () => {
+    store.dispatch(logout());
+    navigate('/');
+  };
   
   return (
   <div className={styles['profil-card']}>
@@ -65,6 +72,14 @@ const ProfilCard: React.FC<ProfilCardProps> = ({
               onClick={handleEditProfile} 
               aria-label="Modifier le profil"
             />
+          </button>
+
+          <button
+            type="submit"
+            className={styles.updateButton}
+            onClick={disconnect}
+          >
+            Disconnect
           </button>
         </div>
         

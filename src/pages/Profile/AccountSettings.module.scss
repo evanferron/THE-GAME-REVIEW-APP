@@ -21,20 +21,19 @@
   padding: 2rem 0;
 }
 
-.backButton {
-  background: none;
-  border: none;
-  color: var(--light-gray);
-  padding: 0.5rem 0;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  transition: color 0.3s ease;
-  
-  &:hover {
-    color: #fff;
-  }
-}
+.back_button {
+      position: absolute;
+      cursor: pointer;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      color: var(--gray-200);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      font-size: medium;
+    }
 
 .title {
   font-size: 1.5rem;
