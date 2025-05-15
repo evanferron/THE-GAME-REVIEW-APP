@@ -5,6 +5,7 @@ import useAuth from '@hooks/useAuth';
 import { UserDetailsData } from '@interfaces/api/User';
 import { getUserDetails } from '@api/user';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '@components/layout/Nav';
 
 const Profile = () => {
   
@@ -45,6 +46,7 @@ const Profile = () => {
 
   return (
     <div className={styles['profile']}>
+      <Navbar />
       <div className={styles['profile-container']}>
         {/* mettre la navbar */}
         {/* Profile Card */}

@@ -2,16 +2,15 @@
 
 /* -------------------- Code ---------------------*/
 .navbar {
-    position: fixed;
+    position: sticky;
     top: 0;
     display: flex;
     justify-content: space-between;
     background-color: var(--bg-100);
-    width: 1173px;
-    padding: 0px 374px;
-    margin-bottom: 70px;
+    width: 74.063rem;
     height: 70px;
     border-bottom: 1px solid var(--black-100);
+    z-index: 1000;
 }
 
 .navbar-left {
@@ -102,5 +101,6 @@
 
     img {
         width: 40px;
+        cursor: pointer;
     }
 }
