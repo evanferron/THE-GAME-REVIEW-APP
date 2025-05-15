@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { getTendanceGames } from '@api/game';
 import Navbar from '@components/layout/Nav';
 import GameCarousel from '@components/shared/Carousel/Carousel';
+import GameDetails from '@components/shared/Game/GameDetails';
 import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
-import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
 
 import styles from './Home.module.scss';
 
@@ -14,6 +14,7 @@ const Home = () => {
   const [mostPlayedGames, setMostPlayedGames] = useState([]);
   const [mostReviewedGames, setMostReviewedGames] = useState([]);
   const [error, setError] = useState<string | null>(null);
+  const [selectedGame, setSelectedGame] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -23,6 +24,7 @@ const Home = () => {
 
         // Adapter les données au format attendu
         const formattedGames = trendingGames.map((game: any) => ({
+          id: game.id,
           title: game.name,
           developer: 'Unknown',
           imageSrc: `https:${game.cover}`,
@@ -49,12 +51,25 @@ const Home = () => {
   return (
     <div className={styles['home']}>
       <Navbar />
-      <GameCarousel title="Les jeux" games={games} />
+      <GameCarousel title="Les jeux" games={games} setGamePopup={setSelectedGame} />
       <div className={styles['home__lists']}>
-        <LittleGameList title="Les mieux notés" games={bestRatedGames} />
-        <LittleGameList title="Les plus joués" games={mostPlayedGames} />
-        <LittleGameList title="Les plus critiqués" games={mostReviewedGames} />
+        <LittleGameList
+          title="Les mieux notés"
+          games={bestRatedGames}
+          setGamePopup={setSelectedGame}
+        />
+        <LittleGameList
+          title="Les plus joués"
+          games={mostPlayedGames}
+          setGamePopup={setSelectedGame}
+        />
+        <LittleGameList
+          title="Les plus critiqués"
+          games={mostReviewedGames}
+          setGamePopup={setSelectedGame}
+        />
       </div>
+      {selectedGame && <GameDetails id={selectedGame} setGamePopup={setSelectedGame}></GameDetails>}
     </div>
   );
 };

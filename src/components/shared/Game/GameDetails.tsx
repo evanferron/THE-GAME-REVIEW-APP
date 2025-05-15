@@ -1,23 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { getGameDetails } from '@api/game';
 import useAuth from '@hooks/useAuth';
 import { GameDetailsData } from '@interfaces/api/Game';
 import { FaHeart } from 'react-icons/fa';
-
 import { MdOutlineClose } from 'react-icons/md';
 
-const GameDetails = (id: number, setReviewPopup: React.Dispatch<React.SetStateAction<number>>) => {
+import defaultCoverUrl from '../../../../public/assets/images/others/default_game.png';
+import styles from './GameDetails.module.scss';
+import UserReview from './UserReview';
 
-  const defaultCoverUrl = require('@assets/images/others/default_game.png');
+interface GameDetailsProps {
+  id: number;
+  setGamePopup: React.Dispatch<React.SetStateAction<number | null>>;
+}
+
+const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
   const [gameDetails, setGameDetails] = useState<GameDetailsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tabSelected, setTabSelected] = useState(1);
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.title = 'Tash | 404';
     const fetchGameDetails = async () => {
       setLoading(true);
       try {
@@ -32,67 +38,110 @@ const GameDetails = (id: number, setReviewPopup: React.Dispatch<React.SetStateAc
     fetchGameDetails();
   }, []);
 
+  const handleClose = () => {
+    setGamePopup(null);
+  };
+
+  const handleClickOutside = (event: React.MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      handleClose();
+    }
+  };
+
+  const roundRating = (rating: number | undefined) => {
+    if (rating === null || rating === undefined) {
+      return 'N/A';
+    }
+    const roundedRating = Math.round(rating * 10) / 10;
+    return roundedRating.toFixed(1);
+  };
+
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className={styles['modal-overlay']}>Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className={styles['modal-overlay']}>{error}</div>;
   }
 
   return (
-    <main>
-      <button>
-        <MdOutlineClose />
-      </button>
-      <header>
-        <div>
-          <img src={gameDetails?.cover_url ?? defaultCoverUrl} alt="game cover" />
-        </div>
-        <div>
-          <h1>{gameDetails?.name}</h1>
-          <p>{gameDetails?.franchises}</p>
+    <div className={styles['modal-overlay']} onClick={handleClickOutside}>
+      <div className={styles['modal-content']} ref={modalRef}>
+        <button className={styles['modal-close']} onClick={handleClose}>
+          <MdOutlineClose />
+        </button>
+        <header>
           <div>
+            <img src={gameDetails?.cover_url ?? defaultCoverUrl} alt="game cover" />
+          </div>
+          <div id={styles['right-header']}>
+            <h1>{gameDetails?.name}</h1>
+            <p>{gameDetails?.franchises}</p>
             <div>
-              <p>{gameDetails?.aggregated_rating}</p>
-            </div>
-            {gameDetails?.userRate && (
               <div>
-                <p>{gameDetails.userRate}</p>
+                <p>{roundRating(gameDetails?.aggregated_rating)}</p>
               </div>
-            )}
-            <button>
-              <FaHeart />
+              {gameDetails?.userRate && (
+                <div className={styles['user-rate']}>
+                  <p>{roundRating(gameDetails.userRate)}</p>
+                </div>
+              )}
+              <button>
+                <FaHeart color="#fff" size={22} />
+              </button>
+            </div>
+          </div>
+        </header>
+        <nav className={styles['tabs']}>
+          <button
+            onClick={() => setTabSelected(1)}
+            id={tabSelected == 1 ? styles['underline-tab'] : styles['no-underline-tab']}
+          >
+            Présentation
+          </button>
+
+          <button
+            onClick={() => setTabSelected(2)}
+            id={tabSelected == 2 ? styles['underline-tab'] : styles['no-underline-tab']}
+          >
+            Critiques
+          </button>
+          {isAuthenticated && (
+            <button
+              onClick={() => setTabSelected(3)}
+              id={tabSelected == 3 ? styles['underline-tab'] : styles['no-underline-tab']}
+            >
+              Ajouter une critique
             </button>
-          </div>
-        </div>
-      </header>
-      <nav>
-        <button onClick={() => setTabSelected(1)}>Présentation</button>
-        <button onClick={() => setTabSelected(2)}>Critiques</button>
-        {isAuthenticated && <button onClick={() => setTabSelected(3)}>Ajouter une critique</button>}
-      </nav>
-      <section>
-        {tabSelected === 1 && (
-          <div>
-            <p>Type of games: {gameDetails?.genres.map((genre) => genre)}</p>
-            <p>Platforms: {gameDetails?.platforms.map((platform) => platform)}</p>
-            <p>Involved companies: {gameDetails?.involved_companies.map((company) => company)}</p>
-            <p>{gameDetails?.summary}</p>
-          </div>
-        )}
-        {tabSelected === 2 && (
-          <div>
-            <h2>Critiques</h2>
-          </div>
-        )}
-        {tabSelected === 3 && (
-          <div>
-            <h2>Ma critique</h2>
-          </div>
-        )}
-      </section>
-    </main>
+          )}
+        </nav>
+        <section>
+          {tabSelected === 1 && (
+            <div className={styles['tab-content']}>
+              <p>Type of games: {gameDetails?.genres.map((genre) => genre).join(', ')}</p>
+              <p>Platforms: {gameDetails?.platforms.map((platform) => platform).join(', ')}</p>
+              <p>
+                Involved companies:
+                {gameDetails?.involved_companies.map((company) => company).join(', ')}
+              </p>
+              <p>{gameDetails?.summary}</p>
+            </div>
+          )}
+          {tabSelected === 2 && (
+            <div>
+              <h2>Critiques</h2>
+              {/* todo : add critics here */}
+            </div>
+          )}
+          {tabSelected === 3 && (
+            <div>
+              <h2>Ma critique</h2>
+              <UserReview gameId={id} />
+            </div>
+          )}
+        </section>
+      </div>
+    </div>
   );
 };
 

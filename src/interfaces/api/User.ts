@@ -1,4 +1,3 @@
-import { GamePreview } from "./Game";
 
 export interface User {
     email: string | null;
