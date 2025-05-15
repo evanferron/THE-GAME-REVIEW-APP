@@ -63,8 +63,7 @@ const Register = () => {
         setApiError(message);
         return;
       }
-
-      dispatch(setUser({ token, user }));
+      
       navigate('/');
     } catch (error: any) {
       setApiError(error.message);

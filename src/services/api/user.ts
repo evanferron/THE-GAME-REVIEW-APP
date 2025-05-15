@@ -1,4 +1,6 @@
 import axiosInstance from '@utils/api/axiosInstance';
+import { store } from '../../services/store/store';
+import { logout, setTokens } from '../../services/store/slices/auth';
 
 
 export const getUserDetails = async () => {
@@ -68,6 +70,7 @@ export const deleteUserAccount = async () => {
         if (status !== 200) {
             throw new Error('An error occurred while fetching user details.');
         }
+        store.dispatch(logout());
         console.log('Account deleted successfully');
         return data.data;
     } catch (error) {

@@ -25,7 +25,7 @@ const Router = () => {
         {/* ### Routes protégées ### */}
         
         <Route
-          path="/profile"
+          path="/profil"
           element={
             <PrivateRoute>
               <Profile></Profile>

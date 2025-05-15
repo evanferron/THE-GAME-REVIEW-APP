@@ -3,6 +3,7 @@ import styles from './AccountSettings.module.scss';
 import { UserDetailsData } from '@interfaces/api/User';
 import { updateUserDetails, updateUserPassword, deleteUserAccount } from '@api/user';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import Navbar from '@components/layout/Nav';
 
 const AccountSettings = () => {
   const location = useLocation();
@@ -114,6 +115,7 @@ const AccountSettings = () => {
 
   return (
     <div className={styles['account-settings']}>
+      <Navbar />
       <div className={styles['account-settings-container']}>
         <header className={styles.header}>
           <button className={styles.backButton} onClick={() => window.history.back()}>

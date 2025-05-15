@@ -3,8 +3,11 @@ import { useEffect, useState } from 'react';
 import { getUserDetails } from '@api/user';
 import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
 import { UserDetailsData } from '@interfaces/api/User';
-
+import { getUserDetails } from '@api/user';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '@components/layout/Nav';
 import styles from './Profile.module.scss';
+
 
 const Profile = () => {
   const [userDetails, setUserDetails] = useState<UserDetailsData | null>(null);
@@ -44,6 +47,7 @@ const Profile = () => {
 
   return (
     <div className={styles['profile']}>
+      <Navbar />
       <div className={styles['profile-container']}>
         {/* mettre la navbar */}
         {/* Profile Card */}
