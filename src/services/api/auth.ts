@@ -6,7 +6,6 @@ import { store } from '../store/store';
 
 const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
 const API_KEY = import.meta.env.VITE_API_KEY;
-//const isDev = import.meta.env.MODE === 'development';
 const isDev = import.meta.env.MODE === 'test';
 
 /**
@@ -31,7 +30,7 @@ export const login = async (email: string, password: string) => {
       return { user: { email, pseudo: 'DevUser' } };
     }
 
-    var { data, status } = await axiosInstance.post(
+    let { data, status } = await axiosInstance.post(
       `${BASE_URL}/auth/login`,
       { email, password },
       { headers: { 'x-api-key': API_KEY } }
@@ -39,7 +38,7 @@ export const login = async (email: string, password: string) => {
 
     data = data.data
 
-    if (status !== 201) {
+    if (status !== 200) {
       throw new Error('An error occurred during login.');
     }
 
@@ -59,7 +58,7 @@ export const login = async (email: string, password: string) => {
 
     return { success: true, user: data.user, token: data.token };
   } catch (error: any) {
-    return { success: false, message: error.response?.data?.message || 'An error occurred during login.' };
+    return { success: false, message: error.response?.data?.message ?? 'An error occurred during login.' };
   }
 };
 
@@ -95,7 +94,7 @@ export const register = async (
       return { user: { email, pseudo: 'DevUser' } };
     }
 
-    var { data, status } = await axiosInstance.post(
+    let { data, status } = await axiosInstance.post(
       `${BASE_URL}/auth/register`,
       {
         email,
@@ -124,6 +123,6 @@ export const register = async (
 
     return { success: true, user: data.user, token: data.token };
   } catch (error: any) {
-    return { success: false, message: error.response?.data?.message || 'An error occurred' };
+    return { success: false, message: error.response?.data?.message ?? 'An error occurred' };
   }
 };

@@ -34,3 +34,22 @@ export const createReview = async (gameId: number, rate: number, reviewText: str
         throw error;
     }
 }
+
+export const likeReview = async (reviewId: number) => {
+    try {
+        const response = await axiosInstance.post(`/reviews/like`, {
+            review_id: reviewId,
+        });
+
+        console.log('response', response);
+
+        if (!response) {
+            throw new Error('Failed to like review');
+        }
+
+        return response;
+    } catch (error) {
+        console.error('Error liking review:', error);
+        throw error;
+    }
+}
