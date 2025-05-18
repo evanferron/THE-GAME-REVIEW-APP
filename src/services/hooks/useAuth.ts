@@ -30,7 +30,7 @@ const useAuth = () => {
     };
 
     const signOut = () => {
-        Cookies.remove('tashToken');
+        Cookies.remove('token');
         dispatch(logout());
     };
 

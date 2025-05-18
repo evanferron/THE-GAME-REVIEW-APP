@@ -2,7 +2,9 @@ import axiosInstance from "@utils/api/axiosInstance";
 
 export const getMyReviewForAgame = async (gameId: number) => {
     try {
-        const response = await axiosInstance.get(`/reviews/?game_id${gameId}`);
+        const response = await axiosInstance.get(`/review/my_review_for_game/${gameId}`);
+
+        console.log('Response:', response);
 
         if (!response) {
             throw new Error('Failed to fetch review');
@@ -18,7 +20,7 @@ export const getMyReviewForAgame = async (gameId: number) => {
 
 export const createReview = async (gameId: number, rate: number, reviewText: string) => {
     try {
-        const response = await axiosInstance.post('/reviews', {
+        const response = await axiosInstance.post('/review', {
             game_id: gameId,
             rate,
             review: reviewText,
@@ -37,11 +39,10 @@ export const createReview = async (gameId: number, rate: number, reviewText: str
 
 export const likeReview = async (reviewId: number) => {
     try {
-        const response = await axiosInstance.post(`/reviews/like`, {
+        const response = await axiosInstance.post(`/review/like`, {
             review_id: reviewId,
         });
 
-        console.log('response', response);
 
         if (!response) {
             throw new Error('Failed to like review');

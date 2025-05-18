@@ -1,9 +1,10 @@
+import { UUID } from 'crypto';
 import { FcLike } from 'react-icons/fc';
 
 import styles from './Review.module.scss';
 
 interface ReviewProps {
-  id: number;
+  id: UUID;
   title: string;
   description: string;
   rating: number;
@@ -13,7 +14,7 @@ interface ReviewProps {
   creatorPictureId: number;
 }
 
-const ReviewCard = ({
+export const ReviewCard = ({
   id,
   title,
   description,

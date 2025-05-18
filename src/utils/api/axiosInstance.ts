@@ -27,7 +27,6 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const state = store.getState();
     const token = state.auth.token;
-
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -40,7 +39,6 @@ axiosInstance.interceptors.response.use(
   (response) => response,
 
   async (error) => {
-    console.log('tset');
     const originalRequest = error.config;
 
     if (error.response.status === 401 && !originalRequest._retry) {
@@ -55,9 +53,9 @@ axiosInstance.interceptors.response.use(
 
       originalRequest._retry = true;
       isRefreshing = true;
-
       try {
         const refreshToken = Cookies.get('refreshToken');
+        console.log('Refresh token:', refreshToken);
         if (!refreshToken) throw new Error('No refresh token available');
         const response = await axios.post(BASE_URL + '/auth/refresh', { refreshToken });
 
@@ -72,7 +70,7 @@ axiosInstance.interceptors.response.use(
       } catch (err) {
         store.dispatch(logout());
         isRefreshing = false;
-        return Promise.reject(new Error('An error occurred during token refresh.'));
+        console.log('An error occurred during token refresh :', err);
       }
     }
     return Promise.reject(new Error(error));

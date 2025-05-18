@@ -34,21 +34,16 @@ const Login = () => {
     e.preventDefault();
     setApiError(null);
 
-    // ### Form validation ### //
     const validationErrors = validateLogin(email, password);
     setErrorsForm(validationErrors);
 
-    // ### Abort if there are errors ### //
     if (validationErrors !== null) {
       return;
     }
 
     try {
-      // ### Send form data ### //
-
       const { success } = await login(email, password);
 
-      // ### Save API response data ### //
       if (!success) {
         setApiError('Incorrect email or password');
         return;
