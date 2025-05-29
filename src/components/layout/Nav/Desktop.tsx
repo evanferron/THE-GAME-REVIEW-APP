@@ -23,7 +23,7 @@ const DesktopNavbar = () => {
     <nav className={styles['navbar']}>
       <div className={styles['navbar-left']}>
         <button onClick={() => navigate('/')}>
-          <img src="../../../public/assets/icons/logo.svg" alt="logo" />
+          <img src="/assets/icons/logo.svg" alt="logo" />
           <h1>The Game Review</h1>
         </button>
       </div>
@@ -46,10 +46,10 @@ const DesktopNavbar = () => {
       {isAuthenticated ? (
         <div className={styles['navbar-right']}>
           <button onClick={() => navigate('/recherche')}>
-            <img src="../../../public/assets/icons/search.svg" alt="search" />
+            <img src="/assets/icons/search.svg" alt="search" />
           </button>
           <img
-            src="../../../public/assets/pictures/profile-photo-test.svg"
+            src="/assets/pictures/profile-photo-test.svg"
             alt="profil"
             onClick={() => navigate('/profil')}
           />

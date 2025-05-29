@@ -29,7 +29,8 @@ const UserReview = ({ gameId }: { gameId: number }) => {
     try {
       const { data } = await getMyReviewForAgame(gameId);
       console.log('Response:', data);
-      setReview(data.data);
+      if (!data) setReview(null);
+      else setReview(data.data);
     } catch (error) {
       setError('Failed to fetch review. Please try again later.');
       console.error('Error fetching review:', error);

@@ -10,6 +10,22 @@
   align-items: center;
   width: 100%;
   z-index: 1000;
+
+  &.loading,
+  &.error {
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    animation: fadeIn 0.4s;
+  }
 }
 
 .modal-content {
@@ -151,4 +167,9 @@
 
 .tab-content{
   margin-top: 15px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

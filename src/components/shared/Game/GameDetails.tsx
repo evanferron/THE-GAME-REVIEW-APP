@@ -7,10 +7,10 @@ import { ReviewData } from '@interfaces/api/Review';
 import { FaHeart } from 'react-icons/fa';
 import { MdOutlineClose } from 'react-icons/md';
 
-import defaultCoverUrl from '../../../../public/assets/images/others/default_game.png';
 import { ReviewCard } from '../Review/ReviewCard';
 import styles from './GameDetails.module.scss';
 import UserReview from './UserReview';
+import defaultCoverUrl from '/assets/images/others/default_game.png';
 
 interface GameDetailsProps {
   id: number;
@@ -31,8 +31,7 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
     setLoading(true);
     try {
       const { data } = await getGameReviews(id);
-      if (data == null) return;
-      if (data.success) {
+      if (data?.success) {
         setGameReviews(data.data);
       }
     } catch (error) {
@@ -50,8 +49,9 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
     } catch (error) {
       setError('Failed to fetch game details. Please try again later.');
       console.error('Error fetching game details:', error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -83,11 +83,11 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
   };
 
   if (loading) {
-    return <div className={styles['modal-overlay']}>Loading...</div>;
+    return <div className={`${styles['modal-overlay']} ${styles['loading']}`}>Loading...</div>;
   }
 
   if (error) {
-    return <div className={styles['modal-overlay']}>{error}</div>;
+    return <div className={`${styles['modal-overlay']} ${styles['error']}`}>{error}</div>;
   }
 
   return (
