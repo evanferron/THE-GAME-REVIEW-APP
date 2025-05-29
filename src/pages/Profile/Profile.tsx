@@ -16,9 +16,6 @@ const Profile = () => {
 
   useEffect(() => {
     document.title = 'The game review | 404';
-    console.log(loading);
-    console.log(error);
-
     const fetchUserDetails = async () => {
       setLoading(true);
       try {

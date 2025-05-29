@@ -13,7 +13,6 @@ const isDev = import.meta.env.MODE === 'test';
 export const login = async (email: string, password: string) => {
   try {
     if (isDev) {
-      console.log('[DEV MODE] Login simulation');
       const devToken = 'dev-token';
       const devUser = { email, pseudo: 'DevUser' };
       const devRefreshToken = 'dev-refresh-token';
@@ -26,7 +25,6 @@ export const login = async (email: string, password: string) => {
       { headers: { 'x-api-key': API_KEY } }
     );
 
-    console.log('Login response:', data);
     data = data.data
 
     if (status !== 200) {
@@ -58,7 +56,6 @@ export const register = async (
       return { success: false, message: 'The password doesn\'t match' };
     }
     if (isDev) {
-      console.log('[DEV MODE] Login simulation');
       const devToken = 'dev-token';
       const devUser = { email, pseudo: 'DevUser' };
       const devRefreshToken = 'dev-refresh-token';

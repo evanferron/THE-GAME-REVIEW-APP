@@ -10,7 +10,6 @@ import styles from './Nav.module.scss';
 const DesktopNavbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated);
   const url = window.location.pathname;
   const [activeButton, setActiveButton] = useState<string | null>(null); // Initialise l'état avec null, aucun bouton n'est actif par défaut
 

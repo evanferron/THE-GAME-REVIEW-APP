@@ -28,7 +28,6 @@ const UserReview = ({ gameId }: { gameId: number }) => {
     setLoading(true);
     try {
       const { data } = await getMyReviewForAgame(gameId);
-      console.log('Response:', data);
       if (!data) setReview(null);
       else setReview(data.data);
     } catch (error) {

@@ -28,7 +28,6 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const state = store.getState();
     const token = state.auth.token ?? getToken();
-    console.log('Current token:', token);
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -57,7 +56,6 @@ axiosInstance.interceptors.response.use(
       isRefreshing = true;
       try {
         const refreshToken = Cookies.get('refreshToken');
-        console.log('Refresh token:', refreshToken);
         if (!refreshToken) throw new Error('No refresh token available');
         const response = await axios.post(BASE_URL + '/auth/refresh', { refreshToken });
 
@@ -71,8 +69,9 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest);
       } catch (err) {
         store.dispatch(logout());
+        console.error('Error refreshing token:', err);
+      } finally {
         isRefreshing = false;
-        console.log('An error occurred during token refresh :', err);
       }
     }
     return Promise.reject(new Error(error));

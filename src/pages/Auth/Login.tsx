@@ -44,7 +44,6 @@ const Login = () => {
 
     try {
       await signIn({ email, password });
-      console.log('Login successful');
       goHome();
     } catch (error: any) {
       setApiError(error.message);
