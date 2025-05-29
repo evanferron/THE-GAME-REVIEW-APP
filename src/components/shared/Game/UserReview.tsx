@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { createReview, getMyReviewForAgame } from '@api/review';
 import useAuth from '@hooks/useAuth';
+import { ReviewData } from '@interfaces/api/Review';
 import Spinner from 'react-bootstrap/Spinner';
 import { FaRegStar, FaStar } from 'react-icons/fa';
 
+import { ReviewCard } from '../Review/ReviewCard';
 import style from './UserReview.module.scss';
 
 const UserReview = ({ gameId }: { gameId: number }) => {
@@ -14,7 +16,7 @@ const UserReview = ({ gameId }: { gameId: number }) => {
   const [publishLoading, setPublishLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
-  const [review, setReview] = useState(null);
+  const [review, setReview] = useState<ReviewData | null>(null);
   const [rate, setRate] = useState(0);
   const [reviewText, setReviewText] = useState('');
   const MAX_RATE = 10;
@@ -28,6 +30,7 @@ const UserReview = ({ gameId }: { gameId: number }) => {
       setLoading(true);
       try {
         const { data } = await getMyReviewForAgame(gameId);
+        console.log('Response:', data);
         setReview(data.data);
       } catch (error) {
         setError('Failed to fetch review. Please try again later.');
@@ -53,10 +56,6 @@ const UserReview = ({ gameId }: { gameId: number }) => {
     setPublishLoading(true);
     if (!isAuthenticated) {
       setFormError('You must be logged in to review.');
-      return;
-    }
-    if (rate === 0) {
-      setFormError('Please select a rating.');
       return;
     }
     if (reviewText.length < 10) {
@@ -123,7 +122,17 @@ const UserReview = ({ gameId }: { gameId: number }) => {
     );
   }
 
-  return <div>UserCritique</div>;
+  return (
+    <ReviewCard
+      id={review.id}
+      description={review.review ?? ''}
+      rating={review.rating ?? 0}
+      likes={review.likes ?? 0}
+      date={review.createdAt}
+      creatorName={review.owner_pseudo}
+      creatorPictureId={review.owner_picture}
+    />
+  );
 };
 
 export default UserReview;

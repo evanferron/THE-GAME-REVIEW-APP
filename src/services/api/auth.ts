@@ -20,14 +20,8 @@ export const login = async (email: string, password: string) => {
       console.log('[DEV MODE] Login simulation');
       const devToken = 'dev-token';
       const devUser = { email, pseudo: 'DevUser' };
-      store.dispatch(setUser({ token: devToken, user: devUser }));
       const devRefreshToken = 'dev-refresh-token';
-      Cookies.set('refreshToken', devRefreshToken, {
-        expires: 7,
-        secure: true,
-        sameSite: 'Strict',
-      });
-      return { user: { email, pseudo: 'DevUser' } };
+      return { success: true, token: devToken, user: devUser, refreshToken: devRefreshToken };
     }
 
     let { data, status } = await axiosInstance.post(
@@ -48,15 +42,9 @@ export const login = async (email: string, password: string) => {
       pseudo: data.pseudo,
     };
 
-    store.dispatch(setUser({ token: data.token, user: user }));
+    store.dispatch(setUser({ token: data.token, user: user, refreshToken: data.refreshToken }));
 
-    Cookies.set('refreshToken', data.refreshToken, {
-      expires: 7,
-      secure: true,
-      sameSite: 'Strict',
-    });
-
-    return { success: true, user: data.user, token: data.token };
+    return { success: true, user: data.user, token: data.token, refreshToken: data.refreshToken };
   } catch (error: any) {
     return { success: false, message: error.response?.data?.message ?? 'An error occurred during login.' };
   }
@@ -81,17 +69,11 @@ export const register = async (
       return { success: false, message: 'The password doesn\'t match' };
     }
     if (isDev) {
-      console.log('[DEV MODE] Register simulation');
+      console.log('[DEV MODE] Login simulation');
       const devToken = 'dev-token';
       const devUser = { email, pseudo: 'DevUser' };
-      store.dispatch(setUser({ token: devToken, user: devUser }));
       const devRefreshToken = 'dev-refresh-token';
-      Cookies.set('refreshToken', devRefreshToken, {
-        expires: 7,
-        secure: true,
-        sameSite: 'Strict',
-      });
-      return { user: { email, pseudo: 'DevUser' } };
+      return { success: true, token: devToken, user: devUser, refreshToken: devRefreshToken };
     }
 
     let { data, status } = await axiosInstance.post(
@@ -114,14 +96,7 @@ export const register = async (
 
     if (status !== 201) throw new Error('Registration failed.');
 
-    store.dispatch(setUser({ token: data.token, user: user }));
-    Cookies.set('refreshToken', data.refreshToken, {
-      expires: 7,
-      secure: true,
-      sameSite: 'Strict',
-    });
-
-    return { success: true, user: data.user, token: data.token };
+    return { success: true, user: data.user, token: data.token, refreshToken: data.refreshToken };
   } catch (error: any) {
     return { success: false, message: error.response?.data?.message ?? 'An error occurred' };
   }

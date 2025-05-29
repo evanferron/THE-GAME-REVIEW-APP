@@ -31,7 +31,9 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
     setLoading(true);
     try {
       const { data } = await getGameReviews(id);
-      setGameReviews(data);
+      if (data.success) {
+        setGameReviews(data.data);
+      }
     } catch (error) {
       setError('Failed to fetch game reviews. Please try again later.');
       console.error('Error fetching game reviews:', error);
@@ -170,7 +172,6 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
                     <ReviewCard
                       key={review.id}
                       id={review.id}
-                      title={review.owner_pseudo}
                       description={review.review ?? ''}
                       rating={review.rating}
                       likes={review.likes}

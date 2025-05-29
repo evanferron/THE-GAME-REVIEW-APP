@@ -10,7 +10,7 @@ export const getMyReviewForAgame = async (gameId: number) => {
             throw new Error('Failed to fetch review');
         }
 
-        return response;
+        return response.data;
     } catch (error) {
         console.error('Error fetching review:', error);
         throw error;
@@ -22,7 +22,7 @@ export const createReview = async (gameId: number, rate: number, reviewText: str
     try {
         const response = await axiosInstance.post('/review', {
             game_id: gameId,
-            rate,
+            rating: rate,
             review: reviewText,
         });
 

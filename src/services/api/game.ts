@@ -16,6 +16,8 @@ export const getGameDetails = async (id: number) => {
 export const getGameReviews = async (id: number) => {
   try {
     const { data, status } = await axiosInstance.get(`/review/get_by_game_id/${id}`);
+    console.log('Game reviews data:', data);
+    console.log('Game reviews status:', status);
     if (status !== 200) {
       throw new Error('An error occurred while fetching game reviews.');
     }

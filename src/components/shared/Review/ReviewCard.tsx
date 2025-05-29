@@ -5,7 +5,6 @@ import styles from './Review.module.scss';
 
 interface ReviewProps {
   id: UUID;
-  title: string;
   description: string;
   rating: number;
   likes: number;
@@ -16,7 +15,6 @@ interface ReviewProps {
 
 export const ReviewCard = ({
   id,
-  title,
   description,
   rating,
   likes,
@@ -24,32 +22,41 @@ export const ReviewCard = ({
   creatorName,
   creatorPictureId,
 }: ReviewProps) => {
+  // Définir la longueur max d'affichage
+  const MAX_LENGTH = 180;
+  const isLong = description.length > MAX_LENGTH;
+  const shortDescription = isLong ? description.slice(0, MAX_LENGTH) + '…' : description;
+
   return (
-    <div className={styles.review}>
+    <div className={styles.review} key={id}>
       <div className={styles.left_container}>
-        <img src={`/assets/pictures/banner_picture_${creatorPictureId}.jpg`} alt="profile banner" />
-        <p>{rating}</p>
+        <img
+          src={`/assets/pictures/profil_picture_${creatorPictureId}.jpg`}
+          alt="profile banner"
+          className={styles['profile_picture']}
+        />
+        <div
+          className={
+            rating >= 7 ? styles.rating_circle : `${styles.rating_circle} ${styles.yellow}`
+          }
+        >
+          {rating}
+        </div>
       </div>
       <div className={styles.right_container}>
-        <p>
-          Critique de {creatorName} le {date}
-        </p>
-        <h2 className={styles.review_title}>{title}</h2>
-        <p className={styles.review_description}>{description}</p>
-        <button
-        // todo : add a link to the review details page
-        >
-          Lire la critique
-        </button>
+        <div className={styles.review_header}>
+          Critique de <span>@{creatorName}</span>
+          <span className={styles.review_date}>le {date}</span>
+        </div>
+        <p className={styles.review_description}>{shortDescription}</p>
         <div className={styles.review_details}>
           <span className={styles.like_container}>
             <button>
-              <FcLike
-              // todo : show the hear icon red if already like by the current user
-              />
+              <FcLike />
             </button>
             <p>{likes}</p>
           </span>
+          <button className={styles.review_button}>Lire la critique</button>
         </div>
       </div>
     </div>

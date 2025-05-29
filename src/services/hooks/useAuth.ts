@@ -13,7 +13,7 @@ const useAuth = () => {
     const signIn = async (credentials: { email: string; password: string }) => {
         const response = await login(credentials.email, credentials.password);
         if (response.success) {
-            dispatch(setUser({ token: response.token, user: response.user }));
+            dispatch(setUser({ token: response.token, user: response.user, refreshToken: response.refreshToken }));
         } else {
             console.error("Erreur de connexion :", response.message);
         }
@@ -23,7 +23,7 @@ const useAuth = () => {
         const response = await register(credentials.email, credentials.username, credentials.password, credentials.confirmPassword);
 
         if (response.success) {
-            dispatch(setUser({ token: response.token, user: response.user }));
+            dispatch(setUser({ token: response.token, user: response.user, refreshToken: response.refreshToken }));
         } else {
             console.error("Erreur d'inscription :", response.message);
         }
