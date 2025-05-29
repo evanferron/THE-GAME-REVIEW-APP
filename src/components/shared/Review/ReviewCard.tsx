@@ -27,6 +27,18 @@ export const ReviewCard = ({
   const isLong = description.length > MAX_LENGTH;
   const shortDescription = isLong ? description.slice(0, MAX_LENGTH) + '…' : description;
 
+  // Formater la date et l'heure en français
+  const dateObj = new Date(date);
+  const formattedDate = dateObj.toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+  const formattedTime = dateObj.toLocaleTimeString('fr-FR', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
   return (
     <div className={styles.review} key={id}>
       <div className={styles.left_container}>
@@ -46,7 +58,9 @@ export const ReviewCard = ({
       <div className={styles.right_container}>
         <div className={styles.review_header}>
           Critique de <span>@{creatorName}</span>
-          <span className={styles.review_date}>le {date}</span>
+          <span className={styles.review_date}>
+            le {formattedDate} à {formattedTime}
+          </span>
         </div>
         <p className={styles.review_description}>{shortDescription}</p>
         <div className={styles.review_details}>

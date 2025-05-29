@@ -24,20 +24,20 @@ const UserReview = ({ gameId }: { gameId: number }) => {
   if (!isAuthenticated) {
     setError('You must be logged in to review.');
   }
+  const getMyReview = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getMyReviewForAgame(gameId);
+      console.log('Response:', data);
+      setReview(data.data);
+    } catch (error) {
+      setError('Failed to fetch review. Please try again later.');
+      console.error('Error fetching review:', error);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const getMyReview = async () => {
-      setLoading(true);
-      try {
-        const { data } = await getMyReviewForAgame(gameId);
-        console.log('Response:', data);
-        setReview(data.data);
-      } catch (error) {
-        setError('Failed to fetch review. Please try again later.');
-        console.error('Error fetching review:', error);
-      }
-      setLoading(false);
-    };
     getMyReview();
   }, []);
 
@@ -69,6 +69,7 @@ const UserReview = ({ gameId }: { gameId: number }) => {
       setRate(0);
       setReviewText('');
     }
+    await getMyReview();
     setPublishLoading(false);
   };
 

@@ -4,8 +4,6 @@ export const getMyReviewForAgame = async (gameId: number) => {
     try {
         const response = await axiosInstance.get(`/review/my_review_for_game/${gameId}`);
 
-        console.log('Response:', response);
-
         if (!response) {
             throw new Error('Failed to fetch review');
         }

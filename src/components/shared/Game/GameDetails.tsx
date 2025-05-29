@@ -111,7 +111,7 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
             <p>{gameDetails?.franchises}</p>
             <div>
               <div>
-                <p>{roundRating(gameDetails?.aggregated_rating)}</p>
+                <p>{roundRating((gameDetails?.aggregated_rating as number) / 10)}</p>
               </div>
               {gameDetails?.userRate && (
                 <div className={styles['user-rate']}>

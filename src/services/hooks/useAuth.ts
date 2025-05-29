@@ -12,7 +12,6 @@ const useAuth = () => {
 
     const user = useSelector((state: RootState) => {
         if (!state.auth.user) {
-            console.log("User not found in state, fetching from cookies");
             const user = getUser();
             if (!user) {
                 console.error("No user found in cookies");
