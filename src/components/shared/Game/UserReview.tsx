@@ -2,17 +2,21 @@ import { useEffect, useState } from 'react';
 
 import { createReview, getMyReviewForAgame } from '@api/review';
 import useAuth from '@hooks/useAuth';
+import { ReviewData } from '@interfaces/api/Review';
 import Spinner from 'react-bootstrap/Spinner';
 import { FaRegStar, FaStar } from 'react-icons/fa';
+
+import { ReviewCard } from '../Review/ReviewCard';
+import style from './UserReview.module.scss';
 
 const UserReview = ({ gameId }: { gameId: number }) => {
   const { isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(true);
 
-  const [publishLoading, setPublishLoading] = useState(true);
+  const [publishLoading, setPublishLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
-  const [review, setReview] = useState(null);
+  const [review, setReview] = useState<ReviewData | null>(null);
   const [rate, setRate] = useState(0);
   const [reviewText, setReviewText] = useState('');
   const MAX_RATE = 10;
@@ -20,25 +24,30 @@ const UserReview = ({ gameId }: { gameId: number }) => {
   if (!isAuthenticated) {
     setError('You must be logged in to review.');
   }
+  const getMyReview = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getMyReviewForAgame(gameId);
+      console.log('Response:', data);
+      if (!data) setReview(null);
+      else setReview(data.data);
+    } catch (error) {
+      setError('Failed to fetch review. Please try again later.');
+      console.error('Error fetching review:', error);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    console.log(formError);
-    const getMyReview = async () => {
-      setLoading(true);
-      try {
-        const { data } = await getMyReviewForAgame(gameId);
-        setReview(data);
-      } catch (error) {
-        setError('Failed to fetch review. Please try again later.');
-        console.error('Error fetching review:', error);
-      }
-      setLoading(false);
-    };
     getMyReview();
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Spinner animation="border">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
   if (error) {
     return <div>{error}</div>;
@@ -48,10 +57,6 @@ const UserReview = ({ gameId }: { gameId: number }) => {
     setPublishLoading(true);
     if (!isAuthenticated) {
       setFormError('You must be logged in to review.');
-      return;
-    }
-    if (rate === 0) {
-      setFormError('Please select a rating.');
       return;
     }
     if (reviewText.length < 10) {
@@ -65,30 +70,37 @@ const UserReview = ({ gameId }: { gameId: number }) => {
       setRate(0);
       setReviewText('');
     }
+    await getMyReview();
     setPublishLoading(false);
   };
 
   if (!review) {
     return (
-      <div>
-        <p>Note</p>
-        <div>
-          {[...Array(MAX_RATE)].map((value, index) => {
+      <div className={style['form']}>
+        <p>Note :</p>
+        <div className={style['stars_container']}>
+          {[...Array(MAX_RATE).keys()].map((value) => {
             return (
               <button
-                key={value}
+                key={value + 1}
                 onClick={() => {
-                  setRate(value);
+                  if (value + 1 == rate) {
+                    setRate(0);
+                  } else {
+                    setRate(value + 1);
+                  }
                 }}
+                className={style['star']}
               >
-                {rate >= index + 1 ? (
-                  <FaStar className="text-yellow-500" />
+                {rate >= value + 1 ? (
+                  <FaStar className={style['yellow']} />
                 ) : (
-                  <FaRegStar className="text-gray-400" />
+                  <FaRegStar className={style['grey']} />
                 )}
               </button>
             );
           })}
+          <p>{rate}/10</p>
         </div>
 
         <label htmlFor="review">Review</label>
@@ -99,7 +111,7 @@ const UserReview = ({ gameId }: { gameId: number }) => {
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
         ></textarea>
-        <button onClick={handlePublish}>
+        <button onClick={handlePublish} className={style['publish']}>
           {publishLoading ? (
             <Spinner animation="border">
               <span className="visually-hidden">Loading...</span>
@@ -112,7 +124,17 @@ const UserReview = ({ gameId }: { gameId: number }) => {
     );
   }
 
-  return <div>UserCritique</div>;
+  return (
+    <ReviewCard
+      id={review.id}
+      description={review.review ?? ''}
+      rating={review.rating ?? 0}
+      likes={review.likes ?? 0}
+      date={review.createdAt}
+      creatorName={review.owner_pseudo}
+      creatorPictureId={review.owner_picture}
+    />
+  );
 };
 
 export default UserReview;

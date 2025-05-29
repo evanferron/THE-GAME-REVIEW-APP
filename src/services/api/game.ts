@@ -13,20 +13,32 @@ export const getGameDetails = async (id: number) => {
   }
 };
 
+export const getGameReviews = async (id: number) => {
+  try {
+    const { data, status } = await axiosInstance.get(`/review/get_by_game_id/${id}`);
+    console.log('Game reviews data:', data);
+    if (status !== 200) {
+      throw new Error('An error occurred while fetching game reviews.');
+    }
+    return data;
+  } catch (error) {
+    console.error('Error fetching game reviews:', error);
+    throw error;
+  }
+}
+
 export const getTendanceGames = async () => {
   try {
     const response = await axiosInstance.get('/game/top');
-    console.log('Trending games:', response);
     if (response.status !== 200) {
       throw new Error(`Failed to fetch trending games. Status code: ${response.status}`);
     }
     if (!response.data.success) {
       throw new Error('Failed to fetch trending games. No data returned.');
     }
-    console.log('Trending games:', response);
     return response.data.data;
   } catch (error: any) {
-    console.error('Error fetching trending games:', error.message || error);
+    console.error('Error fetching trending games:', error.message ?? error);
     throw new Error('An error occurred while fetching trending games. Please try again later.');
   }
 };

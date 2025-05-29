@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { login } from '@api/auth';
+import useAuth from '@hooks/useAuth';
 import { validateLogin } from '@utils/validation/validators/auth';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { ValidatorErrorsLogin } from '../../interfaces/errors/Auth';
 import styles from './Auth.module.scss';
 
 const Login = () => {
+  const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // ### Errors ### //
@@ -34,26 +35,17 @@ const Login = () => {
     e.preventDefault();
     setApiError(null);
 
-    // ### Form validation ### //
     const validationErrors = validateLogin(email, password);
     setErrorsForm(validationErrors);
 
-    // ### Abort if there are errors ### //
     if (validationErrors !== null) {
       return;
     }
 
     try {
-      // ### Send form data ### //
-
-      const { success } = await login(email, password);
-
-      // ### Save API response data ### //
-      if (!success) {
-        setApiError('Incorrect email or password');
-        return;
-      }
-      navigate('/');
+      await signIn({ email, password });
+      console.log('Login successful');
+      goHome();
     } catch (error: any) {
       setApiError(error.message);
     }

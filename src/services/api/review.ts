@@ -2,13 +2,13 @@ import axiosInstance from "@utils/api/axiosInstance";
 
 export const getMyReviewForAgame = async (gameId: number) => {
     try {
-        const response = await axiosInstance.get(`/reviews/?game_id${gameId}`);
+        const response = await axiosInstance.get(`/review/my_review_for_game/${gameId}`);
 
         if (!response) {
             throw new Error('Failed to fetch review');
         }
 
-        return response;
+        return response.data;
     } catch (error) {
         console.error('Error fetching review:', error);
         throw error;
@@ -18,9 +18,9 @@ export const getMyReviewForAgame = async (gameId: number) => {
 
 export const createReview = async (gameId: number, rate: number, reviewText: string) => {
     try {
-        const response = await axiosInstance.post('/reviews', {
+        const response = await axiosInstance.post('/review', {
             game_id: gameId,
-            rate,
+            rating: rate,
             review: reviewText,
         });
 
@@ -31,6 +31,24 @@ export const createReview = async (gameId: number, rate: number, reviewText: str
         return response;
     } catch (error) {
         console.error('Error creating review:', error);
+        throw error;
+    }
+}
+
+export const likeReview = async (reviewId: number) => {
+    try {
+        const response = await axiosInstance.post(`/review/like`, {
+            review_id: reviewId,
+        });
+
+
+        if (!response) {
+            throw new Error('Failed to like review');
+        }
+
+        return response;
+    } catch (error) {
+        console.error('Error liking review:', error);
         throw error;
     }
 }

@@ -20,7 +20,7 @@ const ErrorPage = () => {
           We couldn’t find the page you <br />
           were looking for
         </p>
-        <Link to={navLinks.projects.href}>Go back to Home</Link>
+        <Link to={navLinks.home.href}>Go back to Home</Link>
       </div>
     </div>
   );

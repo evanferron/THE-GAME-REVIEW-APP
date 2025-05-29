@@ -1,6 +1,6 @@
 import axiosInstance from '@utils/api/axiosInstance';
 import { store } from '../../services/store/store';
-import { logout, setTokens } from '../../services/store/slices/auth';
+import { logout } from '../../services/store/slices/auth';
 
 
 export const getUserDetails = async () => {
@@ -21,11 +21,11 @@ export const getUserDetails = async () => {
     }
 }
 
-export const updateUserDetails = async (email : string, pseudo : string) => {
+export const updateUserDetails = async (email: string, pseudo: string) => {
     try {
         const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
         const API_KEY = import.meta.env.VITE_API_KEY;
-        
+
         const { data, status } = await axiosInstance.put(
             `${BASE_URL}/user/info`,
             { email, pseudo },
@@ -40,7 +40,7 @@ export const updateUserDetails = async (email : string, pseudo : string) => {
     }
 }
 
-export const updateUserPassword = async (password : string ) => {
+export const updateUserPassword = async (password: string) => {
     try {
         const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
         const API_KEY = import.meta.env.VITE_API_KEY;
@@ -61,7 +61,6 @@ export const updateUserPassword = async (password : string ) => {
 
 export const deleteUserAccount = async () => {
     try {
-        console.log("User deleting");
         const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
         const API_KEY = import.meta.env.VITE_API_KEY;
         const { data, status } = await axiosInstance.delete(
@@ -71,7 +70,6 @@ export const deleteUserAccount = async () => {
             throw new Error('An error occurred while fetching user details.');
         }
         store.dispatch(logout());
-        console.log('Account deleted successfully');
         return data.data;
     } catch (error) {
         console.error('Error fetching user details:', error);

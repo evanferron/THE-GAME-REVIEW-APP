@@ -2,17 +2,9 @@ import { NavItem } from '../interfaces/ui/Nav';
 
 // ### Liens pages ### //
 export const navLinks: Record<string, NavItem> = {
-  projects: {
-    label: 'projects',
-    href: '/projects',
-  },
-  dashboard: {
-    label: 'dashboard',
-    href: '/dashboard',
-  },
-  team: {
-    label: 'team',
-    href: '/team',
+  home: {
+    label: 'home',
+    href: '/',
   },
   profile: {
     label: 'profile',

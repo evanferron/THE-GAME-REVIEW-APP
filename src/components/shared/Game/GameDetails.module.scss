@@ -10,6 +10,22 @@
   align-items: center;
   width: 100%;
   z-index: 1000;
+
+  &.loading,
+  &.error {
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    animation: fadeIn 0.4s;
+  }
 }
 
 .modal-content {
@@ -32,6 +48,27 @@
       border-radius: 8px;
     }
 
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--green-100) var(--bg-100);
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background: var(--bg-100);
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--green-100), #05e14099);
+    border-radius: 8px;
+    min-height: 40px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #05e140, var(--green-100));
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--bg-100);
+    border-radius: 8px;
   }
 }
 
@@ -130,4 +167,9 @@
 
 .tab-content{
   margin-top: 15px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
