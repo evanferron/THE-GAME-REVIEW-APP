@@ -1,8 +1,4 @@
-import { setUser } from '@store/slices/auth';
 import axiosInstance from '@utils/api/axiosInstance';
-import Cookies from 'js-cookie';
-
-import { store } from '../store/store';
 
 const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -30,21 +26,14 @@ export const login = async (email: string, password: string) => {
       { headers: { 'x-api-key': API_KEY } }
     );
 
+    console.log('Login response:', data);
     data = data.data
 
     if (status !== 200) {
       throw new Error('An error occurred during login.');
     }
 
-
-    const user = {
-      email: email,
-      pseudo: data.pseudo,
-    };
-
-    store.dispatch(setUser({ token: data.token, user: user, refreshToken: data.refreshToken }));
-
-    return { success: true, user: data.user, token: data.token, refreshToken: data.refreshToken };
+    return { success: true, user: { pseudo: data.pseudo, email: email }, token: data.token, refreshToken: data.refreshToken };
   } catch (error: any) {
     return { success: false, message: error.response?.data?.message ?? 'An error occurred during login.' };
   }
@@ -88,11 +77,6 @@ export const register = async (
     );
 
     data = data.data
-
-    const user = {
-      email: email,
-      pseudo: data.pseudo,
-    };
 
     if (status !== 201) throw new Error('Registration failed.');
 

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import { getUserDetails } from '@api/user';
+import Navbar from '@components/layout/Nav';
 import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
 import { UserDetailsData } from '@interfaces/api/User';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '@components/layout/Nav';
-import styles from './Profile.module.scss';
 
+import styles from './Profile.module.scss';
 
 const Profile = () => {
   const [userDetails, setUserDetails] = useState<UserDetailsData | null>(null);

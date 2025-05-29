@@ -31,6 +31,7 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
     setLoading(true);
     try {
       const { data } = await getGameReviews(id);
+      if (data == null) return;
       if (data.success) {
         setGameReviews(data.data);
       }

@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 
 import { logout, setTokens } from '../../services/store/slices/auth';
 import { store } from '../../services/store/store';
+import { getToken } from './auth';
 
 const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
 
@@ -26,7 +27,7 @@ const onRefreshed = (token: string) => {
 axiosInstance.interceptors.request.use(
   (config) => {
     const state = store.getState();
-    const token = state.auth.token;
+    const token = state.auth.token ?? getToken();
     console.log('Current token:', token);
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;

@@ -3,19 +3,40 @@ import { setUser, logout } from "@store/slices/auth";
 import { RootState } from "@store/store";
 import { login, register } from "@api/auth";
 import Cookies from 'js-cookie';
+import { User } from "@interfaces/index";
+import { getUser } from "@utils/api/auth";
 
 
 const useAuth = () => {
     const dispatch = useDispatch();
 
-    const user = useSelector((state: RootState) => state.auth.user);
+    const user = useSelector((state: RootState) => {
+        if (!state.auth.user) {
+            console.log("User not found in state, fetching from cookies");
+            const user = getUser();
+            if (!user) {
+                console.error("No user found in cookies");
+                return null;
+            }
+            return {
+                token: user.token ?? '',
+                user: {
+                    email: user.email ?? '',
+                    pseudo: user.pseudo ?? '',
+                },
+                refreshToken: user.refreshToken ?? '',
+            }
+        }
+        return state.auth.user;
+    });
 
     const signIn = async (credentials: { email: string; password: string }) => {
         const response = await login(credentials.email, credentials.password);
         if (response.success) {
-            dispatch(setUser({ token: response.token, user: response.user, refreshToken: response.refreshToken }));
+            dispatch(setUser({ token: response.token, user: response.user as User, refreshToken: response.refreshToken }));
         } else {
             console.error("Erreur de connexion :", response.message);
+            throw new Error("Invalid credentials");
         }
     };
 
@@ -30,7 +51,9 @@ const useAuth = () => {
     };
 
     const signOut = () => {
-        Cookies.remove('token');
+        Cookies.remove('theGameReviewToken');
+        Cookies.remove('refreshToken');
+        Cookies.remove('pseudo');
         dispatch(logout());
     };
 
