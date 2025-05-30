@@ -177,8 +177,8 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
                       rating={review.rating}
                       likes={review.likes}
                       date={review.createdAt}
-                      creatorName={review.owner_pseudo}
-                      creatorPictureId={review.owner_picture}
+                      owner_pseudo={review.owner_pseudo}
+                      owner_picture={review.owner_picture}
                     ></ReviewCard>
                   ))}
                 </div>

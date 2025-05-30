@@ -130,8 +130,8 @@ const UserReview = ({ gameId }: { gameId: number }) => {
       rating={review.rating ?? 0}
       likes={review.likes ?? 0}
       date={review.createdAt}
-      creatorName={review.owner_pseudo}
-      creatorPictureId={review.owner_picture}
+      owner_pseudo={review.owner_pseudo}
+      owner_picture={review.owner_picture}
     />
   );
 };

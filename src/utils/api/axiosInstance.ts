@@ -61,10 +61,7 @@ axiosInstance.interceptors.response.use(
         if (!refreshToken) throw new Error('No refresh token available');
         const response = await axios.post(BASE_URL + '/auth/refresh', { refreshToken });
         const { token } = response.data.data;
-        console.log(response.data);
         store.dispatch(setTokens({ token }));
-
-        console.log("token : ", token);
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         onRefreshed(token);
         isRefreshing = false;
