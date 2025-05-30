@@ -43,7 +43,9 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     if (error.response.status === 401 && !originalRequest._retry) {
+      console.warn('Token expired, trying to refresh...');
       if (isRefreshing) {
+        console.warn('Already refreshing token, waiting for it to finish...');
         return new Promise((resolve) => {
           subscribeTokenRefresh((token) => {
             originalRequest.headers['Authorization'] = `Bearer ${token}`;
@@ -58,10 +60,11 @@ axiosInstance.interceptors.response.use(
         const refreshToken = Cookies.get('refreshToken');
         if (!refreshToken) throw new Error('No refresh token available');
         const response = await axios.post(BASE_URL + '/auth/refresh', { refreshToken });
-
-        const { token } = response.data;
+        const { token } = response.data.data;
+        console.log(response.data);
         store.dispatch(setTokens({ token }));
 
+        console.log("token : ", token);
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         onRefreshed(token);
         isRefreshing = false;

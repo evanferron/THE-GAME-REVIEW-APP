@@ -15,9 +15,11 @@ const Home = () => {
   const [mostReviewedGames, setMostReviewedGames] = useState([]);
   const [error, setError] = useState<string | null>(null);
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchGames = async () => {
+      setLoading(true);
       try {
         // Fetch trending games
         const trendingGames = await getTendanceGames();
@@ -38,6 +40,8 @@ const Home = () => {
       } catch (err) {
         console.error('Error fetching games:', err);
         setError('Failed to load games. Please try again later.');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -51,25 +55,36 @@ const Home = () => {
   return (
     <div className={styles['home']}>
       <Navbar />
-      <GameCarousel title="Les jeux" games={games} setGamePopup={setSelectedGame} />
-      <div className={styles['home__lists']}>
-        <LittleGameList
-          title="Les mieux notés"
-          games={bestRatedGames}
-          setGamePopup={setSelectedGame}
-        />
-        <LittleGameList
-          title="Les plus joués"
-          games={mostPlayedGames}
-          setGamePopup={setSelectedGame}
-        />
-        <LittleGameList
-          title="Les plus critiqués"
-          games={mostReviewedGames}
-          setGamePopup={setSelectedGame}
-        />
-      </div>
-      {selectedGame && <GameDetails id={selectedGame} setGamePopup={setSelectedGame}></GameDetails>}
+      {loading ? (
+        <div className={styles['loading']}>
+          <span>Chargement des jeux...</span>
+          <div className={styles['spinner']} />
+        </div>
+      ) : (
+        <>
+          <GameCarousel title="Les jeux" games={games} setGamePopup={setSelectedGame} />
+          <div className={styles['home__lists']}>
+            <LittleGameList
+              title="Les mieux notés"
+              games={bestRatedGames}
+              setGamePopup={setSelectedGame}
+            />
+            <LittleGameList
+              title="Les plus joués"
+              games={mostPlayedGames}
+              setGamePopup={setSelectedGame}
+            />
+            <LittleGameList
+              title="Les plus critiqués"
+              games={mostReviewedGames}
+              setGamePopup={setSelectedGame}
+            />
+          </div>
+          {selectedGame && (
+            <GameDetails id={selectedGame} setGamePopup={setSelectedGame}></GameDetails>
+          )}
+        </>
+      )}
     </div>
   );
 };

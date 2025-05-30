@@ -2,9 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, logout } from "@store/slices/auth";
 import { RootState } from "@store/store";
 import { login, register } from "@api/auth";
-import Cookies from 'js-cookie';
 import { User } from "@interfaces/index";
-import { getUser } from "@utils/api/auth";
+import { getToken, getUser } from "@utils/api/auth";
 
 
 const useAuth = () => {
@@ -50,13 +49,10 @@ const useAuth = () => {
     };
 
     const signOut = () => {
-        Cookies.remove('theGameReviewToken');
-        Cookies.remove('refreshToken');
-        Cookies.remove('pseudo');
         dispatch(logout());
     };
 
-    const isAuthenticated = Boolean(user);
+    const isAuthenticated = !!user && getToken() !== null && getToken() !== '' && getToken() !== undefined;
 
     return { user, isAuthenticated, signIn, signOut, signUp };
 };

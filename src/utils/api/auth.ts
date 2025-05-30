@@ -21,6 +21,13 @@ export const setUserCookie = (user: { token: string; refreshToken: string; email
     Cookies.set('pseudo', user.pseudo);
 }
 
+export const removeUserCookie = () => {
+    Cookies.remove('theGameReviewToken');
+    Cookies.remove('refreshToken');
+    Cookies.remove('email');
+    Cookies.remove('pseudo');
+}
+
 export const setToken = (token: string) => {
     Cookies.set('theGameReviewToken', token);
 }

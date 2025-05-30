@@ -1,9 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { AuthState } from '../../../interfaces/redux/AuthState';
-import { getToken, setUserCookie } from '@utils/api/auth';
+import { getToken, removeUserCookie, setToken, setUserCookie } from '@utils/api/auth';
 import { User } from '../../../interfaces/api/User';
-import Cookies from 'js-cookie';
 
 const token = getToken();
 
@@ -32,15 +31,13 @@ const authSlice = createSlice({
         },
         setTokens: (state, action: PayloadAction<{ token: string }>) => {
             state.token = action.payload.token;
+            setToken(state.token);
         },
         logout: (state) => {
             state.token = null;
             state.isAuthenticated = false
             state.user = null;
-            Cookies.remove('refreshToken');
-            Cookies.remove('token');
-            Cookies.remove('email');
-
+            removeUserCookie();
         }
     },
 });
