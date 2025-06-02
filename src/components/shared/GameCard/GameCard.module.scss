@@ -24,8 +24,6 @@
     position: absolute;
     top: 0.5rem;
     left: 0.5rem;
-    width: 4rem;
-    height: 100%;
     gap: 0.313rem; // 5px
     display: flex;
     flex-direction: column;
@@ -40,8 +38,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 1.875rem; // 30px
-    width: 1.875rem; // 30px
+    width: 3.5rem;
+    height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;

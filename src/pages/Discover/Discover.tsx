@@ -3,17 +3,13 @@ import { useEffect, useState } from 'react';
 import { getTendanceGames } from '@api/game';
 import Footer from '@components/layout/Footer/Footer';
 import Navbar from '@components/layout/Nav';
-import GameCarousel from '@components/shared/Carousel/Carousel';
 import GameDetails from '@components/shared/Game/GameDetails';
-import LittleGameList from '@components/shared/ListeLittleCards/ListLittleCards';
+import List from '@components/shared/List/List';
 
-import styles from './Home.module.scss';
+import styles from './Discover.module.scss';
 
-const Home = () => {
+const Discover = () => {
   const [games, setGames] = useState([]);
-  const [bestRatedGames, setBestRatedGames] = useState([]);
-  const [mostPlayedGames, setMostPlayedGames] = useState([]);
-  const [mostReviewedGames, setMostReviewedGames] = useState([]);
   const [error, setError] = useState<string | null>(null);
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
@@ -35,9 +31,6 @@ const Home = () => {
         }));
 
         setGames(formattedGames);
-        setBestRatedGames(formattedGames.slice(0, 5));
-        setMostPlayedGames(formattedGames.slice(5, 10));
-        setMostReviewedGames(formattedGames.slice(6, 11));
       } catch (err) {
         console.error('Error fetching games:', err);
         setError('Failed to load games. Please try again later.');
@@ -54,7 +47,7 @@ const Home = () => {
   }
 
   return (
-    <div className={styles['home']}>
+    <div className={styles['discover']}>
       <Navbar />
       {loading ? (
         <div className={styles['loading']}>
@@ -63,24 +56,7 @@ const Home = () => {
         </div>
       ) : (
         <>
-          <GameCarousel title="The games" games={games} setGamePopup={setSelectedGame} />
-          <div className={styles['home__lists']}>
-            <LittleGameList
-              title="Top rated"
-              games={bestRatedGames}
-              setGamePopup={setSelectedGame}
-            />
-            <LittleGameList
-              title="Most played"
-              games={mostPlayedGames}
-              setGamePopup={setSelectedGame}
-            />
-            <LittleGameList
-              title="The most criticised"
-              games={mostReviewedGames}
-              setGamePopup={setSelectedGame}
-            />
-          </div>
+          <List title="Discover" games={games} setGamePopup={setSelectedGame} />
           {selectedGame && (
             <GameDetails id={selectedGame} setGamePopup={setSelectedGame}></GameDetails>
           )}
@@ -91,4 +67,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Discover;
