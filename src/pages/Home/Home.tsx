@@ -23,12 +23,12 @@ const Home = () => {
       try {
         // Fetch trending games
         const trendingGames = await getTendanceGames();
-
+        console.log('Trending Games:', trendingGames);
         // Adapter les données au format attendu
         const formattedGames = trendingGames.map((game: any) => ({
           id: game.id,
           title: game.name,
-          developer: 'Unknown',
+          developer: game.involved_companies?.[0]?.company?.name ?? '',
           imageSrc: `https:${game.cover}`,
           score: (game.aggregated_rating / 10).toFixed(1),
         }));

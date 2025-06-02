@@ -129,7 +129,7 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
             onClick={() => setTabSelected(1)}
             id={tabSelected == 1 ? styles['underline-tab'] : styles['no-underline-tab']}
           >
-            Présentation
+            Presentation
           </button>
 
           <button
@@ -139,14 +139,14 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
             }}
             id={tabSelected == 2 ? styles['underline-tab'] : styles['no-underline-tab']}
           >
-            Critiques
+            Reviews
           </button>
           {isAuthenticated && (
             <button
               onClick={() => setTabSelected(3)}
               id={tabSelected == 3 ? styles['underline-tab'] : styles['no-underline-tab']}
             >
-              Ajouter une critique
+              Add a review
             </button>
           )}
         </nav>
@@ -164,9 +164,9 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
           )}
           {tabSelected === 2 && (
             <div>
-              <h2>Critiques</h2>
+              <h2>Reviews</h2>
               {gameReviews == null || gameReviews.length === 0 ? (
-                <p>Aucune critique disponible pour ce jeu.</p>
+                <p>There is no reviews for this game yet...</p>
               ) : (
                 <div className={styles['reviews']}>
                   {gameReviews?.map((review) => (
@@ -187,7 +187,7 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
           )}
           {tabSelected === 3 && (
             <div>
-              <h2>Ma critique</h2>
+              <h2>My reviews</h2>
               <UserReview gameId={id} />
             </div>
           )}
