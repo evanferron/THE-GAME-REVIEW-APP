@@ -26,6 +26,7 @@ const authSlice = createSlice({
                     refreshToken: action.payload.refreshToken,
                     email: action.payload.user.email ?? '',
                     pseudo: action.payload.user.pseudo ?? '',
+                    profilePictureId: action.payload.user.profilePictureId ?? 0,
                 }
             )
         },
