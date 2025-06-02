@@ -2,6 +2,7 @@
 export interface User {
     email: string | null;
     pseudo: string | null;
+    profilePictureId: number | null;
 }
 
 export interface UserDetailsData {

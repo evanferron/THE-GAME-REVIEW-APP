@@ -30,8 +30,7 @@ export const login = async (email: string, password: string) => {
     if (status !== 200) {
       throw new Error('An error occurred during login.');
     }
-
-    return { success: true, user: { pseudo: data.pseudo, email: email }, token: data.token, refreshToken: data.refreshToken };
+    return { success: true, user: { pseudo: data.pseudo, email: email, profilePictureId: data.profile_picture_id }, token: data.token, refreshToken: data.refreshToken };
   } catch (error: any) {
     return { success: false, message: error.response?.data?.message ?? 'An error occurred during login.' };
   }

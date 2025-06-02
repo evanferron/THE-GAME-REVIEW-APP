@@ -6,12 +6,15 @@ import { useNavigate } from 'react-router-dom';
 import { authLinks } from '../../../constants/routes';
 import '../../../styles/_mixins.scss';
 import styles from './Nav.module.scss';
+import { useSelector } from 'react-redux';
 
 const DesktopNavbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const url = window.location.pathname;
   const [activeButton, setActiveButton] = useState<string | null>(null); // Initialise l'état avec null, aucun bouton n'est actif par défaut
+  
+  const profilePictureId = useSelector((state: any) => state.auth?.user?.profilePictureId);
 
   const handleButtonClick = (path: string) => {
     setActiveButton(path); // Mettez à jour l'état avec le chemin du bouton cliqué
@@ -48,8 +51,9 @@ const DesktopNavbar = () => {
             <img src="/assets/icons/search.svg" alt="search" />
           </button>
           <img
-            src="/assets/pictures/profile-photo-test.svg"
+            src={`/assets/pictures/profil_picture_${profilePictureId}.jpg`}
             alt="profil"
+            className={styles['profile-picture']}
             onClick={() => navigate('/profil')}
           />
         </div>
