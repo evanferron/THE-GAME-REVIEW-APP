@@ -19,7 +19,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'The game review | 404';
+    document.title = 'The Game Review - Profile';
     const fetchUserDetails = async () => {
       setLoading(true);
       try {

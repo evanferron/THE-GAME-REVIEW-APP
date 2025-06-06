@@ -2,44 +2,44 @@
 
 /* -------------------- Code ---------------------*/
 .navbar {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--bg-100);
-    width: 74.063rem;
-    height: 70px;
-    border-bottom: 1px solid var(--black-100);
-    z-index: 1000;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--bg-100);
+  width: 74.063rem;
+  height: 70px;
+  border-bottom: 1px solid var(--black-100);
+  z-index: 1000;
 }
 
 .navbar-left {
-    display: flex;
+  display: flex;
 
-    button {
-        background-color: var(--bg-100);
-        border: none;
-        display: inline-flex;
-        gap: 10px;
+  button {
+    background-color: var(--bg-100);
+    border: none;
+    display: inline-flex;
+    gap: 10px;
 
-        img {
-            width: 28px;
-        }
-
-        h1 {
-            display: flex;
-            align-items: center;
-            white-space: nowrap;
-
-            color: var(--text-100);
-            font-size: var(--font-size-md);
-            font-weight: bold;
-        }
+    img {
+      width: 28px;
     }
 
-    button:hover {
-        cursor: pointer;
+    h1 {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+
+      color: var(--text-100);
+      font-size: var(--font-size-md);
+      font-weight: bold;
     }
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
 }
 
 .navbar-center {
@@ -77,38 +77,43 @@
 }
 
 .navbar-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    
-    button {
-        background-color: var(--gray-100);
-        border-radius: 18px;
-        border: 0;
-        padding-block: 5px;
-        padding-inline: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
 
-        &:hover {
-            cursor: pointer;
-        }
+  button {
+    color: var(--text-100);
+    font-weight: bold;
+    font-size: var(--font-size-md);
+    padding: 10px 20px;
 
-        img {
-            width: 25px;
-            height: 25px;
-        }
+    background-color: var(--bg-100);
+    border: 0;
+    border-radius: 25px;
+
+    &:hover {
+      background-color: var(--gray-100);
+      cursor: pointer;
     }
 
-    img {
-        width: 50px;
-        cursor: pointer;
+    &.active {
+      background-color: var(--green-transparance-100);
+      color: var(--green-100);
+      cursor: pointer;
     }
+  }
 
-    .profile-picture {
-        width: 50px;  
-        height: 50px;
-        object-fit: cover;
-        border-radius: 50%;
-        border: 2px solid #fff; 
-    }
+  img {
+    width: 50px;
+    cursor: pointer;
+  }
+
+  .profile-picture {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
 }
