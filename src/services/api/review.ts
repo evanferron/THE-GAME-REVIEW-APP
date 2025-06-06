@@ -8,7 +8,6 @@ export const getMyReviewForAgame = async (gameId: number) => {
         if (!response) {
             throw new Error('Failed to fetch review');
         }
-
         return response.data;
     } catch (error) {
         console.error('Error fetching review:', error);

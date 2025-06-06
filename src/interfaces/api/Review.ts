@@ -11,4 +11,5 @@ export interface ReviewData {
     likes: number;
     createdAt: string;
     updatedAt: string;
+    has_liked: boolean | null;
 }

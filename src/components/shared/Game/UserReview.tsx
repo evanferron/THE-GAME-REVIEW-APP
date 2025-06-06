@@ -132,6 +132,7 @@ const UserReview = ({ gameId }: { gameId: number }) => {
       date={review.createdAt}
       owner_pseudo={review.owner_pseudo}
       owner_picture={review.owner_picture}
+      currentHasLiked={review.has_liked ?? false}
     />
   );
 };
