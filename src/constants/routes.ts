@@ -9,6 +9,6 @@ export const navLinks: Record<string, NavItem> = {
 
 // ### Liens authentification ### //
 export const authLinks: Record<string, NavItem> = {
-  login: { label: 'login', href: '/login' },
-  register: { label: 'register', href: '/register' },
+  login: { label: 'Login', href: '/login' },
+  register: { label: 'Register', href: '/register' },
 };

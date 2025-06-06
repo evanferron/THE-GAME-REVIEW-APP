@@ -15,6 +15,7 @@ const Discover = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'The Game Review - Discover';
     const fetchGames = async () => {
       setLoading(true);
       try {

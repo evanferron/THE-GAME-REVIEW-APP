@@ -15,7 +15,7 @@ const Profile = () => {
   const [tabSelected, setTabSelected] = useState(1);
 
   useEffect(() => {
-    document.title = 'The game review | 404';
+    document.title = 'The Game Review - Profile';
     const fetchUserDetails = async () => {
       setLoading(true);
       try {
