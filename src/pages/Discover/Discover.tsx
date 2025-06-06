@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getTendanceGames } from '@api/game';
+import { getDiscoveryGames, getTendanceGames } from '@api/game';
 import Footer from '@components/layout/Footer/Footer';
 import Navbar from '@components/layout/Nav';
 import GameDetails from '@components/shared/Game/GameDetails';
@@ -19,10 +19,13 @@ const Discover = () => {
     const fetchGames = async () => {
       setLoading(true);
       try {
-        // Fetch trending games
-        const trendingGames = await getTendanceGames();
+        const discoverGames1 = await getDiscoveryGames();
+        const discoverGames2 = await getDiscoveryGames();
+        const discoverGames3 = await getDiscoveryGames();
+        const discoverGames = [...discoverGames1, ...discoverGames2, ...discoverGames3];
+        console.log('Discover Games:', discoverGames);
         // Adapter les données au format attendu
-        const formattedGames = trendingGames.map((game: any) => ({
+        const formattedGames = discoverGames.map((game: any) => ({
           id: game.id,
           title: game.name,
           developer: game.involved_companies?.[0]?.company?.name ?? '',
