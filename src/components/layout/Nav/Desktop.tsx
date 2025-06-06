@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
 import useAuth from '@hooks/useAuth';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { authLinks } from '../../../constants/routes';
 import '../../../styles/_mixins.scss';
 import styles from './Nav.module.scss';
-import { useSelector } from 'react-redux';
 
 const DesktopNavbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const url = window.location.pathname;
   const [activeButton, setActiveButton] = useState<string | null>(null); // Initialise l'état avec null, aucun bouton n'est actif par défaut
-  
+
   const profilePictureId = useSelector((state: any) => state.auth?.user?.profilePictureId);
 
   const handleButtonClick = (path: string) => {
@@ -47,9 +47,6 @@ const DesktopNavbar = () => {
 
       {isAuthenticated ? (
         <div className={styles['navbar-right']}>
-          <button onClick={() => navigate('/recherche')}>
-            <img src="/assets/icons/search.svg" alt="search" />
-          </button>
           <img
             src={`/assets/pictures/profil_picture_${profilePictureId}.jpg`}
             alt="profil"
