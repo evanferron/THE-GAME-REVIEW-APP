@@ -15,6 +15,7 @@ interface ReviewProps {
   date: string;
   owner_pseudo: string;
   owner_picture: number;
+  currentHasLiked: boolean;
 }
 
 export const ReviewCard = ({
@@ -25,18 +26,17 @@ export const ReviewCard = ({
   date,
   owner_pseudo,
   owner_picture,
+  currentHasLiked,
 }: ReviewProps) => {
   const [currentLikes, setCurrentLikes] = useState<number>(Number(likes));
-  const [hasLiked, setHasLiked] = useState(false);
+  const [hasLiked, setHasLiked] = useState(currentHasLiked);
   const [likeDisabled, setLikeDisabled] = useState(false);
-
   const { isAuthenticated } = useAuth();
 
   const MAX_LENGTH = 180;
   const isLong = description.length > MAX_LENGTH;
   const shortDescription = isLong ? description?.slice(0, MAX_LENGTH) + '…' : description;
 
-  // Formater la date et l'heure en français
   const dateObj = new Date(date);
   const formattedDate = dateObj.toLocaleDateString('fr-FR', {
     day: 'numeric',
@@ -62,7 +62,7 @@ export const ReviewCard = ({
     } catch (error) {
       console.error('Error liking the review:', error);
     } finally {
-      setTimeout(() => setLikeDisabled(false), 1000); // 1 seconde de délai
+      setTimeout(() => setLikeDisabled(false), 1000);
     }
   };
 

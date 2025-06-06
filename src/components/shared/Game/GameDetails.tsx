@@ -179,6 +179,7 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
                       date={review.createdAt}
                       owner_pseudo={review.owner_pseudo}
                       owner_picture={review.owner_picture}
+                      currentHasLiked={review.has_liked ?? false}
                     ></ReviewCard>
                   ))}
                 </div>

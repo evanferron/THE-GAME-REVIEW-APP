@@ -31,6 +31,7 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
+    config.headers['x-api-key'] = import.meta.env.VITE_API_KEY;
     return config;
   },
   (error) => Promise.reject(new Error(error))
