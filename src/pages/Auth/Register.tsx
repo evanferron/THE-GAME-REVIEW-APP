@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { register } from '@api/auth';
+import useAuth from '@hooks/useAuth';
 import { setUser } from '@store/slices/auth';
 import { validateRegister } from '@utils/validation/validators/auth';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -16,6 +17,7 @@ const Register = () => {
   const [pseudo, setpseudo] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { signUp } = useAuth();
 
   const dispatch = useDispatch();
 
@@ -52,18 +54,7 @@ const Register = () => {
 
     try {
       // ### Send form data ### //
-      const { success, message, token, user } = await register(
-        email,
-        pseudo,
-        password,
-        confirmPassword
-      );
-
-      if (!success) {
-        setApiError(message);
-        return;
-      }
-      
+      await signUp({ email, username: pseudo, password, confirmPassword });
       navigate('/');
     } catch (error: any) {
       setApiError(error.message);

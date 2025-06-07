@@ -76,7 +76,7 @@ export const register = async (
 
     if (status !== 201) throw new Error('Registration failed.');
 
-    return { success: true, user: data.user, token: data.token, refreshToken: data.refreshToken };
+    return { success: true, user: { pseudo: data.pseudo, email: email, profilePictureId: data.profile_picture_id }, token: data.token, refreshToken: data.refreshToken };
   } catch (error: any) {
     return { success: false, message: error.response?.data?.message ?? 'An error occurred' };
   }

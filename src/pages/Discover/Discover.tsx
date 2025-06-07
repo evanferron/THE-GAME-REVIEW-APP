@@ -19,12 +19,7 @@ const Discover = () => {
     const fetchGames = async () => {
       setLoading(true);
       try {
-        const discoverGames1 = await getDiscoveryGames();
-        const discoverGames2 = await getDiscoveryGames();
-        const discoverGames3 = await getDiscoveryGames();
-        const discoverGames = [...discoverGames1, ...discoverGames2, ...discoverGames3];
-        console.log('Discover Games:', discoverGames);
-        // Adapter les données au format attendu
+        const discoverGames = await getDiscoveryGames();
         const formattedGames = discoverGames.map((game: any) => ({
           id: game.id,
           title: game.name,

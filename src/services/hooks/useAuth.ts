@@ -33,18 +33,18 @@ const useAuth = () => {
         if (response.success) {
             dispatch(setUser({ token: response.token, user: response.user as User, refreshToken: response.refreshToken }));
         } else {
-            console.error("Erreur de connexion :", response.message);
             throw new Error("Invalid credentials");
         }
     };
 
     const signUp = async (credentials: { email: string; username: string; password: string; confirmPassword: string }) => {
         const response = await register(credentials.email, credentials.username, credentials.password, credentials.confirmPassword);
-
+        console.log("Response from signUp:", response);
         if (response.success) {
-            dispatch(setUser({ token: response.token, user: response.user, refreshToken: response.refreshToken }));
+            console.log("User registered successfully");
+            dispatch(setUser({ token: response.token, user: response.user as User, refreshToken: response.refreshToken }));
         } else {
-            console.error("Erreur d'inscription :", response.message);
+            throw new Error("User already exists or invalid data");
         }
     };
 

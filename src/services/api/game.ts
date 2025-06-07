@@ -47,7 +47,6 @@ export const getLikedGames = async () => {
     const response = await axiosInstance.post('/game_list/name', {
       name: 'Like',
     });
-
     if (response.status !== 200) {
       throw new Error(`Failed to fetch liked games. Status code: ${response.status}`);
     }
@@ -63,9 +62,9 @@ export const getLikedGames = async () => {
 
 export const getDiscoveryGames = async () => {
   try {
-    // Génère 10 IDs aléatoires uniques entre 1 et 2000
+    // Génère 40 IDs aléatoires uniques entre 1 et 3000
     const idsArray = Array.from(
-      new Set(Array.from({ length: 10 }, () => Math.floor(Math.random() * 2000) + 1))
+      new Set(Array.from({ length: 40 }, () => Math.floor(Math.random() * 3000) + 1))
     );
 
     const idsString = idsArray.map((id) => id.toString()).join(',');

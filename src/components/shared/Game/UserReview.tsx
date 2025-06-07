@@ -56,10 +56,12 @@ const UserReview = ({ gameId }: { gameId: number }) => {
     setPublishLoading(true);
     if (!isAuthenticated) {
       setFormError('You must be logged in to review.');
+      setPublishLoading(false);
       return;
     }
     if (reviewText.length < 10) {
       setFormError('Review must be at least 10 characters long.');
+      setPublishLoading(false);
       return;
     }
     const response = await createReview(gameId, rate, reviewText);
@@ -110,6 +112,7 @@ const UserReview = ({ gameId }: { gameId: number }) => {
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
         ></textarea>
+        {formError && <p className={style['error']}>{formError}</p>}
         <button onClick={handlePublish} className={style['publish']}>
           {publishLoading ? (
             <Spinner animation="border">
