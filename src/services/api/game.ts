@@ -24,7 +24,7 @@ export const getGameReviews = async (id: number) => {
     console.error('Error fetching game reviews:', error);
     throw error;
   }
-}
+};
 
 export const getTendanceGames = async () => {
   try {
@@ -45,7 +45,7 @@ export const getTendanceGames = async () => {
 export const getLikedGames = async () => {
   try {
     const response = await axiosInstance.post('/game_list/name', {
-      name: "Like",
+      name: 'Like',
     });
     if (response.status !== 200) {
       throw new Error(`Failed to fetch liked games. Status code: ${response.status}`);
@@ -58,6 +58,29 @@ export const getLikedGames = async () => {
     console.error('Error fetching liked games:', error.message ?? error);
     throw new Error('An error occurred while fetching liked games. Please try again later.');
   }
-}
+};
 
+export const getDiscoveryGames = async () => {
+  try {
+    // Génère 40 IDs aléatoires uniques entre 1 et 3000
+    const idsArray = Array.from(
+      new Set(Array.from({ length: 40 }, () => Math.floor(Math.random() * 3000) + 1))
+    );
 
+    const idsString = idsArray.map((id) => id.toString()).join(',');
+
+    // Appelle la route backend avec les IDs directement dans l'URL
+    const response = await axiosInstance.get(`/game/preview/${idsString}`);
+
+    if (response.status !== 200) {
+      throw new Error(`Failed to fetch discovery games. Status code: ${response.status}`);
+    }
+    if (!response.data.success) {
+      throw new Error('Failed to fetch discovery games. No data returned.');
+    }
+    return response.data.data;
+  } catch (error: any) {
+    console.error('Error fetching discovery games:', error.message ?? error);
+    throw new Error('An error occurred while fetching discovery games. Please try again later.');
+  }
+};
