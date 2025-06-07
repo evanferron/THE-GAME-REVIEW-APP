@@ -43,22 +43,21 @@ export const getTendanceGames = async () => {
 };
 
 export const getLikedGames = async () => {
-    try {
-      const response = await axiosInstance.post('/game_list/name', {
-          name: "Like",
-      });
-
-      if (response.status !== 200) {
-        throw new Error(`Failed to fetch liked games. Status code: ${response.status}`);
-      }
-      if (!response.data.success) {
-        throw new Error('Failed to fetch liked games. No data returned.');
-      }
-      return response.data.data;
-    } catch (error: any) {
-      console.error('Error fetching liked games:', error.message ?? error);
-      throw new Error('An error occurred while fetching liked games. Please try again later.');
+  try {
+    const response = await axiosInstance.post('/game_list/name', {
+      name: "Like",
+    });
+    if (response.status !== 200) {
+      throw new Error(`Failed to fetch liked games. Status code: ${response.status}`);
     }
+    if (!response.data.success) {
+      throw new Error('Failed to fetch liked games. No data returned.');
+    }
+    return response.data.data;
+  } catch (error: any) {
+    console.error('Error fetching liked games:', error.message ?? error);
+    throw new Error('An error occurred while fetching liked games. Please try again later.');
+  }
 }
 
 
