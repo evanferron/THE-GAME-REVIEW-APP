@@ -1,3 +1,4 @@
+import useAuth from "@hooks/useAuth";
 import axiosInstance from "@utils/api/axiosInstance";
 import { UUID } from "crypto";
 
@@ -23,6 +24,22 @@ export const getReviewById = async (review_id: UUID) => {
             throw new Error('Failed to fetch review');
         }
 
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching review:', error);
+        throw error;
+    }
+
+}
+
+export const getMyReview = async () => {
+    try {
+        const response = await axiosInstance.get(`/review/my_reviews`);
+
+        if (!response) {
+            throw new Error('Failed to fetch review');
+        }
+        console.log('My reviews:', response.data);
         return response.data;
     } catch (error) {
         console.error('Error fetching review:', error);

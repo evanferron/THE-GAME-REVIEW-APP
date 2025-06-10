@@ -8,57 +8,82 @@ import { UserDetailsData } from '@interfaces/api/User';
 import styles from './Profile.module.scss';
 import List from '@components/shared/List/List';
 import GameDetails from '@components/shared/Game/GameDetails';
+import { getMyReview } from '@api/review';
+import { ReviewData } from '@interfaces/api/Review';
+import { ReviewCard } from '@components/shared/Review/ReviewCard';
 
 
 const Profile = () => {
   const [userDetails, setUserDetails] = useState<UserDetailsData | null>(null);
+  const [gameReviews, setGameReviews] = useState<ReviewData[] | null>(null);
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
   const [games, setGames] = useState([]);
   const [tabSelected, setTabSelected] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchReview = async () => {
+    setLoading(true);
+        try {
+          const { data } = await getMyReview();
+          if (data?.success) {
+            setGameReviews(data.data);
+          }
+        } catch (error) {
+          setError('Failed to fetch game reviews. Please try again later.');
+          console.error('Error fetching game reviews:', error);
+        }
+        setLoading(false);
+  };
+
+  const fetchGames = async () => {
+    setLoading(true);
+    try {
+      // Fetch liked games
+      const likedGames = await getLikedGames();
+
+      // Adapter les données au format attendu
+      const formattedGames = likedGames.data.map((game: any) => ({
+        id: parseInt(game.gameId),
+        title: game.name,
+        developer: game.involved_companies?.[0]?.company?.name ?? '',
+        imageSrc: `https:${game.cover}`,
+        score: (game.aggregated_rating / 10).toFixed(1),
+      }));
+
+      setGames(formattedGames);
+    } catch (err) {
+      console.error('Error fetching games:', err);
+      setError('Failed to load games. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchUserDetails = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getUserDetails();
+      setUserDetails(data);
+    } catch (error) {
+      setError('Failed to fetch user details. Please try again later.');
+      console.error('Error fetching user details:', error);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
     document.title = 'The Game Review - Profile';
-    const fetchUserDetails = async () => {
-      setLoading(true);
-      try {
-        const { data } = await getUserDetails();
-        setUserDetails(data);
-      } catch (error) {
-        setError('Failed to fetch user details. Please try again later.');
-        console.error('Error fetching user details:', error);
-      }
-      setLoading(false);
-    };
-
-    const fetchGames = async () => {
-      setLoading(true);
-      try {
-        // Fetch liked games
-        const likedGames = await getLikedGames();
-
-        // Adapter les données au format attendu
-        const formattedGames = likedGames.data.map((game: any) => ({
-          id: parseInt(game.gameId),
-          title: game.name,
-          developer: game.involved_companies?.[0]?.company?.name ?? '',
-          imageSrc: `https:${game.cover}`,
-          score: (game.aggregated_rating / 10).toFixed(1),
-        }));
-
-        setGames(formattedGames);
-      } catch (err) {
-        console.error('Error fetching games:', err);
-        setError('Failed to load games. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    };
 
     fetchUserDetails();
     fetchGames();
   }, []);
+
+  useEffect(() => {
+    if (tabSelected === 2) {
+      fetchReview();
+    }
+  }, [tabSelected]);
 
   return (
     <div className={styles['profile']}>
@@ -109,7 +134,32 @@ const Profile = () => {
               )}
             </div>
           )}
+          {tabSelected === 2 && (
+            <div>
+              <h2 className={styles['reviews-title']}>Reviews</h2>
+              {gameReviews == null || gameReviews.length === 0 ? (
+                <p className={styles['no-reviews']}>There is no reviews yet...</p>
+              ) : (
+                <div className={styles['reviews']}>
+                  {gameReviews?.map((review) => (
+                    <ReviewCard
+                      key={review.id}
+                      id={review.id}
+                      description={review.review ?? ''}
+                      rating={review.rating}
+                      likes={review.likes}
+                      date={review.createdAt}
+                      owner_pseudo={review.owner_pseudo}
+                      owner_picture={review.owner_picture}
+                      currentHasLiked={review.has_liked ?? false}
+                    ></ReviewCard>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </section>
+        <div className={styles['bottom-space']}></div>
       </div>
     </div>
   );

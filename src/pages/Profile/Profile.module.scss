@@ -76,5 +76,25 @@
       margin-left: 0;
     }
   }
+  
+  .reviews-title {
+    font-size: 2rem;
+    color: var(--light-gray);
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .no-reviews {
+    text-align: center;
+    color: var(--light-gray);
+    font-size: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  .bottom-space {
+    margin-bottom: 2rem;
+  }
+
+
 
   
