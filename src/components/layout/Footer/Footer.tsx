@@ -6,6 +6,7 @@ const Footer: React.FC = () => {
   return (
     <footer className={styles['footer']}>
       <p>© 2025 The Game Review</p>
+      <p>Powered by IGDB and Twitch</p>
     </footer>
   );
 };

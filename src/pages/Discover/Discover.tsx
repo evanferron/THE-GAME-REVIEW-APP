@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { getDiscoveryGames, getTendanceGames } from '@api/game';
+import { getDiscoveryGames } from '@api/game';
 import Footer from '@components/layout/Footer/Footer';
 import Navbar from '@components/layout/Nav';
 import GameDetails from '@components/shared/Game/GameDetails';
@@ -13,8 +13,11 @@ const Discover = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+  const hasFetched = useRef(false);
 
   useEffect(() => {
+    if (hasFetched.current) return;
+    hasFetched.current = true;
     document.title = 'The Game Review - Discover';
     const fetchGames = async () => {
       setLoading(true);

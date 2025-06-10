@@ -4,6 +4,7 @@ import { getGameDetails, getGameReviews } from '@api/game';
 import useAuth from '@hooks/useAuth';
 import { GameDetailsData } from '@interfaces/api/Game';
 import { ReviewData } from '@interfaces/api/Review';
+import Spinner from 'react-bootstrap/esm/Spinner';
 import { FaHeart } from 'react-icons/fa';
 import { MdOutlineClose } from 'react-icons/md';
 
@@ -22,13 +23,15 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
   const [gameReviews, setGameReviews] = useState<ReviewData[] | null>(null);
 
   const [loading, setLoading] = useState(true);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tabSelected, setTabSelected] = useState(1);
   const { isAuthenticated } = useAuth();
   const modalRef = useRef<HTMLDivElement>(null);
+  const hasFetched = useRef(false);
 
   const fetchGameReviews = async () => {
-    setLoading(true);
+    setReviewsLoading(true);
     try {
       const { data } = await getGameReviews(id);
       if (data?.success) {
@@ -38,7 +41,7 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
       setError('Failed to fetch game reviews. Please try again later.');
       console.error('Error fetching game reviews:', error);
     }
-    setLoading(false);
+    setReviewsLoading(false);
   };
 
   const fetchGameDetails = async () => {
@@ -55,6 +58,8 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
   };
 
   useEffect(() => {
+    if (hasFetched.current) return;
+    hasFetched.current = true;
     fetchGameDetails();
   }, []);
 
@@ -169,6 +174,11 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
                 <p>There is no reviews for this game yet...</p>
               ) : (
                 <div className={styles['reviews']}>
+                  {reviewsLoading && (
+                    <Spinner animation="border">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  )}
                   {gameReviews?.map((review) => (
                     <ReviewCard
                       key={review.id}
