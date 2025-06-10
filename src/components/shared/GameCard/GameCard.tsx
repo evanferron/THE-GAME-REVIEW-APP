@@ -30,9 +30,7 @@ const GameCard: React.FC<GameCardProps> = ({
         style={{ backgroundImage: `url(${imageSrc})` }}
       >
         <div className={styles['game-card__overlay']}>
-          <div className={styles['game-card__score']}>
-            {isNaN(score) ? 'X' : (score / 100).toFixed(2).replace('.', ',')}
-          </div>
+          <div className={styles['game-card__score']}>{isNaN(score) ? 'X' : score}</div>
           {userScore && <div className={styles['game-card__user-score']}>{userScore}</div>}
         </div>
       </div>
