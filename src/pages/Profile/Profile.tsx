@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 
-import { getUserDetails } from '@api/user';
 import { getLikedGames } from '@api/game';
-import Navbar from '@components/layout/Nav';
-import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
-import { UserDetailsData } from '@interfaces/api/User';
-import styles from './Profile.module.scss';
-import List from '@components/shared/List/List';
-import GameDetails from '@components/shared/Game/GameDetails';
 import { getMyReview } from '@api/review';
-import { ReviewData } from '@interfaces/api/Review';
+import { getUserDetails } from '@api/user';
+import Navbar from '@components/layout/Nav';
+import GameDetails from '@components/shared/Game/GameDetails';
+import List from '@components/shared/List/List';
+import ProfilCard from '@components/shared/ProfilCard/ProfilCard';
 import { ReviewCard } from '@components/shared/Review/ReviewCard';
+import { ReviewData } from '@interfaces/api/Review';
+import { UserDetailsData } from '@interfaces/api/User';
 
+import styles from './Profile.module.scss';
 
 const Profile = () => {
   const [userDetails, setUserDetails] = useState<UserDetailsData | null>(null);
@@ -19,21 +19,19 @@ const Profile = () => {
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
   const [games, setGames] = useState([]);
   const [tabSelected, setTabSelected] = useState(1);
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchReview = async () => {
     setLoading(true);
-        try {
-          const { data } = await getMyReview();
-          if (data?.success) {
-            setGameReviews(data.data);
-          }
-        } catch (error) {
-          setError('Failed to fetch game reviews. Please try again later.');
-          console.error('Error fetching game reviews:', error);
-        }
-        setLoading(false);
+    try {
+      const { data } = await getMyReview();
+      if (data?.success) {
+        setGameReviews(data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching game reviews:', error);
+    }
+    setLoading(false);
   };
 
   const fetchGames = async () => {
@@ -54,7 +52,6 @@ const Profile = () => {
       setGames(formattedGames);
     } catch (err) {
       console.error('Error fetching games:', err);
-      setError('Failed to load games. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -66,7 +63,6 @@ const Profile = () => {
       const { data } = await getUserDetails();
       setUserDetails(data);
     } catch (error) {
-      setError('Failed to fetch user details. Please try again later.');
       console.error('Error fetching user details:', error);
     }
     setLoading(false);
@@ -89,8 +85,12 @@ const Profile = () => {
     <div className={styles['profile']}>
       <Navbar />
       <div className={styles['profile-container']}>
-        {/* mettre la navbar */}
-        {/* Profile Card */}
+        {loading && (
+          <div className={styles['loading']}>
+            <span>Loading profile ...</span>
+            <div className={styles['spinner']} />
+          </div>
+        )}
         <header>
           <ProfilCard
             pseudo={userDetails?.pseudo ?? ''}
@@ -101,7 +101,6 @@ const Profile = () => {
             bannerPictureId={userDetails?.bannerId ?? 1}
           />
         </header>
-
         <section>
           <nav className={styles.tabs}>
             <button
@@ -127,7 +126,7 @@ const Profile = () => {
         <section>
           {tabSelected === 1 && (
             <div>
-              <br/>
+              <br />
               <List title="Liked games" games={games} setGamePopup={setSelectedGame} />
               {typeof selectedGame === 'number' && (
                 <GameDetails id={selectedGame} setGamePopup={setSelectedGame}></GameDetails>

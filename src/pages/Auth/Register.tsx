@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { register } from '@api/auth';
 import useAuth from '@hooks/useAuth';
-import { setUser } from '@store/slices/auth';
 import { validateRegister } from '@utils/validation/validators/auth';
 import { FaArrowLeft } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { authLinks } from '../../constants/routes';
@@ -18,8 +15,6 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const { signUp } = useAuth();
-
-  const dispatch = useDispatch();
 
   // ### Errors ### //
   const [apiError, setApiError] = useState<string | null>(null);

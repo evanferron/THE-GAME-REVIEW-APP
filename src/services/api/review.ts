@@ -1,4 +1,3 @@
-import useAuth from "@hooks/useAuth";
 import axiosInstance from "@utils/api/axiosInstance";
 import { UUID } from "crypto";
 
