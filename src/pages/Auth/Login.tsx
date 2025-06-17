@@ -37,6 +37,7 @@ const Login = () => {
 
     const validationErrors = validateLogin(email, password);
     setErrorsForm(validationErrors);
+    console.log('DEBUG validationErrors:', validationErrors); // DEBUG
 
     if (validationErrors !== null) {
       return;
@@ -72,9 +73,14 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={errorsForm?.email ? styles.error_input : ''}
+                  data-cy="login-email"
                   // required
                 />
-                {errorsForm?.email && <span className={styles.error_text}>{errorsForm.email}</span>}
+                {errorsForm?.email && (
+                  <span className={styles.error_text} data-cy="login-email-error">
+                    {errorsForm.email}
+                  </span>
+                )}
               </div>
               <div className={styles.form_block_input}>
                 <label>
@@ -86,14 +92,23 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className={errorsForm?.password ? styles.error_input : ''}
+                  data-cy="login-password"
                   // required
                 />
                 {errorsForm?.password && (
-                  <span className={styles.error_text}>{errorsForm.password}</span>
+                  <span className={styles.error_text} data-cy="login-password-error">
+                    {errorsForm.password}
+                  </span>
                 )}
               </div>
-              <button type="submit">Sign in</button>
-              {apiError && <span className={styles.error_text}>{apiError}</span>}
+              <button type="submit" data-cy="login-submit">
+                Sign in
+              </button>
+              {apiError && (
+                <span className={styles.error_text} data-cy="login-api-error">
+                  {apiError}
+                </span>
+              )}
 
               <p className={styles.switch}>
                 Don't have an account yet? <Link to={authLinks.register.href}>Register</Link>

@@ -50,7 +50,11 @@ const Home = () => {
   }, []);
 
   if (error) {
-    return <div className={styles['error']}>{error}</div>;
+    return (
+      <div className={styles['error']} data-testid="home-error">
+        {error}
+      </div>
+    );
   }
 
   return (

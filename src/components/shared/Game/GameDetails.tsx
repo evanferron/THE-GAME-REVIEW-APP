@@ -88,20 +88,33 @@ const GameDetails = ({ id, setGamePopup }: GameDetailsProps) => {
   };
 
   if (loading) {
-    return <div className={`${styles['modal-overlay']} ${styles['loading']}`}>Loading...</div>;
+    return (
+      <div
+        className={`${styles['modal-overlay']} ${styles['loading']}`}
+        data-testid="modal-overlay"
+      >
+        Loading...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className={`${styles['modal-overlay']} ${styles['error']}`}>{error}</div>;
+    return (
+      <div
+        className={`${styles['modal-overlay']} ${styles['error']}`}
+        data-testid="modal-overlay-error"
+      >
+        {error}
+      </div>
+    );
   }
 
   return (
     <div
       className={styles['modal-overlay']}
+      data-testid="modal-overlay"
       onClick={handleClickOutside}
-      onKeyDown={(e) => {
-        if (e.key === 'Escape') handleClose();
-      }}
+      ref={modalRef}
     >
       <div className={styles['modal-content']} ref={modalRef}>
         <button className={styles['modal-close']} onClick={handleClose}>

@@ -1,0 +1,14 @@
+{
+  "data": {
+    "id": 1,
+    "name": "Game 1",
+    "summary": "A test game.",
+    "cover": "/assets/images/others/default_game.png",
+    "aggregated_rating": 85,
+    "involved_companies": [{ "company": { "name": "Dev 1" } }],
+    "genres": ["Action"],
+    "platforms": ["PC"],
+    "release_date": "2024-01-01"
+  },
+  "success": true
+}

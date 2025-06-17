@@ -20,7 +20,7 @@ interface GameCarouselProps {
 
 const GameCarousel = ({ title, games, setGamePopup }: GameCarouselProps) => {
   return (
-    <div className={styles['game-carousel']}>
+    <div className={styles['game-carousel']} data-testid="game-carousel">
       <section className={styles['game-carousel__header']}>
         <h2 className={styles['game-carousel__title']}>
           <span className={styles['game-carousel__title-hashtag']}>#</span>

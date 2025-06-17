@@ -24,7 +24,12 @@ const GameCard: React.FC<GameCardProps> = ({
   setGamePopup,
 }) => {
   return (
-    <div className={styles['game-card']} onClick={() => setGamePopup(id)} role="button">
+    <div
+      className={styles['game-card']}
+      data-testid="game-card"
+      onClick={() => setGamePopup(id)}
+      role="button"
+    >
       <div
         className={styles['game-card__image-wrapper']}
         style={{ backgroundImage: `url(${imageSrc})` }}

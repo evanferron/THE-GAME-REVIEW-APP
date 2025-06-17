@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "Game 1",
+      "involved_companies": [{ "company": { "name": "Dev 1" } }],
+      "cover": "/assets/images/others/default_game.png",
+      "aggregated_rating": 85
+    },
+    {
+      "id": 2,
+      "name": "Game 2",
+      "involved_companies": [{ "company": { "name": "Dev 2" } }],
+      "cover": "/assets/images/others/default_game.png",
+      "aggregated_rating": 90
+    },
+    {
+      "id": 3,
+      "name": "Game 3",
+      "involved_companies": [{ "company": { "name": "Dev 3" } }],
+      "cover": "/assets/images/others/default_game.png",
+      "aggregated_rating": 70
+    },
+    {
+      "id": 4,
+      "name": "Game 4",
+      "involved_companies": [{ "company": { "name": "Dev 4" } }],
+      "cover": "/assets/images/others/default_game.png",
+      "aggregated_rating": 60
+    },
+    {
+      "id": 5,
+      "name": "Game 5",
+      "involved_companies": [{ "company": { "name": "Dev 5" } }],
+      "cover": "/assets/images/others/default_game.png",
+      "aggregated_rating": 95
+    },
+    {
+      "id": 6,
+      "name": "Game 6",
+      "involved_companies": [{ "company": { "name": "Dev 6" } }],
+      "cover": "/assets/images/others/default_game.png",
+      "aggregated_rating": 80
+    }
+  ]
+}
