@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import useAuth from '@hooks/useAuth';
-import { useSelector } from 'react-redux';
+import { getUser } from '@utils/api/auth';
 import { useNavigate } from 'react-router-dom';
 
 import { authLinks } from '../../../constants/routes';
@@ -14,7 +14,7 @@ const DesktopNavbar = () => {
   const url = window.location.pathname;
   const [activeButton, setActiveButton] = useState<string | null>(null); // Initialise l'état avec null, aucun bouton n'est actif par défaut
 
-  const profilePictureId = useSelector((state: any) => state.auth?.user?.profilePictureId);
+  const profilePictureId = getUser().profilePictureId ?? 1;
 
   const handleButtonClick = (path: string) => {
     setActiveButton(path); // Mettez à jour l'état avec le chemin du bouton cliqué
